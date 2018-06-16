@@ -1,0 +1,169 @@
+.aui-form {
+    position: relative;
+    background:#ffffff;
+}
+.aui-form .aui-input-row .aui-input-addon {
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+    text-align: center;
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 5px;
+}
+.aui-form:before{
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.aui-form:after{
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.aui-form .aui-input-row {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    padding: 6px 0;
+}
+
+.aui-form .aui-input-row:before {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.aui-form .aui-input-row:after {
+    border-top: 0;
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.aui-form .aui-input-row:first-child:before{
+    border-top: 0;
+}
+.aui-card .aui-form:before, .aui-card .aui-input-row:first-child:before {
+    border-top: 0;
+}
+.aui-card .aui-form:after, .aui-form .aui-input-row:last-child:after {
+    border-top: 0;
+}
+.aui-form .aui-input-row .aui-input-addon {
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #333;
+    text-align: center;
+    display: table-cell;
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 5px;
+}
+.aui-form .aui-input-row .aui-input {
+    font-size: 1em;
+    margin: 0;
+    display: table-cell;
+    position: relative;
+    float: left;
+    width: 100%;
+    border:none;
+    border-radius: 0;
+}
+
+.aui-form .aui-btn-row {
+    position: relative;
+    text-align: center;
+    padding: 15px;
+}
+.aui-form .aui-btn-row:before {
+    content: '';
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*表单中单选、多选*/
+.aui-radio {
+    width: 26px;
+    height: 26px;
+    position: relative;
+    margin: 8px 15px;
+    background: #ffffff;
+    border: solid 1px #dddddd;
+    border-radius: 50%;
+    display: table;
+    -webkit-appearance: none;
+            transition: background-color ease 0.2s;
+}
+.aui-radio:checked {
+    background-color: #1abc9c;
+    border: solid 1px #1abc9c;
+    text-align: center;
+}
+.aui-radio:checked:before {
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    font-size: 16px;
+    display: table;
+    font-family: "auiicon";
+    color: #ffffff;
+}
+.aui-radio:checked:after {
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    font-size: 16px;
+    display: table;
+    font-family: "auiicon";
+    color: #ffffff;
+}
+
+.aui-radio.aui-radio-info:checked {
+    background-color: #3498db;
+    border: solid 1px #3498db;
+}
+.aui-radio.aui-radio-success:checked {
+    background-color: #2ecc71;
+    border: solid 1px #2ecc71;
+}
+.aui-radio.aui-radio-danger:checked {
+    background-color: #e74c3c;
+    border: solid 1px #e74c3c;
+}
+.aui-radio.aui-radio-warning:checked {
+    background-color: #f1c40f;
+    border: solid 1px #f1c40f;
+}
+.aui-user-view-cell .aui-img-object.aui-pull-right {
+    margin-left: 0px;
+}
+.aui-list-view .aui-img-object.aui-pull-right {
+    margin-left: 0px;
+}
+.aui-bar .aui-pull-right {
+    padding-right: 10px;
+    font-size: 1em;
+    font-weight: 400;
+}
+.aui-pull-right {
+    float: right !important;
+}

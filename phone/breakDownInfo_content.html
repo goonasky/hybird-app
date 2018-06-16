@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+       <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <script src="js/cmd.js"></script>
+        <script src="js/ios.js"></script>
+         <script src="js/zy_control.js"></script>
+     <style rel="stylesheet">
+        .none{
+            display: none;
+        }
+        .op{
+            opacity: 0.5;
+            
+        }
+        
+        
+        
+        .gray{
+            color:gray;
+        }
+        #allmap {width: 100%;height: 40%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver" style="height: 90%">
+            <div id="allmap" class="none"></div>   
+        <ul style="height: 40%">
+            <li class="ubb ub bc-border t-bla ub-ac lis" id="rName">
+               <span>故障电梯：<span class="eName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>电梯编码：<span class="reportNo"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>开始时间：<span class="beginTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>结束时间：<span class="endTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保单位：<span class="groupName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" >
+                <span>维保电话：<span class="groupPhone"></span></span>
+            </li>
+        </ul>
+            <br/>
+            <br/>
+           <div id='iostop' style='display:none;height:3em;'></div>
+            <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="nuin uinn c-wh ub-ver" id="content" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1"  id="mySave">
+                            故障维修完成
+                        </div>
+                    </div>
+               
+            </div>
+            
+              <div class="none" id="cover"></div>
+                 <div class="ha8_box none" id="popBox" style="position: absolute;top:25%;z-index: 1000;">
+            <div class="ha8_box" id="nfcDiv" style=" float: left; width: 48%; border-right:  1px solid #25293B;" >
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc2.png"/>
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br/>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">靠一靠</p>
+                
+            </div>
+            <div class="ha8_box" id="scannerDiv" style="float: left; width: 48%; border-left:  1px solid #41485A;opacity: 0.5">
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc1.png">
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">扫一扫</p>
+                
+            </div>
+            </div>
+            
+        <script src="js/appcan.js"></script>
+        <script src="js/ios.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+    </body>
+    <script>
+       
+        $("#mySave").on("tap",function(){
+          uexWindow.open('breakDownType1.html', '0', "breakDownType1.html", '10', '', '', '4'); 
+             
+        });
+        
+      
+        
+        
+        
+    
+        appcan.ready(function() {
+            
+            uexWindow.setBounce("0");
+            appcan.initBounce();
+            getzxs();
+            //voice();
+            show();
+        })
+        
+
+function getzxs(){
+    var url1=http+"GetBreakDownInfo";
+     appcan.request.ajax({
+            type: "POST",
+            url: url1,
+            data:{breakDownId:localStorage.breakId,token:getuser("token")},
+            //data:{breakDownId:538,token:'123456'},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+          },
+        success: function (data){
+           var json=eval("("+data+")");
+        if(json.code=="1"){
+        for(var i=0;i<json.userdata.breakdown.length;i++){
+            $(".reportNo").text(json.userdata.breakdown[i].ReportNo);
+            $(".eName").text(json.userdata.breakdown[i].Name);
+            $(".beginTime").text(json.userdata.breakdown[i].BeginTime);
+            $(".endTime").text(json.userdata.breakdown[i].EndTime);
+            $(".groupName").text(json.userdata.breakdown[i].CName);
+            $(".groupPhone").text(json.userdata.breakdown[i].Tel);
+            //alert(localStorage.DeviceId);
+            //alert(localStorage.DeviceId.indexOf("bc85b93e"));
+           if(json.userdata.breakdown[i].Coordinate.trim()!="")
+           {
+                if($("#allmap").hasClass("none"))
+                {
+                    $("#allmap").removeClass("none");
+                }
+                var lat=json.userdata.breakdown[i].Coordinate.split(',')[0];
+                var lng=json.userdata.breakdown[i].Coordinate.split(',')[1];
+                    // 百度地图API功能
+                var name=json.userdata.breakdown[i].Name;
+                showM(lat,lng,name);
+               
+           }
+           else
+           {
+               $("#allmap").addClass("none");
+               
+           }
+        }
+          start();
+    }}});
+}
+    </script>
+</html>

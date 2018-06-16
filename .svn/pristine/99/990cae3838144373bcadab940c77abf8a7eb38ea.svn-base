@@ -1,0 +1,475 @@
+.ha8_Container {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+}
+
+.ha8_box {
+    float: none;
+    height: 9em;
+    margin: 0px auto;
+    clear: none;
+    width: 100%;
+    min-height: 0px;
+    background-color: #31364A;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.ha8_box1 {
+    float: none;
+    height: 7em;
+    clear: none;
+    width: 9.6em;
+    min-height: 80px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    min-width: 0px;
+    margin-top: 0.1em;
+    margin-left: auto;
+    z-index: 2;
+    margin-right: auto;
+    display: block;
+}
+
+.ha8_boxF {
+    float: left;
+    height: 15em;
+    margin: 0px auto;
+    clear: none;
+    width: 33%;
+    min-height: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    overflow: hidden;
+    text-align:center;
+}
+.ha8_boxF1 {
+    float: none;
+    height: 7em;
+    clear: none;
+    width: 9.6em;
+    min-height: 80px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    min-width: 0px;
+    margin-top: 0.1em;
+    margin-left: auto;
+    z-index: 2;
+    margin-right: auto;
+    display: block;
+}
+.ha8_imageF {
+    float: none;
+    width: 32px;
+    max-width: 100%;
+    height: 33px;
+    clear: none;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    z-index: 50;
+    display: block;
+}
+.ha8_textF {
+    float: none;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: auto;
+    margin-top: auto;
+    clear: none;
+    min-height: 0px;
+    color: #6F6F6F;
+    min-width: 4em;
+}
+
+
+
+.ha8_image {
+    float: none;
+    width: 9.6em;
+    max-width: 100%;
+    height: 8.7em;
+    clear: none;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 50;
+    display: block;
+}
+
+.ha8_box2 {
+    float: none;
+    height: 4.4em;
+    margin-left: auto;
+    margin-top: 0.4em;
+    clear: none;
+    width: 4.2em;
+    min-height: 50px;
+    margin-right: auto;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 5;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+.ha8_box3 {
+    float: none;
+    height: auto;
+    margin: 1em auto 0px;
+    clear: none;
+    width: 90%;
+    min-height: 50px;
+    background-color: rgb(255, 255, 255);
+}
+
+.ha8_box3a {
+    float: none;
+    height: auto;
+    margin: 1em auto 0px;
+    clear: none;
+    width: 90%;
+    min-height: 50px;
+}
+
+.ha8_box3a p{
+    line-height: 1.7em;
+}
+
+.ha8_text1 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: 1em;
+    margin-top: 1.1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(102, 102, 102);
+    min-width: 4em;
+}
+
+.ha8_text2 {
+    float: none;
+    font-size: 1em;
+    width: 80%;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin-left: auto;
+    margin-top: 2em;
+    clear: none;
+    min-height: 0px;
+    margin-right: auto;
+    min-width: 0px;
+    color: rgb(19, 201, 149);
+}
+
+.ha8_box4 {
+    float: none;
+    height: 2.6em;
+    margin: 2em auto 0px;
+    clear: none;
+    width: 70%;
+    min-height: 0px;
+    background-color: rgb(19, 201, 149);
+}
+
+.ha8_text3 {
+    float: none;
+    font-size: 1em;
+    width: 70%;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0.9em auto 0px;
+    clear: none;
+    min-height: 0px;
+    color: rgb(255, 255, 255);
+    min-width: 0px;
+}
+
+.ha8_box5 {
+    float: none;
+    height: 2.6em;
+    margin: 1.5em auto 0px;
+    clear: none;
+    width: 70%;
+    min-height: 0px;
+    background-color: rgb(250, 180, 82);
+}
+
+.ha8_text4 {
+    float: none;
+    font-size: 1.2em;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-weight: 100;
+    line-height: 1em;
+    margin-left: auto;
+    margin-top: 0.9em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(255, 255, 255);
+    min-width: 4em;
+    margin-right: auto;
+}
+
+.ha8_box6 {
+    float: none;
+    height: auto;
+    margin: 0.8em auto 0px;
+    clear: none;
+    width: 90%;
+    min-height: 150px;
+}
+
+.ha8_box7 {
+    float: none;
+    height: 3em;
+    margin: 0px auto 0.8em;
+    clear: none;
+    width: 100%;
+    min-height: 0px;
+    min-width: 0px;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.ha8_text5 {
+    float: left;
+    font-size: 1em;
+    width: 5em;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: 0.8em;
+    margin-top: 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(102, 102, 102);
+}
+
+.ha8_box8 {
+    float: left;
+    height: 3em;
+    clear: none;
+    width: 5.5em;
+    min-height: 0px;
+    position: absolute;
+    top: 0px;
+    left: auto;
+    right: 0px;
+    bottom: auto;
+    background-color: rgb(19, 201, 149);
+}
+
+.ha8_text6 {
+    float: none;
+    font-size: 0.9em;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1em;
+    margin-left: auto;
+    margin-top: 1.3em;
+    clear: none;
+    min-height: 0px;
+    margin-right: auto;
+    color: rgb(255, 255, 255);
+    text-indent: 0.6em;
+}
+
+.ha8_box9 {
+    float: none;
+    height: 2.8em;
+    margin-left: auto;
+    margin-top: 2em;
+    clear: none;
+    width: 60%;
+    min-height: 0px;
+    margin-right: auto;
+    min-width: 0px;
+}
+
+.ha8_text7 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0.95em 0px 0px 0.6em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(102, 102, 102);
+    text-decoration: underline;
+}
+
+.ha8_text {
+    float: left;
+    font-size: 1em;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1em;
+    clear: none;
+    min-height: 0px;
+    position: absolute;
+    top: auto;
+    left: 0%;
+    right: auto;
+    z-index: 90;
+    bottom: 1em;
+    color: rgb(255, 255, 255);
+    min-width: 0px;
+}
+
+.ha8_box10 {
+    float: none;
+    height: 2.8em;
+    margin: 0px auto 0.2em;
+    clear: none;
+    width: 90%;
+    min-height: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    border-bottom-color: rgb(189, 189, 189);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.ha8_image1 {
+    float: left;
+    width: 1.6em;
+    max-width: 100%;
+    height: 1.6em;
+    margin: 0.6em 0px 0px;
+    clear: none;
+    color: rgb(0, 0, 0);
+}
+
+.ha8_text8 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.7em 0px 0px 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(102, 102, 102);
+}
+
+.ha8_box11 {
+    float: none;
+    height: 2.8em;
+    margin: 2em auto 0.5em;
+    clear: none;
+    width: 90%;
+    min-height: 0px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    border-bottom-color: rgb(189, 189, 189);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.ha8_text10 {
+    float: none;
+    font-size: 1.1em;
+    width: auto;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.7em auto 0px;
+    clear: none;
+    min-height: 0px;
+    color: rgb(208, 64, 0);
+}
+
+.ha8_text9 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.7em 0px 0px 0.8em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(177, 177, 177);
+}
+
+/*勾选表单样式*/
+.gxtx_a {
+    float: left;
+    height: 1.2em;
+    margin-left: 0%;
+    margin-top: 0.9em;
+    clear: none;
+    width: 1.2em;
+    min-height: 0px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(189, 189, 189);
+}
+
+.gxtx_b {
+    float: left;
+    height: 1.2em;
+    margin-left: 0%;
+    margin-top: 0.9em;
+    clear: none;
+    width: 1.2em;
+    min-height: 0px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(189, 189, 189);
+    background-image:url("img/htic_13.png");
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+

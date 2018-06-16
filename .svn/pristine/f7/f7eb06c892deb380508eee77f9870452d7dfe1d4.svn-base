@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		  <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+	</head>
+	<body>
+	    
+	     <div class='uh bc-text-head ub bc-head' style='text-align: center'>
+            <h1 class='ut ub-f1 ulev-3 ut-s'>天津电梯移动质监</h1>
+            <div class='ut ut-s my'>
+            <!-- <img class='chai' src='img/3.png' />    -->    
+            </div> 
+         </div>
+	      <script src="js/cmd.js"></script>
+       <script src="js/appcan.js"></script>
+       <script src="js/appcan.control.js"></script>
+       <script src="js/myDB.js"></script>
+       <script type="text/javascript" charset="utf-8">
+           $(function(){
+               console.log(localStorage.ID)
+                 var myDate = new Date();
+                  var nowH=myDate.getHours();
+                  //请求数据
+                  //18点之前
+                  if(nowH<=18){
+                  appcan.request.ajax({
+                type: "POST",
+                url: http + "GetMaintianPlan6",
+                data: {
+                   MtuserId：localStorage.ID
+                },
+                async: true,
+                datatype: "json",
+                timeout: 20000,
+                error: function (data) {
+                     
+                },
+                success: function (data) {
+                     alert(1);
+                    var json = eval("(" + data + ")");
+                    console.log(json);
+                    if (json.code == "1") {
+                        //alert("成功");
+                        alert("提交成功！");
+                        uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                        //appcan.window.close(0); 
+                    }
+                }
+             });
+            }
+            //18点之后 20点之前
+            if(nowH>18&&nowH<20){
+                appcan.request.ajax({
+                type: "POST",
+                url: http + "GetMaintianPlan18",
+                data: {
+                   MtuserId：localStorage.ID
+                },
+                async: true,
+                datatype: "json",
+                timeout: 20000,
+                error: function (data) {
+                     
+                },
+                success: function (data) {
+                     alert(1);
+                    var json = eval("(" + data + ")");
+                    console.log(json);
+                    if (json.code == "1") {
+                        //alert("成功");
+                        alert("提交成功！");
+                        uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                        //appcan.window.close(0); 
+                    }
+                }
+             });
+            }
+            //20点之后
+             if(nowH>=20){
+                appcan.request.ajax({
+                type: "POST",
+                url: http + "GetMaintianPlan20",
+                data: {
+                   MtuserId：localStorage.ID
+                },
+                async: true,
+                datatype: "json",
+                timeout: 20000,
+                error: function (data) {
+                     
+                },
+                success: function (data) {
+                     alert(1);
+                    var json = eval("(" + data + ")");
+                    console.log(json);
+                    if (json.code == "1") {
+                        //alert("成功");
+                        alert("提交成功！");
+                        uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                        //appcan.window.close(0); 
+                    }
+                }
+             });
+            }
+           })
+       </script>
+	</body>
+</html>

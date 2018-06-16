@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html charset="utf-8" class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+       <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <script src="js/cmd.js"></script>
+        <script src="js/ios.js"></script>
+         <script src="js/zy_control.js"></script>
+    
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        <div class="ub ub-ver" style="height: 90%">
+            <div id="allmap" class="none"></div>   
+        <ul style="height: 40%">
+            <li class="ubb ub bc-border t-bla ub-ac lis" id="rName">
+               <span>信号类型：<span class="xhType"></span></span>  
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>网络供应商：<span class="wlgys"></span></span>
+            </li>
+        </ul>
+            <br/>
+            <br/>
+            <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="nuin uinn c-wh ub-ver" id="content" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1"  onclick="check()">
+                            检测信号覆盖
+                        </div>
+                    </div>
+               
+            </div>
+            
+        <script src="js/appcan.js"></script>
+        <script src="js/ios.js"></script>     ww
+        <script src="js/appcan.control.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=vxDpx8Uc561MraDjwpkxejdr&v=1.0"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            
+            
+           
+        })
+        
+        
+        function check(){
+            uexDevice.getInfo('13');
+            uexDevice.cbGetInfo=getxh;
+            localStorage.signal="";//信号
+            localStorage.signalType="";//网络供应商
+            function getxh(opCode,dataType,data){
+                   //$(".xhType").text("");
+                   var json=eval('('+data+')');
+                   //alert(json.connectStatus);
+                 switch(json.connectStatus){
+                 case "0":
+                    $(".xhType").text("wifi");
+                    localStorage.signal="wifi";
+                    uexDevice.getInfo('15');
+                    uexDevice.cbGetInfo=getwl;
+                    break;
+                 case "-1":
+                    $(".xhType").text("无网络信号");
+                    localStorage.signal="无网络信号";
+                    uexDevice.getInfo('15');
+                    uexDevice.cbGetInfo=getwl;
+                    break;
+                 case "1":
+                    $(".xhType").text("3G");
+                    localStorage.signal="3G";
+                    uexDevice.getInfo('15');
+                    uexDevice.cbGetInfo=getwl;
+                    break;
+                 case "2":
+                    $(".xhType").text("3G");
+                    localStorage.signal="3G";
+                    uexDevice.getInfo('15');
+                    uexDevice.cbGetInfo=getwl;
+                    break;
+                 case "3":
+                    $(".xhType").text("4G");
+                    localStorage.signal="4G";
+                    uexDevice.getInfo('15');
+                    uexDevice.cbGetInfo=getwl;
+                    break; 
+             }
+           };
+           
+            
+            function getwl(opCode,dataType,data){
+                   //alert(data);
+                   var json=eval('('+data+')');
+                   //alert(json.mobileOperatorName);
+                   $(".wlgys").text(json.mobileOperatorName);
+                   localStorage.signalType=json.mobileOperatorName;
+                   submit();
+           };
+        }
+           
+        function submit(){
+            appcan.request.ajax({
+            type: "POST",           
+            url: http+"InsertElevateSignal",
+            data:{code:localStorage.xhNo,type:localStorage.type,token:getuser("token"),Signal:localStorage.signalType,SignalType:localStorage.signal},
+            //data:{code:temp,type:type,token:"123456",userId:299,GroupId:3818},
+            async: true,
+            datatype: "json",
+            timeout: 20000,
+            error:  function (data) {
+               uexWindow.toast("0","5","请求失败，请稍后重试！","5000");
+            },
+            success: function (data){
+                    var json=eval("("+data+")");
+                    
+                    if(json.code=="1")
+                    {
+                        //alert(11);
+                        //localStorage.breakId=json.breakId
+                        alert(json.info);
+                        //uexWindow.open('breakDownInfo.html', '0',  "breakDownInfo.html", '10', '', '', '4');
+                    }   
+                    else{
+                        alert(json.info);
+                    }
+                }        
+            });
+        }
+    </script>
+</html>

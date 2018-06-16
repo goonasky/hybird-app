@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+       <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="maintainInfo_content/css/main.css">
+       <link rel="stylesheet" href="css-app/ha8.css">
+         <link rel="stylesheet" href="css/shouyeNew.css">
+        <script src="js/cmd.js"></script>
+         <script src="js/ios.js"></script>
+     <style rel="stylesheet">
+        .none{
+            display: none;
+        }
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+         <div class="ub ub-ver">
+        <ul>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_arrow" id="rName">
+               <span>年检电梯：<span class="eName"></span></span>
+            </li>
+             <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_arrow">
+               <span>电梯编号：<span class="reportNo"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_thumb">
+               <span>开始时间：<span class="beginTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list-image">
+                <span>年检单位：<span class="CheckName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list-image">
+                <span>使用单位：<span class="houseName"></span></span>
+            </li>
+             <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list-image">
+                <span>年检类型：<span>电梯年检</span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list-image">
+                <span>年检状态：<span class="status"></span></span>
+            </li>
+        </ul>
+    </div>
+        
+        
+    </body>
+    <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script>
+        
+         appcan.ready(function() {
+            // voice();
+            // speechUtility.createUtility("engine_mode=msc,appid=5680d736");
+            // // 初始化合成对象
+            // speechSynthesizer.createSynthesizer();
+            uexWindow.setBounce("0");
+            appcan.initBounce();
+            getzxs();
+        })
+       
+       
+        function getzxs () {
+          
+        
+             $(".eName").text(localStorage.ElevateName);
+             $(".reportNo").text(localStorage.reportNo);
+             $(".beginTime").text(localStorage.BeginTime);
+             $(".CheckName").text(localStorage.CheckName);
+             $(".houseName").text(localStorage.HouseName);
+        var temp='';
+             if(localStorage.Status==0)
+             {
+                 temp='新建';
+             }
+             else if(localStorage.Status==1)
+             {
+                 temp='待检';
+             }
+             else if(localStorage.Status==2)
+             {
+                 temp='不合格';
+             }
+             else if(localStorage.Status==3)
+             {
+                 temp='复检';
+             }
+             else if(localStorage.Status==4)
+             {
+                 temp='合格';
+             }
+             $(".status").text(temp);
+             start();
+          
+          }
+           
+        </script>
+  
+</html>

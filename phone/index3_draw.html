@@ -1,0 +1,577 @@
+ <!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+         <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+       
+        <style>
+            body {
+                background-color: #31364A;
+                color: #fff;
+            }
+            .title{
+                margin: 35px 15px 10px;
+            }
+              .title+.content{
+                margin: 10px 15px 35px;
+                color: #000000;    
+                text-indent: 1em;
+                font-size: 14px;
+                line-height: 24px;
+              }  
+              .image{
+                  border-radius: 50%;
+              }
+              .cName{
+                float: left; 
+                color: gray;
+              }      
+              .icon{
+                  height: 2em;
+                  width: 2em;
+                  background-color: red;
+              }
+              .none{
+                  display: none;
+              }
+              .lic{
+                  border-bottom: 1px white solid;
+                  line-height: 3;
+                  list-style-type:none
+              }
+              .luc{
+                  border: 1px white solid;
+                  border-radius: 1em;
+                  padding-left: 0.5em;
+                  
+              }
+              .lic1{
+                  line-height: 3;
+                  list-style-type:none
+              }
+              .clickl{
+                  width: 100%;
+              }
+              .none1{
+                  display: none;
+              }
+              .none{
+                  display: none;
+              }
+              </style>
+    </head>
+
+    <body>
+            <div class="title">                                   
+                <div>我的工具箱</div>
+                 <div style="height: 1px;width: 100%;background: white"></div>
+                </div>
+                
+              
+                <div class="title" style="margin-bottom: 25px;">功能选项</div>
+            <div style="background: #31364A;margin-top: 30%">
+                <ul class="luc" style="background: #31364A;line-height: 2">
+                    <li class="lic">
+                          <div class="clickl" onclick="showdiv()">
+                          <img src="img/shouyeImg1/jssdk.png" style="height: 1.5em;vertical-align:middle;">救援</div>
+                          <div class="clickx none">
+                                 
+                                 <div  style="background: gray;line-height: 3 "id="nfcDiv" onclick="uexNFC.startScanNFC()">
+                                     靠一靠
+                                 </div>
+                        </div>
+                    </li>
+                    <li class="lic" onclick="btnQX()">
+                        <img src="img/shouyeImg1/uikj1.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">抢修</span>
+                    </li>
+                    <li class="lic" onclick="btnGD()">
+                        <img src="img/shouyeImg1/xtapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">维保</span>
+                    </li>
+                    <li class="lic" onclick="btnTZ()">
+                        <img src="img/shouyeImg1/sfapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">通知</span>
+                    </li>
+                    <li class="lic" onclick="btnTX()">
+                         <img src="img/shouyeImg1/jmapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">提醒</span>
+                    </li>
+                    <li class="lic" onclick="notOpen()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">知识库</sapn>
+                    </li>
+                    <li class="lic" onclick="getMt()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">获取维保项</sapn>
+                    </li>
+                    <li class="lic" onclick="getlist()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">获取离线电梯数据</sapn>
+                    </li>
+                   <!-- <li class="lic">
+                          <div class="clickxh" onclick="showdivl()">
+                          <img src="img/shouyeImg1/jssdk.png" style="height: 1.5em;vertical-align:middle;">信号覆盖检测</div>
+                          <div class="clicks none">
+                                 <div  style="background: gray;line-height: 3" id="scannerDivxh">
+                                     扫一扫
+                                 </div>
+                                 <div style="height: 0.1em;background: #FFFFFF"></div>
+                                 <div  style="background: gray;line-height: 3 "id="nfcDivxh" class="none1">
+                                     靠一靠
+                                 </div>
+                        </div>
+                    </li> -->
+                    <li class="lic" onclick="daiSure()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">待确认</sapn>
+                    </li>
+                    <li class="lic" onclick="daiupdata()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">待上传</sapn>
+                    </li>
+                    <li class="lic1" onclick="yiupdata()">
+                        <img src="img/shouyeImg1/wlapi.png" style="height: 1.5em;vertical-align:middle;">
+                        <span class="" href="#">已上传</sapn>
+                    </li>
+                </ul>
+            </div>   
+</body>
+        <script src="js/ios.js"></script>
+        <script src="js/cmd.js"></script>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+ <script src="js/cmd.js"></script>
+<script type="text/javascript" charset="utf-8">
+        var cText = 0;
+        var cJson = 1;
+        var cInt = 2;
+        var dbName="localDB";   
+         appcan.ready(function() {
+             show();  
+             uexNFC.cbGetNFCData = function (opCode, dataType, data) {
+                uexWindow.closeToast();
+                var json = eval('(' + data + ')');
+                var nfcDevice=json.uid.toLowerCase();
+                getzxs(nfcDevice,1);
+            };
+           
+           //$(".none1").removeClass("none1");
+        });
+        function showdiv(){
+            var obj=$(".clickx");
+            if(obj.hasClass("none"))
+             {
+                $(".clickx").removeClass("none");
+                
+            }
+            else{
+                 $(".clickx").addClass("none");
+            }
+             
+        }
+        function showdivl(){
+            var obj=$(".clicks");
+            if(obj.hasClass("none"))
+             {
+                $(".clicks").removeClass("none");
+                
+            }
+            else{
+                 $(".clicks").addClass("none");
+            }
+             
+        }
+       
+        
+        
+        
+         $('#nfcDiv').off('tap').on('tap',function(){
+           uexWindow.toast("1","5","请扫描电梯电子标签","0");
+    });
+         $('#scannerDiv').off('tap').on('tap',function(){
+             //alert(1);
+            $("#popBox").addClass("none"); 
+             $("#cover").addClass("none");
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack;
+        });
+    
+      $('#nfcDivxh').off('tap').on('tap',function(){
+          
+            $("#popBox").addClass("none"); 
+             $("#cover").addClass("none");
+            uexDemo.cbStartActivityForResult = doNFCxh;
+            uexDemo.test_startActivityForResult();
+     });
+         $('#scannerDivxh').off('tap').on('tap',function(){
+            $("#popBox").addClass("none"); 
+             $("#cover").addClass("none");   
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBackxh;
+        });
+        
+     function doNFCxh(opCode, dataType, data){
+         
+            localStorage.xhNo=data;
+            localStorage.type=1;
+            uexWindow.open('checkxh', '0', "checkxh_top.html", '10', '', '', '4');
+            uexWindow.evaluateScript("root", 0, "openMenu()");
+           
+      } 
+        
+      function ScannerSuccessCallBackxh(opCode, dataType, data) {  
+                
+        var obj = eval('('+data+')');
+        var a=obj.code;
+        var r=a.split("=")[1];
+        localStorage.xhNo=r;
+        localStorage.type=0;
+        uexWindow.open('checkxh', '0', "checkxh_top.html", '10', '', '', '4');
+         uexWindow.evaluateScript("root", 0, "openMenu()");
+    }  
+        
+      function doNFC(opCode, dataType, data){
+           
+            getzxs(data,1);
+      } 
+        
+      function ScannerSuccessCallBack(opCode, dataType, data) {  
+                
+         var obj = eval('('+data+')');
+         var a=obj.code;
+         var r=a.split("=")[1];
+         getzxs(r,0);
+        
+       
+    }    
+      
+        
+        function getzxs(temp,type){ 
+          if(type!=1){
+         temp="="+temp;
+       } 
+       appcan.request.ajax({
+        type: "POST",              
+        url: http+"GetbusinessList",
+        data:{code:temp,type:type,token:getuser("token")},
+        //data:{code:temp,type:type,token:"nxlrjo45ty2ims55qulq3445"},
+        async: true,
+        datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+           uexWindow.toast("0","5","请求失败，请稍后重试！","5000");
+          },
+        success: function (data){
+          //alert(data);
+          var json=eval("("+data+")");
+          if(json.code=="101"){
+            localStorage.removeItem('loginjson');
+            uexWindow.evaluateScript("",0,"winclose();"); 
+            uexWindow.toast("0","5","登陆失效，请重新登陆","3000");
+            uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '');
+            return;
+            }
+            if(json.code=="1")
+            {
+                for(var i=0;i<1;i++){
+                    localStorage.report=json.userdata.business[i].ReportNO;
+                    localStorage.eName=json.userdata.business[i].ElevatorName;
+                    localStorage.Adress=json.userdata.business[i].ElevatorAddress;
+                    localStorage.mtName=json.userdata.business[i].MtGroupName;
+                    localStorage.hName=json.userdata.business[i].HGroupName;
+                    localStorage.alertman=json.userdata.business[i].AlertMan;
+                    localStorage.phone=json.userdata.business[i].AlterManPhone;
+                    localStorage.c=json.userdata.business[i].Coordinate;
+                    localStorage.BusinessCode=json.userdata.business[i].BusinessCode;
+                    uexWindow.open('ncfItem.html', '0', "ncfItem.html", '10', '', '', '4');
+                }
+            }   
+            else{
+                uexWindow.toast("0","5",json.info,"5000");
+                }
+            }        
+        });
+    }   
+
+        function notOpen() {
+              
+              uexWindow.open('notOpen', '0', "html404.html", '10', '', '', '4');
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+            
+        }
+        
+          function btnQX(){ 
+
+              uexWindow.open('breakDownList', '0', "breakDownList.html", '10', '', '', '4');
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+             
+        }
+        
+        //待上传
+        function daiupdata(){
+              uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');   
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+              localStorage.status=1;
+              localStorage.tName="待上传"
+        }
+        
+        //已上传
+        function yiupdata(){
+              uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');   
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+              localStorage.status=2;
+              localStorage.tName="已上传"
+        }
+        //待确认
+         function daiSure(){
+              uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');   
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+              localStorage.status=0;
+              localStorage.tName="待确认"
+        }
+        
+         function btnGD(){
+
+              uexWindow.open('maintList', '0', "maintList.html", '10', '', '', '4');   
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+        }
+        
+         function btnTX(){
+            uexWindow.open('remindList', '0', "remindType.html", '10', '', '', '4');   
+              uexWindow.evaluateScript("root", 0, "openMenu()");     
+        }
+        
+         function btnTZ(){
+            
+            uexWindow.open('NoticeList', '0', "NoticeList.html", '10', '', '', '4');
+            uexWindow.evaluateScript("root", 0, "openMenu()");
+        }
+         
+         function btnXH(){
+            
+            uexWindow.open('checkxh', '0', "checkxh_top.html", '10', '', '', '4');
+            uexWindow.evaluateScript("root", 0, "openMenu()");
+        }
+        function btnZHSH(){
+            
+            uexWindow.open('Knowledge', '0', "Knowledge.html", '10', '', '', '4');
+              uexWindow.evaluateScript("root", 0, "openMenu()");
+        }
+        
+        // var titHeight = 0;
+        // appcan.button(".metro", "ani-act", function() {
+            // appcan.window;
+        // })
+    //拉取数据.........................................................................................................
+            //打开数据库
+    function createDB() {
+        uexDataBaseMgr.openDataBase(dbName, 1);
+        uexDataBaseMgr.cbOpenDataBase = createDBCallBack;
+        // uexDataBaseMgr.cbOpenDataBase = createDBCallBack;
+    };
+    
+    function createDBCallBack(opid, type, data) {
+        switch (type) {
+        case cText:
+            alert("uex.cText");
+            break;
+        case cJson:
+            alert("uex.cJson");
+            break;
+        case cInt:
+            if (opid == 1 && type == 2 && data == 0) {
+                //alert("数据库打开成功！");
+            } else {
+               //alert("数据库打开失败！");
+            }
+            break;
+        default:
+            alert("error");
+        }
+    
+    };
+   function getlist(){
+       //alert(1);
+       createDB();
+       uexDataBaseMgr.executeSql(dbName,1,"Delete from ElevetorDevice where 1=1 ");
+       getlistinfo();
+   } 
+   
+   function getMt(){
+       //alert(1);
+       createDB();
+       uexDataBaseMgr.executeSql(dbName,1,"Delete from D_MaintainItem where 1=1 ");
+       selectLData();
+   } 
+    
+   function getlistinfo(){
+                //alert(2);
+               
+                var strSql="select max(UpdateTime) from ElevetorDevice"; 
+                uexDataBaseMgr.selectSql(dbName,1,strSql);
+                uexDataBaseMgr.cbSelectSql = selectIDataCallBack;
+            }      
+    function selectIDataCallBack(opid, type, value) {
+            if(type==cJson)
+            {
+                if (opid == 1 && type == 1) {
+                     var time=""; 
+                     //alert(value);
+                     var jsonList=eval("("+value+")");
+                      //alert(jsonList[0]["max(UpdateTime)"]);
+                      if(jsonList[0]["max(UpdateTime)"] == null||jsonList[0]["max(UpdateTime)"]==""||jsonList[0]["max(UpdateTime)"]=="undefined"){
+                   
+                         time="1900-01-01 00:00:00";
+                      }
+                      else{
+                          //alert(0);
+                          time=jsonList[0]["max(UpdateTime)"];
+                      }
+                      getRecord(time);
+                } 
+                else {
+                    //alert(2);
+                    alert("查询失败！");
+                    
+                }
+            }
+        };
+
+
+          function getRecord(time){
+            insertNum1=0;
+            uexWindow.toast("1","5","正在从网络获取电梯数据...","0");
+            var url1 = http1+"GetElevateDevice";
+            //alert(url1);
+            appcan.request.ajax({
+            type: "POST",
+             url: url1, 
+             data:{time:time,token:"",mtGroupId:localStorage.groupId},
+             //data:{time:time,token:"",mtGroupId:1092},
+             async: true,
+             datatype: "json",
+            timeout: 12000,
+            error:  function (data) {
+                 appcan.window.toast('数据获取失败！', '3000');
+                 uexWindow.closeToast();
+            },
+            success: function (data){
+                uexWindow.toast("1","5","正在写入数据库...","0"); 
+            var json=eval("("+data+")");
+            q1=json.userdata.record.length;
+              if(json.code==1){
+                for(var i=0;i<json.userdata.record.length;i++){
+                          
+                          var strSqlx="INSERT INTO ElevetorDevice(DeviceId,Category,RegisterNo,UpdateTime) VALUES ('"+json.userdata.record[i].DeviceId+"','"+json.userdata.record[i].Category+"','"+json.userdata.record[i].RegisterNO+"','"+json.userdata.record[i].UpdateTime+"')";
+                          uexDataBaseMgr.executeSql(dbName,1,strSqlx);
+                          uexDataBaseMgr.cbExecuteSql = finishGetMt;
+                  }
+              }
+              if(json.code==0){
+                  uexWindow.closeToast();
+              }
+            
+             
+            }
+        });
+       
+    };
+    
+    
+     //查日期
+    function selectLData(){
+    //  var sql = "SELECT * FROM testTable";
+       //alert(1);
+        uexDataBaseMgr.selectSql(dbName,1,"Select max(LastTime) From D_MaintainItem");
+        //alert(2);
+        uexDataBaseMgr.cbSelectSql = selectLDataCallBack;
+        //alert(3);
+    };
+    var lasttime;
+    function selectLDataCallBack(opid,type,value){
+        
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+            if(opid == 1 && type == 1){
+               var jsonList=eval("("+value+")");
+              //alert(jsonList[0]["max(LastTime)"]);
+              if(jsonList[0]["max(LastTime)"] == null||jsonList[0]["max(LastTime)"]==""||jsonList[0]["max(LastTime)"]==undefined){
+                  
+                  lasttime="";
+              }
+              else{
+                  //alert(0);
+                  lasttime=jsonList[0]["max(LastTime)"];
+              }
+            }else{
+                lasttime="";
+            }
+            getbanb();
+            break;
+            case cInt:
+            alert("uex.cInt"); 
+            break;            
+            default:
+            alert("error");  
+
+      }
+      
+    };
+    
+        var insertNum1=0;
+        var length=0;
+        var q1=0;
+       function getbanb (){
+        insertNum1=0;
+        localStorage.num=0;
+        uexWindow.toast("1","5","正在从网络获取电梯维保项...","0");
+        var url1 = http1+"GetMaintainItem";
+        appcan.request.ajax({
+            type: "POST",
+             url: url1, 
+             data:{time:lasttime,token:localStorage.imei},
+             async: true,
+             datatype: "json",
+            timeout: 12000,
+            error:  function (data) {
+                alert("获取失败");
+                uexWindow.closeToast();
+             },
+             success: function (data){ 
+             //alert(data);
+             uexWindow.toast("1","5","正在写入数据库...","0");
+             var json=eval("("+data+")"); 
+             q1=json.userdata.record.length;
+             
+             for(var i=0;i<json.userdata.record.length;i++){
+                 
+                 var strSql="INSERT INTO D_MaintainItem(Id,ItemCode,ItemName,Claim,PlaceId,Type,ItemType,GroupId,ElevatorType,LastTime,IsDelete) VALUES ('"+json.userdata.record[i].Id+"','"+json.userdata.record[i].ItemCode+"','"+json.userdata.record[i].ItemName+"','"+json.userdata.record[i].Claim+"','"+json.userdata.record[i].PlaceId+"','"+json.userdata.record[i].Type+"','"+json.userdata.record[i].ItemType+"','"+json.userdata.record[i].GroupId+"','"+json.userdata.record[i].ElevatorType+"','"+json.userdata.record[i].LastTime+"','"+json.userdata.record[i].IsDelete+"')";
+                 uexDataBaseMgr.executeSql(dbName,1,strSql);
+                 uexDataBaseMgr.cbExecuteSql = finishGetMt;
+             }
+             uexWindow.toast("0","5","获取成功","3000");
+            
+            }
+        }); 
+        
+        
+    };
+    
+    function finishGetMt(opid,type,data){
+           uexWindow.toast("1","5","正在写入数据库...","0");
+            if(opid == 1&&type == 2 &&data == 0){
+                insertNum1=insertNum1+1;
+                if(insertNum1==q1){
+                 uexWindow.toast("0","5","获取成功","3000");
+                }
+            }
+       };
+</script>
+</html>

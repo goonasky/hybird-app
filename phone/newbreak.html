@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha4.css">
+		<style>
+		.check-box input[type="checkbox"] {
+            visibility: hidden;
+        }
+        .aui-checkbox {
+            
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: #ffffff;
+            border: solid 1px #03a9f4;
+            -webkit-border-radius: 0.6rem;
+            border-radius: 0.6rem;
+            font-size: 0.8rem;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            display: inline-block;
+            vertical-align: top;
+            cursor: default;
+            -webkit-appearance: none;
+            -webkit-user-select: none;
+                    user-select: none;
+            -webkit-transition: background-color ease 0.1s;
+                    transition: background-color ease 0.1s;
+            }
+            .aui-checkbox {
+                border-radius: 0.1rem;
+            }
+            .aui-checkbox:checked,
+            .aui-checkbox.aui-checked {
+                background-color: #03a9f4;
+                border: solid 1px #03a9f4;
+                text-align: center;
+                background-clip: padding-box;
+            }
+            .aui-checkbox:checked:before,
+            .aui-checkbox.aui-checked:before,
+            .aui-checkbox:checked:after,
+            .aui-checkbox.aui-checked:after {
+            content: '';
+            width: 0.5rem;
+            height: 0.3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -0.25rem;
+            margin-top: -0.25rem;
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            -webkit-border-radius: 0;
+                    border-radius: 0;
+            -webkit-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+        }
+        .aui-checkbox:disabled,
+        .aui-checkbox.aui-disabled {
+            background-color: #dddddd;
+            border: solid 1px #dddddd;
+        }
+        .aui-checkbox:disabled:before,
+        .aui-checkbox.aui-disabled:before,
+        .aui-checkbox:disabled:after,
+        .aui-checkbox.aui-disabled:after {
+            content: '';
+            width: 0.5rem;
+            height: 0.3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -0.25rem;
+            margin-top: -0.25rem;
+            background: transparent;
+            border: 1px solid #ffffff;
+            border-top: none;
+            border-right: none;
+            z-index: 2;
+            -webkit-border-radius: 0;
+                    border-radius: 0;
+            -webkit-transform: rotate(-45deg);
+                    transform: rotate(-45deg);
+        }
+        
+        button, .aui-btn {
+            position: relative;
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.42857143;
+            text-align: center;
+            background-color: #ecf0f1;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+              touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+             -moz-user-select: none;
+              -ms-user-select: none;
+                  user-select: none;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+        }
+        .aui-btn:active {
+            color: #ffffff;
+            background-color: #bdc3c7;
+        }
+        .aui-btn-default {
+            color: #ffffff;
+            background-color: #bdc3c7;
+            border: 1px solid #bdc3c7;
+        }
+        .aui-btn-primary {
+            color: #ffffff;
+            background-color: #1abc9c;
+            border: 1px solid #1abc9c;
+        }
+        .aui-btn-primary.active, .aui-btn-primary:active {
+            color: #fff;
+            background-color: #16a085;
+            border: 1px solid #16a085;
+        }
+        .aui-btn-success {
+            color: #ffffff;
+            background-color: #2ecc71;
+            border: 1px solid #2ecc71;
+        }
+        .aui-btn-success.active, .aui-btn-success:active {
+            color: #fff;
+            background-color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        .aui-btn-info {
+            color: #ffffff;
+            background-color: #3498db;
+            border: 1px solid #3498db;
+        }
+        .aui-btn-info.active, .aui-btn-info:active {
+            color: #fff;
+            background-color: #2980b9;
+            border: 1px solid #2980b9;
+        }
+        .aui-btn-warning {
+            color: #ffffff;
+            background-color: #f1c40f;
+            border: 1px solid #f1c40f;
+        }
+        .aui-btn-warning.active, .aui-btn-warning:active {
+            color: #fff;
+            background-color: #faa732;
+            border: 1px solid #faa732;
+        }
+        .aui-btn-danger {
+            color: #ffffff;
+            background-color: #e74c3c;
+            border: 1px solid #e74c3c;
+        }
+        .aui-btn-danger.active, .aui-btn-danger:active {
+            color: #fff;
+            background-color: #c0392b;
+            border: 1px solid #c0392b;
+        }
+        .aui-btn-block {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            margin-bottom: 0;
+            font-size: 18px;
+        }
+        .aui-btn .aui-iconfont, .aui-btn-block .aui-iconfont {
+            margin-right: 6px;
+        }
+        .aui-btn .aui-badge, .aui-btn-block .aui-badge {
+            margin-left: 6px;
+        }
+        .aui-btn-outlined {
+            background: transparent;
+        }
+        .aui-btn-default.aui-btn-outlined {
+            color: #bdc3c7;
+        }
+        .aui-btn-primary.aui-btn-outlined {
+            color: #16a085;
+        }
+        .aui-btn-success.aui-btn-outlined {
+            color: #27ae60;
+        }
+        .aui-btn-info.aui-btn-outlined {
+            color: #2980b9;
+        }
+        .aui-btn-warning.aui-btn-outlined {
+            color: #faa732;
+        }
+        .aui-btn-danger.aui-btn-outlined {
+            color: #c0392b;
+        }
+        .aui-btn-default.aui-btn-outlined:active {
+            background: #bdc3c7;
+            color: #ffffff;
+        }
+        .aui-btn-primary.aui-btn-outlined:active {
+            background: #16a085;
+            color: #ffffff;
+        }
+        .aui-btn-success.aui-btn-outlined:active {
+            background: #27ae60;
+            color: #ffffff;
+        }
+        .aui-btn-info.aui-btn-outlined:active {
+            background: #2980b9;
+            color: #ffffff;
+        }
+        .aui-btn-warning.aui-btn-outlined:active {
+            background: #faa732;
+            color: #ffffff;
+        }
+        .aui-btn-danger.aui-btn-outlined:active {
+            background: #c0392b;
+            color: #ffffff;
+        }
+        li{
+            height: 3em;
+            list-style-type:none;
+        }
+        span{
+            font-size: 1.3em;
+            line-height: 2;
+        }
+        label{
+            font-size: 1em;
+            padding-left: 0.5em;
+        }
+        ul{
+            padding-left: 1em;
+        }
+        input{
+            font-size: 1em;
+        }
+        p {
+        margin-bottom: 15px;
+        }
+        
+        .none{
+            display: none
+        }
+        textarea{
+            width: 95%;
+            height: 10em;
+            font-size: 1em;
+        }
+	    </style>
+	</head>
+	<body>
+	    <div id="list">
+	      
+	        
+	    </div>
+	    <textarea id="remark" placeholder="故障单备注" style="margin-left: 0.5em"></textarea>
+	    <br/><br/><br/><br/><br/><br/><br/><br/>
+	     <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="uinn c-wh ub-ver" id="submit" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            提交
+                        </div>
+                    </div>
+               
+            </div>
+	</body>
+	<script src="js/cmd.js"></script>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();   
+            uexLocation.openLocation();//打开定位
+            uexLocation.onChange = function(lat, log){  
+                 localStorage.Coordinate= log+ "," + lat;  
+            }  
+            getzxs();   
+        })
+        //初始化下拉框
+       function getzxs(){
+       appcan.request.ajax({
+            type: "POST",
+            url: http+"GetBreakdownType",
+            data:{token:getuser("token")},
+            //data:{token:"123456"},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+            alert("初始化失败")
+        },
+        success: function (data){
+           var json=eval("("+data+")");
+         var html="";
+         var html1="";
+         var parentDiv="";
+         var childDiv="";
+         if(json.code=="1")
+         { 
+              for(var i=0;i<json.userdata.BreakdownType.length;i++)
+              {
+                  
+                  if(json.userdata.BreakdownType[i].ParentCode=="0")
+                  {
+                     parentDiv+="<ul><h2>"+json.userdata.BreakdownType[i].Name+"</h2>";
+                     for(var k=0;k<json.userdata.BreakdownType.length;k++)
+                     {
+                         if(json.userdata.BreakdownType[k].ParentCode==json.userdata.BreakdownType[i].BreakDownTypeCode)
+                         {
+                             
+                             parentDiv+="<li ><input type='checkbox' class='aui-checkbox parentDiv' value='"+json.userdata.BreakdownType[k].Name+"' id='"+json.userdata.BreakdownType[k].BreakDownTypeCode+"' name='checkbox1'><label for='"+json.userdata.BreakdownType[k].BreakDownTypeCode+"'>"+json.userdata.BreakdownType[k].Name+"</label>";
+                             parentDiv+="<li id='showinput"+json.userdata.BreakdownType[k].BreakDownTypeCode+"' class='none '><input type='text' placeholder='备注' id='input"+json.userdata.BreakdownType[k].BreakDownTypeCode+"' class='uc-a1'>";
+                             
+                         }
+                         
+                     }
+                    
+                    
+                     parentDiv+="</ul>";
+                   
+                  }
+                  
+               }
+               $("#list").html(parentDiv);
+               $(".parentDiv").change(function(){
+                   var a="#showinput"+$(this).attr("id");
+                   $(a).toggleClass("none");
+               });
+        }   
+        else{
+            alert("查询不到对应数据！");
+            }
+        }});
+    }
+    
+    appcan.button("#submit", "", function() {
+            var remark=$("#remark").val();
+            var checkedCode="";
+            var checkedbeizhu="";
+            var checked=document.getElementsByName("checkbox1");
+            for (var i=0;i<checked.length;i++)
+            {
+                if(checked[i].checked){
+                    
+                     var a="#input"+checked[i].id;
+                     var b=$(a).val();
+                     checkedbeizhu+=b+',';
+                     checkedCode+=checked[i].id+','; 
+                    
+                }
+            }        
+            if(checkedCode.length<1)
+            {
+                alert("请选择故障项!");
+            }
+            else{
+                
+                checkedbeizhu=checkedbeizhu.substring(0, checkedbeizhu.length-1); 
+                checkedCode=checkedCode.substring(0,checkedCode.length-1); 
+                //alert(checkedbeizhu);
+                //alert(checkedCode);
+                //alert(localStorage.breakId);
+                appcan.request.ajax({
+                    type: "POST",
+                    url: http+"SetBreakDownReason",
+                    data:{breadId:localStorage.breakId,token:getuser("token"),breadReason:checkedbeizhu,Coordinate:localStorage.Coordinate,userId:getuser("uid"),breadCodeList:checkedCode,Remark:remark},
+                    //data:{breadId:946,token:"123456",breadReason:checkedbeizhu,Coordinate:"123,123",userId:299,breadCodeList:checkedCode,Remark:""},
+                    async: true,
+                    datatype: "json",
+                    timeout: 20000,
+                    error:  function (data) {
+                         alert("提交失败");
+                    },
+                    success: function (data){
+                      //alert(1);
+                      var json=eval("("+data+")");
+                      if(json.code=="1")
+                      {
+                          alert("提交成功！");
+                          uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                      }
+                      else{
+                          alert(json.info);
+                      }
+                    }
+                });
+                
+                
+            }
+            
+            
+            
+            
+            
+             
+    });
+    </script>
+    
+</html>

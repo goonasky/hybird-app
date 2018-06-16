@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+
+        <!--标准mui.css-->
+        <link rel="stylesheet" href="css/mui.min.css">
+        <link rel="stylesheet" href="css/myNew.css">
+    
+    </head>
+    <body>
+             
+        <div class="mui-content">
+           
+            <div class="mui-card">
+                <ul class="mui-table-view" >
+                    <div class="mui-button-row">
+                        <img class="pic" src="img/camera1.png" id="addPic0"> 
+                        <img class="pic none" src="img/camera1.png" id="addPic1">  
+                        <img class="pic none" src="img/camera1.png" id="addPic2">  
+                        <img class="pic none" src="img/camera1.png" id="addPic3">  
+                        <img class="pic none" src="img/camera1.png" id="addPic4">   
+                    </div>
+                    
+                </ul>
+            </div>
+             <div class="mui-card">
+                <ul class="mui-table-view list">
+                     <!-- <li class='mui-table-view-cell mui-collapse options'>
+                     <a class='mui-navigate-right' href='#'>1<span class='remark'>整改调整</span><span name="mainItem" data-id=0 data-value="" class='tittle'></span></a>
+                     <div class='mui-collapse-content'>
+                     <form class='mui-input-group'>
+                     <div value=0 class='mui-input-row'>
+                     <label>&radic;正常</label>
+                     </div>
+                     <div value=1 class='mui-input-row'>
+                     <label>&Delta;已整改</label>
+                     </div>
+                     <div value=2 class='mui-input-row'>
+                     <label>&Omicron;已更换零件</label>
+                     </div>
+                     <div value=3 class='mui-input-row'>
+                     <label>&Chi;请求支持</label>
+                     </div>
+                     <div value=4 class='mui-input-row'>
+                     <label>&ndash;不合适</label>
+                     </div>
+                     </form></div></li>
+                     <li class='mui-table-view-cell mui-collapse options'>
+                     <a class='mui-navigate-right' href='#'>2<span class='remark'>整改调整</span><span name="mainItem" data-id="1" data-value="" class='tittle'></span></a>
+                     <div class='mui-collapse-content'>
+                     <form class='mui-input-group'>
+                     <div value=0 class='mui-input-row'>
+                     <label>&radic;正常</label>
+                     </div>
+                     <div value=1 class='mui-input-row'>
+                     <label>&Delta;已整改</label>
+                     </div>
+                     <div value=2 class='mui-input-row'>
+                     <label>&Omicron;已更换零件</label>
+                     </div>
+                     <div value=3 class='mui-input-row'>
+                     <label>&Chi;请求支持</label>
+                     </div>
+                     <div value=4 class='mui-input-row'>
+                     <label>&ndash;不合适</label>
+                     </div>
+                     </form></div></li>
+                     <li class='mui-table-view-cell mui-collapse options'>
+                     <a class='mui-navigate-right' href='#'>3<span class='remark'>整改调整</span><span name="mainItem" data-id="2" data-value="" class='tittle'></span></a>
+                     <div class='mui-collapse-content'>
+                     <form class='mui-input-group'>
+                     <div value=0 class='mui-input-row'>
+                     <label>&radic;正常</label>
+                     </div>
+                     <div value=1 class='mui-input-row'>
+                     <label>&Delta;已整改</label>
+                     </div>
+                     <div value=2 class='mui-input-row'>
+                     <label>&Omicron;已更换零件</label>
+                     </div>
+                     <div value=3 class='mui-input-row'>    
+                     <label>&Chi;请求支持</label>
+                     </div>
+                     <div value=4 class='mui-input-row'>
+                     <label>&ndash;不合适</label>
+                     </div>
+                     </form></div></li> -->
+                </ul>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+         <br/>
+        <div class="bottomDiv">
+            <div class="bottonBtn">
+               <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="Commit()">确定</button> 
+            </div>
+        </div>
+        
+        <div class="popBox none" id="frame">
+           <textarea rows="10" class="txtRemark" placeholder="请输入整改意见" ></textarea>
+           <button type="button" class="mui-btn mui-btn-primary mui-btn-block" onclick="makeSure()">确定</button>  
+       </div>
+       
+          
+        <div class="cover none" ></div>
+        
+       
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/cmd.js"></script>
+        <script src="js/takePhoto.js"></script>
+        <script src="js/mui.min.js"></script>
+        <script src="js/myDB.js"></script>
+        <script src="js/MainItem.js"></script>
+        
+        <script>
+        var tempChooseVal="";//维保项数组
+        var tempRemark="";//维保备注数组
+        var a=0 //记录拍照
+        var arrPic=[];//拍照路径
+        var MainItemId=""; //维保项id
+        var MainRemark="";//维保备注
+        var MainStatus=1; //初次保存 0；修改维保 1
+        
+        
+        appcan.ready(function() {
+          changeMainRecord(); 
+        });
+       
+      
+        
+              
+        </script>
+    </body>
+
+</html>

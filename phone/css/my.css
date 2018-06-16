@@ -1,0 +1,73 @@
+.imgback{
+    background-image:url(../img/bj.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+}
+
+.circleImg{
+    text-align: center;
+    padding: 1em;
+}
+
+.Imgcircle{
+    height: 6em;
+    width: 6em;
+    border: 3px solid #4d5471;
+    border-radius: 50%;
+}
+
+.uerName,.groupName{
+     text-align: center;
+     font-family: 微软雅黑;
+     color: #FFFFFF;
+}
+
+table{
+    padding-top: 2em;
+    width: 100%;
+    padding-bottom: 1em;
+    color: #6D6D72;
+}
+
+table td{
+    text-align: center;
+}
+
+table img{
+    height: 2em;
+    padding-top: 1em;
+}
+
+ul{
+    list-style: none;
+    line-height: 3;
+    padding-right: 2em;
+    padding-left: 2em;
+    background: #FFFFFF;
+}
+
+ul li{
+    border-bottom: 1px solid #C7C7CC
+}
+
+ul img{
+    height: 1.5em;
+    width: 1.5em;
+}
+
+ul span{
+    padding-left: 1em;
+}
+
+body{
+    background: #FFFFFF
+}
+
+span{
+    color: #6D6D72;
+}
+
+.none{
+    display: none;
+}

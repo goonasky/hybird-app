@@ -1,0 +1,17 @@
+********************************************************************************
+01.00.0007
+-----------------------------
+1.是否发布：未发布
+2.系统更新内容：
+  2016-3-23
+张斌：
+修改了维保不能能提交的问题
+*******************************************************************************
+2016-7-27
+修改账号切换条件下   待上传页面无数据
+
+涉及页面 MaintainPart
+
+涉及代码
+原：var sql = "Select GUID From MaintainRecord where ReportNO ='"+ReportNO+"';
+现 ：var sql = "Select GUID From MaintainRecord where ReportNO ='"+ReportNO+"' and MtUserId='"+localStorage.MtuserId+"'";

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+  <head>
+    <title>
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+	<link rel="stylesheet" href="css/ui-res.css">
+    <link rel="stylesheet" href="css/ui-btn.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+    <script src="js/cmd.js"></script>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script type="text/javascript">
+    var cText = 0;
+    var cJson = 1;
+    var cInt = 2;
+    var dbName="localDB";
+    window.uexOnload = function(type){  
+            //createDB(); 
+            // deleteTable();
+            // createTable(); 
+}
+        //建库 
+    function createDB(){
+        uexDataBaseMgr.openDataBase(dbName,1);
+        uexDataBaseMgr.cbOpenDataBase =createDBCallBack;
+        // uexDataBaseMgr.cbOpenDataBase = createDBCallBack;
+    };
+    function selectrData(){
+        uexDataBaseMgr.selectSql(dbName,1,"Select Count(*) From MaintainRecord");
+        uexDataBaseMgr.cbSelectSql = selectrDataCallBack;
+    };
+    function selectpData(){
+        uexDataBaseMgr.selectSql(dbName,1,"Select Count(*) From MaintainPlanDetails");
+        uexDataBaseMgr.cbSelectSql = selectpDataCallBack;
+    };
+    function selectrcData(){
+        uexDataBaseMgr.selectSql(dbName,1,"Select Count(*) From MaintainConclusionTable");
+        uexDataBaseMgr.cbSelectSql = selectcDataCallBack;
+    };
+    
+   function createDBCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1 &&type == 2&&data == 0){
+                alert("数据库打开成功！");
+            }else{
+                 alert("数据库打开失败！");
+            }
+            break;
+          default:
+              alert("error"); 
+      }
+        
+    };
+    
+
+
+// 
+// 
+var len;
+    function selectDataCallBack(opid,type,value){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+            if(opid == 1 && type == 1){
+                var jsonList=eval("("+value+")");
+              if(jsonList.length == 0){
+                  alert("无数据");
+              }
+              for(var i=0;i<jsonList.length;i++){
+
+ 　　　　       for(var key in jsonList[i]){
+         　　 alert("key："+key+",value："+jsonList[i][key]);
+         len= jsonList[i][key];
+                }
+    
+            } 
+            }else{
+                alert("查询失败！");
+            }
+            break;
+          case cInt:
+            alert("uex.cInt"); 
+            break;
+           
+          default:
+              alert("error");  
+
+      }
+
+    };
+    
+		</script>
+  </head>
+<body class="um-vp " ontouchstart>
+    <div class="tit">DataBaseMgr</div>
+	<div class="conbor">
+	    <input class="btn" type="button" value="打开数据库"onclick="createDB();">
+		<input type="button" id="1" value="查询r" onclick="selectrData();">
+		      <input type="button" id="2" value="查询p" onclick="selectpData();">
+		              <input type="button" id="3" value="查询c" onclick="selectcData();">
+		</div>
+	</div>
+	
+	
+</body>
+</html>

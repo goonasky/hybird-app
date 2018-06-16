@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+	<link rel="stylesheet" href="css-app/boilerplate.css">
+	<link rel="stylesheet" href="css-app/ha4.css">
+    <link rel="stylesheet" href="css-app/hactn.css">
+    <link rel="stylesheet" href="css-app/habd.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+    <script src="js/cmd.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+</head>
+<body>
+	<div class="ha4_Container clearfix">
+        
+        <div class="ha4_box15 clearfix">
+            <div class="ha4_box16 clearfix">
+                <p class="ha4_text7">
+                旧密码：
+                </p>
+                <input id="old_password" type="password" placeholder="请输入旧密码" value="" style="width:60%; margin-left:2%; margin-top:0.3em;">
+            </div>
+            
+            <div class="ha4_box16 clearfix">
+                <p class="ha4_text7">
+                新密码：
+                </p>
+                <input id="password" type="password" placeholder="请输入新密码" value="" style="width:60%; margin-left:2%; margin-top:0.3em;">
+            </div>
+            
+        </div>
+        
+        <div class="ha4_box5 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="chpassword(event);">
+            <p class="ha4_text3">
+            完成
+            </p>
+        </div>
+        
+    </div>
+</body>
+<script>
+        window.uexOnload=function(type){
+            if(!type){
+                setbu();
+                lefth();
+            }
+        }
+        
+        function setbu(){
+            uexWindow.setBounce("1");
+            uexWindow.hiddenBounceView("1");
+        }
+        
+        function chpassword(e){
+            e.stopPropagation();
+            e.preventDefault();
+            if($$("old_password").value!=""){
+               if($$("old_password").value.length<6 || $$("old_password").value.length>20){
+                    uexWindow.toast("0","5","密码长度在6-20位之间","2000");
+                    return;
+                }
+            }else{
+                uexWindow.toast("0","5","旧密码不能为空","2000");
+                return; 
+            }
+            if($$("password").value!=""){
+            if($$("password").value.length<6 || $$("password").value.length>20){
+                uexWindow.toast("0","5","密码长度在6-20位之间","2000");
+                return;
+            }
+           
+        }else{
+            uexWindow.toast("0","5","密码不能为空","2000");
+            return;
+        }
+        uexWindow.toast("1","5","正在修改...","0");
+        var url = http+"Password_Edit";
+        uexXmlHttpMgr.onData = getcSuccess;
+        uexXmlHttpMgr.open(767, "post", url,"");
+        uexXmlHttpMgr.setPostData(767,'0','token',getuser("token"));
+        uexXmlHttpMgr.setPostData(767,'0','uid',getuser("uid"));
+        uexXmlHttpMgr.setPostData(767,'0','old_password',$$("old_password").value);
+        uexXmlHttpMgr.setPostData(767,'0','password',$$("password").value);
+        uexXmlHttpMgr.send(767);
+        }
+        
+function getcSuccess(opid,status,result){
+        if (status == -1) {
+            uexWindow.toast("0","5","远程服务器连接不上或网络连接超时","3000");
+            return;
+        }
+        if(status==1){
+	        uexXmlHttpMgr.close(767);
+	        uexWindow.closeToast();
+	        showhtml(result);
+        }
+}
+
+function showhtml(str){
+    var json=eval("("+str+")");
+    uexWindow.toast("0","5",json.info,"2000");
+	if(json.code==101){
+		uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '4');
+		uexWindow.evaluateScript("root", 0, "remy();");
+		return;
+	}
+    if(json.code==1){
+      uexWindow.evaluateScript('root',0,'bottomSelect(5,event);');
+	  setTimeout("swipeRight()",1000);//修改成功以后，关闭本页面。
+    }
+}
+ 
+</script>
+</html>

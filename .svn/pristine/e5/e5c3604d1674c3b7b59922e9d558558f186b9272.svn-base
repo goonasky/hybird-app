@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+       <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <link rel="stylesheet" href="css-app/ha4.css">
+        <script src="js/zy_control.js"></script>
+        <script src="js/zy_click.js"></script>
+        <script src="js/cmd.js"></script>
+         <script src="js/ios.js"></script>
+        <style rel="stylesheet">
+    .none{
+        display: none;
+    }
+    .none1{
+        display: none;
+    }
+    .parentDiv{
+        width: 100%;
+        font-size: 1em;
+        height: 2.2em;
+        padding-top:0.5em;
+        margin-bottom: 5px;
+        background-color: white;
+        text-align: center;
+        border: 1px solid black;
+    }
+    input[type="radio"]{
+        width: 1em;
+        display: inline-block !important;
+        height: 1em;
+    }
+    .hidden-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+    .lblCss{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    background-image: url("img/chk_2a.png"); 
+    margin-right: 5px;
+    vertical-align: middle;
+    }
+    .lblCss1{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    background-image: url("img/chk_2a.png"); 
+    margin-right: 5px;
+    vertical-align: middle;
+    }
+    .red{
+        background-image: url("img/chk_2b.png");
+    }
+    
+    .rela{
+        position: relative;
+    }
+     .rela1{
+        position: relative;
+    }
+        
+    </style>
+    </head>
+    <body class="um-vp " ontouchstart>  
+          
+                <div style="background: #007DB8;height: 2em;color: #FFFFFF;padding-top:0.5em;padding-left: 0.5em">维保类型</div> 
+                    <div  style="padding: 0.5em;line-height:4" >
+                        <div class="rela" value="0">
+                            <label class="lblCss red" for=""></label>
+                                       
+                            <span class="breadItem" style="width:95%;position: absolute;padding-top:0em">半月维保</span>
+                        </div>
+                        <div class="rela" value="1">
+                            <label class="lblCss" for=""></label>
+                          
+                            <span class="breadItem" style="width:95%;position: absolute;padding-top:0em">季度维保</span>
+                        </div>
+                        <div class="rela" value="2">
+                            <label class="lblCss" for=""></label>
+                          
+                            <span class="breadItem" style="width:95%;position: absolute;padding-top:0em">半年维保 </span>
+                        </div>
+                        <div class="rela" value="3">
+                            <label class="lblCss" for=""></label>
+                            <span class="breadItem" style="width:90%;position: absolute;padding-top:0em;">年度维保</span>
+                        </div>
+                    </div>
+       
+                <div style="background: #007DB8;height: 2em;color: #FFFFFF;padding-top:0.5em;padding-left: 0.5em">维保方式</div> 
+                  <div style="padding: 0.5em;line-height:4">
+                    <div class="rela1 " value="0">
+                            <label class="lblCss1 red" for=""></label>
+                            <span class="breadItem1"  style="width:90%;position: absolute;padding-top:0em">扫一扫</span>
+                    </div>
+                    <!-- <div  class="rela1 " value="1">
+                            <label class="lblCss1 red" for=""></label>
+                            <span class="breadItem1"  style="width:90%;position: absolute;padding-top:0em">靠一靠</span>
+                    </div> -->
+                  </div>
+                     
+        <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;width: 100%;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+           <div>
+                    <div class="uinn c-wh ub-ver"  style="height:100%;width: 95%;">
+                        <div id="btnOk" style="height:70%;background: #007DB8;text-align: center;line-height: 240%; color: #FFFFFF" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            确认
+                        </div>
+                    </div>
+                 
+               
+           </div>
+         </div>
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script src="js/nfc.js"></script>
+    </body>
+    <script>
+         var leixin=0;
+         var fangshi=0;
+        
+         appcan.ready(function() {
+              
+         })
+        
+        
+        
+      
+         $(".rela").click(function(){
+         leixin=$(this).attr("value");
+         });
+         
+          $(".rela1").click(function(){
+         fangshi=$(this).attr("value");
+         });
+
+         appcan.button("#btnOk", "", function() {
+           type= leixin;
+           var dofunc=fangshi;
+           //alert(dofunc);
+           if(type==undefined)
+           {
+               alert("请选择维保类型");
+           }
+           if(dofunc==undefined)
+           {
+               alert("请选择维保方式");
+           }
+           if(type!=undefined&&dofunc!=undefined)
+           {
+               //CreateMaintainPlan(type);
+               //新建抽查工单
+               if(localStorage.choucha==1){
+                   getCord();//获取签到地理位置
+                    //localStorage.BeginTime=getTimeNow();//获取当前时间
+                    uexScanner.open('ZXing','扫一扫');
+                    uexScanner.cbOpen = ScannerSuccessCallBack1;
+                    
+               }else{
+                   //非抽查
+                   if(localStorage.scaned==1){
+                       //已经拿到电梯编码了
+                   CreateMaintainPlan(type);
+                }
+                //没有拿到电梯编码，需要扫描二维码获取
+                 if(localStorage.scaned==0){
+                     //alert(0)
+                     getCord();//获取签到地理位置
+       localStorage.BeginTime=getTimeNow();//获取当前时间
+       uexScanner.open('ZXing','扫一扫');
+       uexScanner.cbOpen = ScannerSuccessCallBack;
+                }
+               }
+               
+               
+           }
+           
+        })
+        function ScannerSuccessCallBack(opCode, dataType, data) {   
+            //alert(1)
+        var obj = eval('('+data+')');
+        var data=obj.code.split("=")[1];
+        localStorage.ReportNo=data;
+       CreateMaintainPlan(leixin);      
+   }  
+    function ScannerSuccessCallBack1(opCode, dataType, data) { 
+        //alert("扫二维码抽查")  
+        var obj = eval('('+data+')');
+        var data=obj.code.split("=")[1];
+        localStorage.ReportNo=data;
+        localStorage.BeginTime=getTimeNow();//获取当前时间
+        uexWindow.open('maintainInfo.html', '0', "choucha_maintainInfo.html", '10', '', '', '4');
+   } 
+        
+        
+        
+      
+        
+        function CreateMaintainPlan (type) {
+             //alert(2)
+            localStorage.type=type;
+            var url1 = http+"CreateMaintainRecord";
+            if(localStorage.choucha==0){
+                appcan.request.ajax({
+                type: "POST",
+                url: url1, 
+                data:{code:localStorage.ReportNo,type:0,token:getuser("token"),userId:getuser("uid"),GroupId:getuser("groupId"),MaintainType:type},
+                async: true,
+                datatype: "json",
+                timeout: 12000,
+                error:  function (data) {
+                },
+                success: function (data){
+                    var json=eval("("+data+")");
+
+                    if(json.code=="1")
+                    {
+                         localStorage.mainId=json.mainId;
+                         uexWindow.open('maintainInfo.html', '0', "maintainInfo.html", '10', '', '', '4');
+                          
+                    }
+                    else
+                    {
+                         uexWindow.toast("0","5","该电梯不在此维保单位维保","2000");
+                    }
+        
+                }});
+            }else{
+                uexWindow.open('maintainInfo.html', '0', "maintainInfo.html", '10', '', '', '4');
+            }
+            
+        }
+            $(".lblCss").on("click",function(){
+             $(".lblCss").removeClass('red');
+               $(this).addClass('red');
+               
+               });
+                
+                  $(".breadItem").on("click",function(){
+               $(".lblCss").removeClass('red');
+             //alert(1);
+               $(this).siblings(".lblCss").toggleClass('red');
+               
+            });
+            
+             $(".lblCss1").on("click",function(){
+             $(".lblCss1").removeClass('red');
+               $(this).addClass('red');
+               
+                  });
+                  $(".breadItem1").on("click",function(){
+               $(".lblCss1").removeClass('red');
+             //alert(1);
+               $(this).siblings(".lblCss1").toggleClass('red');
+               
+            });
+            
+           
+    </script>
+</html>

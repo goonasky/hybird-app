@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css">
+        <link rel="stylesheet" href="css/myNew.css">
+	</head>
+	<body>
+
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="btn1">
+                           拍照
+                        </div>
+                   
+          
+       <img style="min-width:100%;max-width:100%;height:auto;widht:16em; height:16em;" src="" id="showPic" />    
+	</body>
+    <script src="js/appcan.js"></script>
+    
+    <script src="js/appcan.control.js"></script>
+	<script>
+	    appcan.ready(function(){
+	        uexCamera.cbOpen = function(opCode, dataType, data){
+                 
+                document.getElementById("showPic").src = data;
+            }
+	    })
+	
+	
+        appcan.button("#btn1","ani-act",function(){
+                  uexCamera.open();
+                     
+        });
+	</script>
+</html>

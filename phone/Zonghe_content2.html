@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+<link rel="stylesheet" href="css-app/boilerplate.css">
+<link rel="stylesheet" href="css-app/ha6.css">
+<link rel="stylesheet" href="css-app/ha2.css">
+<link rel="stylesheet" href="css-app/ha1.css">
+<link rel="stylesheet" href="css-app/hactn.css">
+<script src="js/cmd.js"></script>
+<script src="js/zy_control.js"></script>
+<script src="js/ts.js"></script>
+<script src="js/zy_click.js"></script>
+<style>
+    .hline{
+        width: 100%;
+        background: #007DB8;
+        text-align: center;
+        color: #FFFFFF;
+        height: 2em;
+        padding-top: 0.5em;
+    }
+</style>
+</head >  
+<body ontouchstart>
+     <div class="ha1_Container clearfix" id="List">  
+
+    </div>
+    
+</body>
+  <script src="js/appcan.js"></script>
+  <script src="js/appcan.control.js"></script>
+<script>
+  window.uexOnload=function(type){
+    if(!type){
+        //alert($("#List").html());
+        getbki();//加载数据;
+        setBounceView();//下拉之后加载数据
+    }
+}
+           
+function setBounceView(){
+        if(window.navigator.platform!='Win32'){
+        uexWindow.onBounceStateChange = function (type,status){
+            if(type==1 && status==2) {
+                pages++;
+                getbki();
+            }
+        }
+        uexWindow.setBounce("1");
+        uexWindow.notifyBounceEvent("1","1");
+        var s='{"imagePath":"","textColor":"#aaa","levelText":"","pullToReloadText":"上拉加载更多...","releaseToReloadText":"释放加载...","loadingText":"加载中，请稍等"}';
+        uexWindow.setBounceParams("1",s);
+        uexWindow.showBounceView("0", '', '0');
+        uexWindow.showBounceView("1", '', '1');
+    }
+   
+}
+
+    var pages=1;
+    var rows=10;
+    
+
+ function getmti(){
+        //alert(1);
+        uexWindow.toast("1","5","正在获取...","0");
+        if(localStorage.type!=1){
+         var temp="="+localStorage.canshu;
+        }
+        else{
+         var temp=localStorage.canshu;
+        } 
+        appcan.request.ajax({
+        type: "POST",           
+        url: http+"GetElevateMaintainInfoList",
+        data:{code:temp,type:localStorage.type,iPage:pages,userId:getuser("uid"),token:getuser("token"),groupId:getuser("groupId")},
+        //data:{userId:17,token:'undefined',groupId:1},
+        async: true,
+        datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+           var html="";
+                html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:4;padding-left:10px;'onclick=lixian()>";
+                html+="<p class='font-o'>"
+                html+="点击新建维保工单";
+                html+="</p>";
+                html+="</div>";
+                // var div = document.createElement("div");
+                // div.innerHTML=html;
+                // $$("weibao").appendChild(div);
+                $("#weibao").html(html); 
+          },
+        success: function (data){
+          var json=eval("("+data+")");
+          if(json.code=="101"){
+            localStorage.removeItem('loginjson');
+            uexWindow.evaluateScript("",0,"winclose();");
+            uexWindow.toast("0","5","登录失效，请重新登录","3000");
+            uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '0');
+            return;
+            }
+            if(json.code=="0"){
+                var html="";
+                html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:4;padding-left:10px;'onclick=createM()>";
+                html+="<p class='font-o'>"
+                html+="点击新建维保工单";
+                html+="</p>";
+                html+="</div>";
+                // var div = document.createElement("div");
+                // div.innerHTML=html;
+                // $$("weibao").appendChild(div);
+                $("#weibao").html(html); 
+            }
+            if(json.code=="1")
+            {
+               ///代码逻辑
+                html="";        
+         for(var i=0;i<json.userdata.maintain.length;i++){
+        html+="<div  ontouchstart=zy_touch('btn-act1') onclick=zxslistDetial('"+json.userdata.maintain[i].Id+"','"+json.userdata.maintain[i].Name+"','"+json.userdata.maintain[i].ReportNo
+        +"','"+json.userdata.maintain[i].DeviceId+"',event);>";
+  
+        html+="<div class='ubb ub bc-bord er t-bla ub-ac lis' style='line-height:1.5;padding-left:10px;'>";
+        html+="<p class='font-o'>";
+        if(json.userdata.maintain[i].Name!="undefined"){
+            html+=json.userdata.maintain[i].Name; 
+        }         
+        //date.toLocaleDateString()
+        html+="</p>";
+        html+="<p>";
+        //var JsonDateValue = new Date(json.userdata.maintain[i].BeginTime);
+        //html+="开始时间："+JsonDateValue.getFullYear()+"-"+JsonDateValue.getMonth()+"-"+JsonDateValue.getDate();        
+        html+="开始时间："+json.userdata.maintain[i].BeginTime.split(' ')[0];        
+        html+="</p>";
+       
+        var ia= new Date(json.userdata.maintain[i].EndTime);
+       //alert(json.userdata.maintain[i].EndTime);
+         html+="<p>";
+         //html+="结束时间："+ia.getFullYear()+"-"+ia.getMonth()+"-"+ia.getDate();        html+="</p>";
+       html+="结束时间："+json.userdata.maintain[i].EndTime.split(' ')[0];  
+             
+        html+="</div>";
+        html+="<div class='sd'>";
+        html+="</div>"
+        html+="</div>";
+        }
+        // var div = document.createElement("div");
+        // div.innerHTML=html;
+        // $$("weibao").appendChild(div);
+           $("#List").html(html);     
+         }   
+            // else{
+                // uexWindow.toast("0","5",json.info,"5000");
+                // }
+            }        
+        });
+    }  
+    
+    function getbki(){
+        uexWindow.toast("1","5","正在获取...","0");
+        if(localStorage.type!=1){
+         var temp="="+localStorage.canshu;
+        }
+        else{
+         var temp=localStorage.canshu;
+        } 
+        appcan.request.ajax({
+        type: "POST",           
+        url: http+"GetElevateBreakDownList",
+        data:{type:localStorage.type,code:temp,pageSize:rows,pageIndex:pages,userId:getuser("uid"),token:getuser("token"),groupId:getuser("groupId")},
+        //data:{type:0,code:"=000797",pageSize:10,pageIndex:1,userId:238,token:'123456',groupId:534},
+        async: true,
+        datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+           //uexWindow.toast("0","5","请求失败，请稍后重试！","5000");
+        },
+        success: function (data){
+        var json=eval("("+data+")");
+        if(json.code=="101"){
+            localStorage.removeItem('loginjson');
+            uexWindow.evaluateScript("",0,"winclose();");
+            uexWindow.toast("0","5","登录失效，请重新登录","3000");
+            uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '0');
+            return;
+            }
+        if(json.code=="0"){
+                var html="";
+                html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:4;padding-left:10px;'onclick=createM()>";
+                html+="<p class='font-o'>"
+                html+="点击新建维保工单";
+                html+="</p>";
+                html+="</div>";
+                // var div = document.createElement("div");
+                // div.innerHTML=html;
+                // $$("weibao").appendChild(div);
+                $("#List").html(html); 
+            }
+        if(json.code=="1")
+            {
+               ///代码逻辑
+                html="";        
+        for(var i=0;i<json.userdata.breakdown.length;i++){
+        html+="<div ontouchstart=zy_touch('btn-act1') onclick=bkdetail('"+json.userdata.breakdown[i].Id+"','"+json.userdata.breakdown[i].Name+"',event);>";
+        html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:1.5;padding-left:10px;'>";
+        html+="<p class='font-o'>";
+        if(json.userdata.breakdown[i].Name!="undefined"){
+            html+=json.userdata.breakdown[i].Name; 
+        }         
+        //date.toLocaleDateString()
+        html+="</p>";
+        html+="<p>";
+        html+="开始时间："+json.userdata.breakdown[i].BeginTime;        
+        html+="</p>";
+       
+       
+        html+="<p>";
+        html+="结束时间："+json.userdata.breakdown[i].EndTime;        
+        html+="</p>";
+        
+         html+="<p>";
+        html+="维保单位："+json.userdata.breakdown[i].CName;        
+        html+="</p>";
+        
+        html+="</div>";
+        html+="<div class='sd'>";
+        html+="</div>"
+        html+="</div>";
+        }
+        // var div = document.createElement("div");
+        // div.innerHTML=html;
+        // $$("guzhang").appendChild(div);
+         $("#List").append(html); 
+         uexWindow.closeToast();       
+         }   
+            // else{
+                // uexWindow.toast("0","5",json.info,"5000");
+                // }
+            }        
+        });
+    }
+    
+   function GetJiuyuanList (temp,type) {
+       if(type!=1){
+         temp="="+temp;
+       } 
+       appcan.request.ajax({
+        type: "POST",           
+        url: http+"GetbusinessList",
+        data:{code:temp,type:type,token:getuser("token")},
+        //data:{code:"=007496",type:0,token:"865166024931316"},
+        async: true,
+        datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+           uexWindow.toast("0","5","请求失败，请稍后重试！","5000");
+          },
+        success: function (data){
+            //alert(0);
+            var jsonl=eval("("+data+")");
+            //alert(data);
+            if(jsonl.code=="101"){
+                localStorage.removeItem('loginjson');
+                uexWindow.evaluateScript("",0,"winclose();");
+                uexWindow.toast("0","5","登录失效，请重新登录","3000");
+                uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '0');
+                return;
+            }
+            if(jsonl.code=="0"){
+                //alert(2);
+                var html="";
+                html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:4;padding-left:10px;'>";
+                html+="<p style='color:grey'>";
+                html+="没有数据";
+                html+="</p>";
+                html+="</div>";
+                // var div = document.createElement("div");
+                // div.innerHTML=html;
+                // $$("guzhang").appendChild(div);
+                $("#jiuyuan").html(html); 
+            }
+            if(json.code=="1")
+            {
+                for(var i=0;i<1;i++){
+                    //alert(0);
+                    var obj=jsonl.userdata.business[i].ElevatorName+"|"+
+                    jsonl.userdata.business[i].ElevatorAddress+"|"+
+                    jsonl.userdata.business[i].MtGroupName+"|"+
+                    jsonl.userdata.business[i].HGroupName+"|"+
+                    jsonl.userdata.business[i].AlertMan+"|"+
+                    jsonl.userdata.business[i].AlterManPhone+"|"+
+                    jsonl.userdata.business[i].BusinessCode;
+                    localStorage.nfcInfo=obj;
+                   
+                    
+                    html+="<div ontouchstart=zy_touch('btn-act1') onclick=jiuyuanDetial();>";
+                    html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:1.5;padding-left:10px;'>";
+                    html+="<p class='font-o'>";
+                 
+                    html+=jsonl.userdata.business[i].ElevatorName; 
+                 
+                    html+="</p>";
+                    html+="<p>";
+                   
+                    html+="维保单位："+jsonl.userdata.business[i].MtGroupName;        
+                    html+="</p>";
+                        
+                    html+="</div>";
+                    html+="</div>";
+                              
+                    //var div = document.createElement("div");
+                    //div.innerHTML=html;
+                    //$$("jiuyuan").appendChild(div); 
+                    $("#jiuyuan").html(html); 
+                  
+                }
+            }   
+            // else{
+                    // $$("weibaoList").innerHTML="";
+                // }
+            }        
+        });   
+}
+
+   //详情跳转
+    function bkdetail(id,zxsid,e){     
+        localStorage.breakId=id;
+        //alert(id);
+        if(e!=null&&typeof(e)!='undefined'){
+            e.stopPropagation();
+            e.preventDefault();
+        }
+        uexWindow.open('breakDownInfo', '0', "breakDownInfo.html", '10', '', '', '4');
+    } 
+    
+    function zxslistDetial(id,name,reportNo,DeviceId,e){
+    // if(DeviceId!=""&&DeviceId!=null&&DeviceId!=undefined)
+    // {
+    localStorage.canshu=reportNo;
+    localStorage.mainId=id;
+    localStorage.name=name;
+    localStorage.DeviceId=DeviceId;
+    if(e!=null&&typeof(e)!='undefined'){
+        e.stopPropagation();
+        e.preventDefault();
+    }
+        uexWindow.open('maintainInfo.html', '0', "maintainInfo.html", '10', '', '', '4'); 
+  
+    // }
+    // else
+    // {
+       // alert("电梯没绑定NFC卡，请扫二维码"); 
+    // }
+    }
+    
+    function lixian(){
+        uexWindow.open('maintainInfo.html', '0', "maintainInfo.html", '10', '', '', '4'); 
+    }
+    
+    function jiuyuanDetial () {
+     uexWindow.open('ncfItem', '0', "ncfItem.html", '10', '', '', '4');
+    }
+    
+     function createM() {
+     uexWindow.open('create', '0', "mainCreate.html", '10', '', '', '4');
+    }
+</script>
+</html>
+

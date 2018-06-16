@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <link rel="stylesheet" href="css-app/ha4.css">
+        <script src="js/cmd.js"></script>
+         <script src="js/ios.js"></script>
+     <style rel="stylesheet">
+        .none{
+            display: none;
+        }
+        #allmap {width: 100%;height: 40%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+         <div class="ha8_box none" id="popBox" style="position: absolute;top:25%; z-index: 1000;">
+            <div class="ha8_box" id="nfcDiv" style=" float: left; width: 50%; border-right:  1px solid #25293B;opacity: 0.5" >
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc2.png"/>
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br/>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">靠一靠</p>
+                
+            </div>
+            <div class="ha8_box" id="scannerDiv" style="float: left; width: 46%; border-left:  1px solid #41485A" >
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc1.png"/>
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br/>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">扫一扫</p>
+                
+            </div>
+            </div>
+        
+        <div class="ub ub-ver" style="height: 80%">
+            <div id="allmap" class="none" style="height: 35%"></div> 
+        <ul style="height: 40%">
+            <li class="ubb ub bc-border t-bla ub-ac lis" id="rName">
+               <span>电梯名称：<span class="eName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" >
+               <span>电梯标识：<span class="eReportNo"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>开始时间：<span class="beginTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>结束时间：<span class="endTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保人员：<span class="groupPerson"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保单位：<span class="groupName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>使用单位：<span class="houseName"></span></span>
+            </li>
+        </ul>
+    </div>
+            <br/>
+            <br/>
+        
+            
+            
+            <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="uinn c-wh ub-ver" id="mynfc" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            确认
+                        </div>
+                    </div>
+               
+            </div>
+              <br/>
+            <br/>
+        </div>
+          <div class="none" id="cover"></div>
+        
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+    </body>
+    
+    <script> 
+
+        appcan.ready(function() {
+            //alert(1);
+            // speechUtility.createUtility("engine_mode=msc,appid=5680d736");
+            // // 初始化合成对象
+            // speechSynthesizer.createSynthesizer();
+            show();
+            uexWindow.setBounce(0);
+            appcan.initBounce();
+            getzxs();
+            //voice();
+        })
+        
+        
+         $("#mynfc").on("tap",function(){
+              var dt = new Date();
+            localStorage.time=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+            uexWindow.open('MaintainPart_Top.html', '0', "MaintainPart_Top.html", '10', '', '', '4'); 
+               
+             
+        });
+        
+        $("#mynfc").on("tap",function(){
+          
+             
+        });
+        
+      
+        
+        $("#cover").on("tap",function(){
+          var obj=$("#cover");     
+          var obj=$("#popBox");   
+          $("#cover").addClass("none");
+          $("#popBox").addClass("none");
+        });
+        
+
+    
+    function funcD1(opCode, dataType, data){
+       
+        localStorage.cardId=data; 
+        
+         if(data==localStorage.DeviceId)
+            {
+                 var dt = new Date();
+                 localStorage.time=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+                 uexWindow.open('MaintainPart_Top.html', '0', "MaintainPart_Top.html", '10', '', '', '4'); 
+            }
+            else
+            {
+                  uexWindow.toast("0","5",'维保电梯不匹配',"2000");
+            }
+        
+       
+    }
+    
+    $('#scannerDiv').off('tap').on('tap',function(){
+            $("#popBox").addClass("none"); 
+            $("#cover").addClass("none");
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack;
+        });
+        
+       
+        
+        $('#scannerDivt').off('tap').on('tap',function(){
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack1;
+        });
+    
+     function ScannerSuccessCallBack(opCode, dataType, data) {   
+        var obj = eval('('+data+')');
+        var data1=obj.code.split("=")[1];
+        localStorage.cardId=data1;  
+         if(data1==localStorage.reportNo)
+        {
+            uexWindow.open('mainItem.html', '0', "mainItem.html", '10', '', '', '4');
+        }
+        else
+        {
+            uexWindow.toast("0","5",'维保电梯不匹配',"2000");
+        }
+        
+       
+    }  
+    
+      
+  
+ 
+      function getzxs(){
+          //alert(1);
+        //uexWindow.toast("1","5","正在获取...","0");
+        //alert(localStorage.mainId);
+        var url1 = http+"GetMaintainInfo";
+         appcan.request.ajax({
+            type: "POST",
+            url: url1, 
+            data:{iMtId:localStorage.mainId,token:getuser("token")},
+            //data:{iMtId:56,token:"1234567"},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+          },
+        success: function (data){
+         uexWindow.closeToast();
+         //alert(data);
+         showzxs(data);
+         
+        
+        }});
+        
+        
+       
+}  
+
+        
+        function showzxs(str){
+    var json=eval("("+str+")");
+   
+    if(json.code=="1")
+    {
+        //alert(0);
+        for(var i=0;i<json.userdata.maintain.length;i++){
+            localStorage.maintainType=json.userdata.maintain[i].MaintainType;
+            localStorage.mainPEId=json.userdata.maintain[i].PEId;
+            localStorage.mainPId=json.userdata.maintain[i].PId;
+            localStorage.mainEId=json.userdata.maintain[i].EId;
+            localStorage.mainGroupId=json.userdata.maintain[i].GroupId;
+            localStorage.mainMtUserId=json.userdata.maintain[i].MtUserId;
+            $(".eName").text(json.userdata.maintain[i].Name);
+            $(".beginTime").text(json.userdata.maintain[i].BeginTime);
+            $(".endTime").text(json.userdata.maintain[i].EndTime);
+            $(".groupPerson").text(getuser('name'));
+            $(".groupName").text(json.userdata.MtGroupName);
+            $(".houseName").text(json.userdata.UsCName);
+            $(".eReportNo").text(localStorage.reportNo);
+             if(json.userdata.maintain[i].Coordinate.trim()!="")
+           {
+                if($("#allmap").hasClass("none"))
+                {
+                    $("#allmap").removeClass("none");
+                }
+                var lat=json.userdata.maintain[i].Coordinate.split(',')[0];
+                var lng=json.userdata.maintain[i].Coordinate.split(',')[1];
+                // 百度地图API功能
+                var name=json.userdata.maintain[i].Name;
+                showM(lat,lng,name);
+           }
+           else
+           {
+               $("#allmap").addClass("none");
+           }
+        }
+        start();
+    }
+    
+}
+
+    </script>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <link rel="stylesheet" href="css-app/ha4.css">
+        <script src="js/cmd.js"></script>
+       <style rel="stylesheet">
+        .none{
+            display: none;
+        }
+        .gray{
+            color:gray;
+        }
+        .op{
+            opacity: 0.5;
+        }
+        .white{
+            color:#FFFFFF;
+        }
+        #allmap {width: 100%;height: 40%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+        
+        <div class="ub ub-ver" style="height: 80%">
+            <div id="allmap" class="none" style="height: 35%"></div> 
+        <ul style="height: 40%">
+            <li class="ubb ub bc-border t-bla ub-ac lis" id="rName">
+               <span>电梯名称：<span class="eName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" >
+               <span>电梯标识：<span class="eReportNo"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>开始时间：<span class="beginTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>结束时间：<span class="endTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保人员：<span class="groupPerson"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保单位：<span class="groupName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>使用单位：<span class="houseName"></span></span>
+            </li>
+        </ul>
+    </div>
+            <br/>
+            <br/>
+        
+            
+            
+            <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="uinn c-wh ub-ver" id="mynfc" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            确认
+                        </div>
+                    </div>
+               
+            </div>
+              <br/>
+            <br/>
+        </div>
+        <div class="none" id="cover"></div>
+         
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+    </body>
+    
+    <script> 
+        //localStorage.mtType 维保模板  17半月  18季度  19半年  20年度
+        //localStorage.MainStatus 0有效维保  1无效维保
+        var ECoordinate="";
+        var map = new BMap.Map("allmap");
+        
+        appcan.ready(function() {
+            getzxs();
+        })
+       
+        $("#mynfc").on("tap",function(){
+            //alert("info页面点击了")
+            var lat2=ECoordinate.split(',')[0];
+            var lng2=ECoordinate.split(',')[1];
+            var lat1=localStorage.Coordinate.split(',')[0];
+            var lng1=localStorage.Coordinate.split(',')[1];
+            getFlatternDistance(lat1,lng1,lat2,lng2);
+                   
+        });
+        
+
+
+      
+ 
+      function getzxs(){
+        uexWindow.toast("1","5","正在获取...","0");
+        var url1 = http+"GetMaintainInfo";
+         appcan.request.ajax({
+            type: "POST",
+            url: url1, 
+            data:{iMtId:localStorage.mainId,token:getuser("token")},
+            //data:{iMtId:localStorage.mainId,token:123456},
+            async: true,
+            datatype: "json",
+            timeout: 12000,
+            error:  function (data) {
+                $(".groupPerson").text(localStorage.nickName);
+                $(".groupName").text(localStorage.groupDisplayName);
+                $(".eReportNo").text(localStorage.ReportNo);
+            },
+            success: function (data){
+              uexWindow.closeToast();
+              showzxs(data);
+             
+            
+            }});
+      
+}  
+
+        
+        function showzxs(str){
+            //alert(str);
+            var json=eval("("+str+")");
+           
+            if(json.code=="1")
+            {
+                for(var i=0;i<json.userdata.maintain.length;i++){
+                    $(".groupPerson").text(json.userdata.MtUserName);
+                    $(".groupName").text(json.userdata.MtGroupName);
+                    $(".eName").text(json.userdata.maintain[i].Name);
+                    $(".beginTime").text(json.userdata.maintain[i].BeginTime);
+                    $(".endTime").text(json.userdata.maintain[i].EndTime);
+                    $(".houseName").text(json.userdata.UsCName);
+                    $(".eReportNo").text(localStorage.ReportNo);
+                    localStorage.mtType=json.userdata.maintain[i].MaintainType;
+                    ECoordinate=json.userdata.maintain[i].Coordinate.trim();
+                    if(ECoordinate!="")
+                    {
+                        if($("#allmap").hasClass("none"))
+                        {
+                            $("#allmap").removeClass("none");
+                        }
+                        var lat=ECoordinate.split(',')[0];
+                        var lng=ECoordinate.split(',')[1];
+                            // 百度地图API功能
+                            
+                        var name=json.userdata.maintain[i].Name;
+                        showM(lat,lng,name);
+                   }
+                   else
+                   {
+                       $("#allmap").addClass("none");
+                   }
+                }
+            }
+    
+       }
+       
+       
+      //获取距离
+      function getFlatternDistance(lat1,lng1,lat2,lng2){
+          //alert("准备跳转")
+          if(lat1&&lng1&&lat2&&lng2){
+              var pointA = new BMap.Point(lat1,lng1);  // 创建点坐标A--大渡口区
+              var pointB = new BMap.Point(lat2,lng2);  // 创建点坐标B--江北区
+              var result=(map.getDistance(pointA,pointB)).toFixed(2);
+          }else{
+              //alert("此电梯，没有坐标！")
+          }
+        
+        if(result>200){
+            localStorage.MainStatus=1;
+        }
+        else{
+            localStorage.MainStatus=0;
+        }
+    
+        appcan.window.open({
+            name:'MaintainPart_Top',
+            dataType:0,
+            data:'MaintainPart_Top.html'
+        });  
+           
+        
+        
+        
+    }
+
+    </script>
+</html>

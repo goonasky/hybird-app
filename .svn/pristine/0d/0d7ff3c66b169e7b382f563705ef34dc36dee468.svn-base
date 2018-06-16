@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+    <html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+     <meta charset="utf-8">
+     <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/appcan.icon.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css-app/ha8.css">
+    <link rel="stylesheet" href="css-app/habd.css">
+    <link rel="stylesheet" href="css-app/ha4.css">
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+    <script src="js/cmd.js"></script>
+    </head>
+    <body style="background-color:none">
+
+    <div class="ha4_Container clearfix">
+        
+        <div class="ha4_box7 clearfix"><textarea id="content" style=" width:95%; height:16em; margin-left:2%; margin-top:0.6em;" placeholder="说点什么吧"></textarea>
+            
+        </div>
+        <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="uinn c-wh ub-ver"  onclick="getfeedback()" style="height:100%">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            提交
+                        </div>
+                    </div>
+               
+            </div>
+    </div>
+    </body>
+<script>
+window.uexOnload=function(type){
+    if(!type){
+        setbu();
+        lefth();
+    }
+}
+
+function setbu(){
+    uexWindow.setBounce("1");
+    uexWindow.hiddenBounceView("1");        
+}
+
+
+function getfeedback(){
+    if($$("content").value==""){
+        uexWindow.toast("0","5","请输入要反馈的内容","2000");
+        return;
+    }
+        //uexWindow.toast("1","5","正在提交...","0");     
+        var url1 = http+"feedback";
+        appcan.request.ajax({
+            type: "POST",
+            url: url1,
+            data:{phone:getuser("phone"),content:$$("content").value},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+            
+          },
+        success: function (data){
+            
+           getfeedbackhtml(data);
+            }});    
+}
+
+function getfeedbackSuccess(opid,status,result){
+        if (status == -1) {
+            uexWindow.toast("0","5","远程服务器连接不上或网络连接超时","3000");
+            return;
+        }
+        uexWindow.closeToast();
+        if(status==1){
+        uexXmlHttpMgr.close(333);
+        
+        getfeedbackhtml(result);
+        }
+}
+
+function getfeedbackhtml(str){
+    var json = eval("(" + str + ")");
+    uexWindow.toast("0","5",json.info,"2000");
+    if(json.code==1){
+            setTimeout("swipeRight()",1000);
+    }   
+}
+</script>
+</html>

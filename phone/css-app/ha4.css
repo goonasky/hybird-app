@@ -1,0 +1,417 @@
+.ha4_Container {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+    padding-bottom: 1em;
+}
+
+.ha4_box {
+    float: none;
+    height: auto;
+    margin: 0.5em auto 0px;
+    clear: none;
+    width: 96%;
+    min-height: 3.2em;
+    background-color: rgb(255, 255, 255);
+}
+
+.ha4_text {
+    float: none;
+    font-size: 1.1em;
+    width: 70%;
+    height: auto;
+    text-align: center;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0.9em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(102, 102, 102);
+}
+
+.ha4_textspan {
+    float: none;
+    font-size: 1.3em;
+    line-height: 1em;
+    font-weight: 700;
+    color: rgb(243, 83, 12);
+}
+
+.ha4_box1 {
+    float: none;
+    height: auto;
+    margin: 0.5em auto 0px;
+    clear: none;
+    width: 96%;
+    min-height: 60px;
+    background-color: rgb(255, 255, 255);
+}
+
+.ha4_box2 {
+    float: none;
+    height: 2.5em;
+    margin: 0px auto;
+    clear: none;
+    width: 95%;
+    min-height: 0px;
+    border-bottom-color: rgb(220, 220, 220);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.ha4_text1 {
+    float: left;
+    font-size: 0.9em;
+    width: 95%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0.7em 0px 0px 0.8em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(80, 80, 80);
+}
+
+.ha4_box3 {
+    float: none;
+    height: auto;
+    margin: 0px auto;
+    clear: none;
+    width: 100%;
+    min-height: 0px;
+    border-bottom-color: rgb(220, 220, 220);
+    border-bottom-width: 1px;
+    overflow: hidden;
+}
+
+.ha4_box4b {
+    float: left;
+    height: 1.6em;
+    margin: 0.5em 0px 0px 22%;
+    clear: none;
+    width: 1.6em;
+    min-height: 0px;
+    border: 1px solid rgb(141, 141, 141);
+    background-image:url("img/htic_13.png");
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+.ha4_box4a {
+    float: left;
+    height: 1.6em;
+    margin: 0.5em 0px 0px 22%;
+    clear: none;
+    width: 1.6em;
+    min-height: 0px;
+    border: 1px solid rgb(141, 141, 141);
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+
+.ha4_text2 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    margin: 0.8em 0px 0px 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(80, 80, 80);
+	line-height: 2em;
+}
+
+
+
+.ha4_box6 {
+    float: none;
+    height: 2.6em;
+    margin-left: auto;
+    margin-top: 0.5em;
+    clear: none;
+    width: 94%;
+    min-height: 0px;
+    margin-right: auto;
+    background-color: rgb(255, 255, 255)
+    border: 1px solid rgb(195, 195, 195);
+}
+
+.ha4_box7 {
+    float: none;
+    height: 16em;
+    margin-left: auto;
+    margin-top: 0.8em;
+    clear: none;
+    width: 94%;
+    min-height: 0px;
+    margin-right: auto;
+    border: 1px solid rgb(195, 195, 195);
+    background-color: rgb(255, 255, 255);
+}
+
+.ha4_text4 {
+    float: none;
+    font-size: 0.9em;
+    width: 96%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 1em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+}
+
+.ha4_text4a {
+    float: none;
+    font-size: 0.9em;
+    width: 96%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 4em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+}
+
+.ha4_box8 {
+    float: none;
+    height: auto;
+    margin: 1em auto 0px;
+    clear: none;
+    width: 94%;
+    min-height: 4.5em;
+}
+
+.ha4_box9 {
+    float: left;
+    height: 4.5em;
+    margin-left: 0.7em;
+    margin-top: 0px;
+    clear: none;
+    width: 4.5em;
+    min-height: 50px;
+    border: 1px solid rgb(195, 195, 195);
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    margin-right: 0.7em;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+
+
+.ha4_box10 {
+    float: left;
+    height: 4.5em;
+    margin-left: 0.7em;
+    margin-top: 0px;
+    clear: none;
+    width: 4.5em;
+    min-height: 50px;
+    border: 1px solid rgb(195, 195, 195);
+    margin-right: 0.7em;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    background-image:url("img/addt.png");
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+.ha4_box11 {
+    float: none;
+    height: auto;
+    margin: 0.3em auto 0px;
+    clear: none;
+    width: 97%;
+    min-height: 6em;
+    background-color: rgb(255, 255, 255);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.14) 0px 0px 0.2em 0px;
+    box-shadow: rgba(0, 0, 0, 0.137255) 0px 0px 0.2em 0px;
+    padding-bottom: 0.8em;
+}
+
+.ha4_text5 {
+    float: none;
+    font-size: 0.9em;
+    width: 90%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.8em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+}
+
+.ha4_text5a {
+    float: none;
+    font-size: 1.1em;
+    width: 90%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.8em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+}
+
+.ha4_box12 {
+    float: none;
+    height: auto;
+    margin-left: auto;
+    margin-top: 0.8em;
+    clear: none;
+    width: 90%;
+    min-height: 50px;
+    margin-right: auto;
+}
+
+.ha4_box13 {
+    float: left;
+    height: auto;
+    margin-left: 0%;
+    margin-top: 0px;
+	margin-bottom:0.5em;
+    clear: none;
+    width: 49%;
+    min-height: 1.6em;
+}
+
+.ha4_box13a {
+    float: left;
+    height: auto;
+    margin-left: 2%;
+    margin-top: 15px;
+	margin-bottom:0.5em;
+    clear: none;
+    width: 96%;
+    min-height: 1.6em;
+}
+
+.ha4_box14b {
+    float: left;
+    height: 1.6em;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: none;
+    width: 1.6em;
+    min-height: 0px;
+    border: 1px solid rgb(19, 201, 149);
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    background-image:url("img/htic_15.png");
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+.ha4_box14a {
+    float: left;
+    height: 1.6em;
+    margin-left: 0%;
+    margin-top: 0px;
+    clear: none;
+    width: 1.6em;
+    min-height: 0px;
+    border: 1px solid rgb(19, 201, 149);
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+
+.ha4_text6 {
+    float: left;
+    font-size: 1em;
+    width: 71%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.5em;
+    margin-left: 0.6em;
+    margin-top: 0.1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(80, 80, 80);
+    overflow: inherit;
+}
+
+.ha4_box15 {
+    float: none;
+    height: auto;
+    margin: 0.6em auto 0px;
+    clear: none;
+    width: 90%;
+    min-height: 50px;
+}
+
+.ha4_box16 {
+    float: none;
+    height: 2.6em;
+    margin: 0px auto;
+    clear: none;
+    width: 100%;
+    min-height: 0px;
+    min-width: 0px;
+    border-bottom-color: rgb(195, 195, 195);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.ha4_text7 {
+    float: left;
+    font-size: 1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0.8em 0px 0px;
+    clear: none;
+    min-height: 0px;
+    color: rgb(80, 80, 80);
+    min-width: 2em;
+}
+

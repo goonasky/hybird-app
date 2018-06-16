@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<widget appId="11692111" channelCode="0000" height="480" pid="" sreensize="4.5" version="00.00.0000" viewmode="application" widgetId="" width="320">
+    <name>天津2018</name>
+    <description/>
+    <author email=""/>
+    <icon src="icon.png"/>
+    <license href=""/>
+    <content encoding="utf-8" src="index3.html"/>
+    <updateurl/>
+    <logserverip/>
+    <showmyspace>false</showmyspace>
+    <obfuscation>true</obfuscation>
+    <bgcolor>#fefefe</bgcolor>
+    <orientation>1</orientation>
+    <debug/>
+    <partobfuscation/>
+    <webapp>false</webapp>
+    <error/>
+    <removeloading/>
+    <config desc="uexJPush" type="KEY">
+        <param name="$UEXJPUSH_PACKAGE$" platform="android" value="com.tianjin.mobile"/>
+        <param name="$UEXJPUSH_APPKEY$" platform="android" value="a5dfb85f41c172612e6928df"/>
+    </config>
+    <config desc="privacyConfig" type="AUTHORITY">
+        <permission info="privacy" platform="iOS" type="camera">
+            <string>appcan录制视频需要使用摄像头</string>
+        </permission>
+        <permission info="privacy" platform="iOS" type="microphone">
+            <string>appcan录制视频需要使用麦克风</string>
+        </permission>
+        <permission info="privacy" platform="iOS" type="locationAlways">
+            <string>appcan定位</string>
+        </permission>
+        <permission info="privacy" platform="iOS" type="locationWhenInUse">
+            <string>appcan定位</string>
+        </permission>
+    </config>
+</widget>

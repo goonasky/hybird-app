@@ -1,0 +1,641 @@
+var dbName = "localDB";
+//创建表
+function createTable() {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sqls = [
+        //维保项表
+        "CREATE TABLE D_MaintainItem (Id  INTEGER PRIMARY KEY,GUID varchar(50) , ItemCode nvarchar(20) ,ItemName nvarchar(500) NULL,Claim nvarchar(500) NULL,PlaceId int NULL,Type int NULL,ItemType int NULL,GroupId int NULL,ElevatorType int ULL,LastTime datetime NULL,IsDelete tinyint NOT NULL)",
+        //维保记录表 Status   1 未上传   2 已上传    MainStatus 0有效维保  1无效维保  isChoucha 0表示普通的维保 1表示抽查的
+        "CREATE TABLE MaintainRecord (Id  INTEGER , GUID varchar(50) PRIMARY KEY,ReportNO nvarchar(50),MTReason nvarchar(2000),MtGroupId int ,MtUserId int,BeginTime datatime,EndTime datatime,Status int,etype int,sureType int,sureContent nvarchar(200),ECoordinate nvarchar(200),CCoordinate nvarchar(200),maintainType,MtPic,MainStatus,MtSign,isChoucha int)",
+        //维保部位表
+        "CREATE TABLE MaintainPlanDetails (GUID  varchar(50) PRIMARY KEY, MTR_GUID varchar(50),ReportNO nvarchar(50),EPlanId int,PlaceID Varchar(30),PointNo Varchar(300),PickTime datetime,MtUserId int,Status int)",
+        //维保选项表
+        "CREATE TABLE MaintainConclusionTable (MTPD_GUID varchar(50), ItemId  int,PickTime datatime,Conclusion int, Reason nvarchar(400),Measure nvarchar(400),ConclusionDetails nvarchar(400))",
+        //nfc设备表
+        "CREATE TABLE ElevetorDevice (DeviceId varchar(50),Category int,RegisterNo varchar(500),UpdateTime datetime)"];
+        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqls),
+        function(error) {
+            uexDataBaseMgr.close(db);
+        });
+    }
+
+};
+
+/*******************************************************获取维保项**************************************/
+
+function getMt() {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sqls = [
+        //删除表中信息
+        "Delete from D_MaintainItem where 1=1"];
+        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqls),
+        function(error) {
+            if (error == 0) {
+                uexWindow.toast("1", "5", "正在从网络获取电梯维保项...", "0");
+                var url1 = http1 + "GetMaintainItem";
+                appcan.request.ajax({
+                    type: "POST",
+                    url: url1,
+                    data: {
+                        time: "",
+                        token: "",
+                        id: 0
+                    },
+                    async: true,
+                    datatype: "json",
+                    timeout: 12000,
+                    error: function(data) {
+                        uexWindow.toast("0", "5", "获取失败", "3000");
+                        uexWindow.closeToast();
+                    },
+                    success: function(data) {
+                        uexWindow.toast("1", "5", "正在写入数据库...", "0");
+                        var json = eval("(" + data + ")");
+                        var sqlm = [];
+                        for (var i = 0; i < json.userdata.record.length; i++) {
+                            sqlm[i] = "INSERT INTO D_MaintainItem(Id,ItemCode,ItemName,Claim,PlaceId,Type,ItemType,GroupId,ElevatorType,LastTime,IsDelete) VALUES ('" + json.userdata.record[i].Id + "','" + json.userdata.record[i].ItemCode + "','" + json.userdata.record[i].ItemName + "','" + json.userdata.record[i].Claim + "','" + json.userdata.record[i].PlaceId + "','" + json.userdata.record[i].Type + "','" + json.userdata.record[i].ItemType + "','" + json.userdata.record[i].GroupId + "','" + json.userdata.record[i].ElevatorType + "','" + json.userdata.record[i].LastTime + "','" + json.userdata.record[i].IsDelete + "')";
+                        }
+                        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqlm),
+                        function(error) {
+                            if (error == 0) {
+                                uexWindow.toast("0", "5", "写入成功", "3000");
+                            } else {
+                                uexWindow.toast("0", "5", "写入失败", "3000");
+                            }
+                            uexDataBaseMgr.close(db);
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+}
+
+/*************************************************获取nfc卡号********************************************/
+
+function getlist() {
+
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sqls = [
+        //删除表中信息
+        "Delete from ElevetorDevice where 1=1"];
+        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqls),
+        function(error) {
+            if (error == 0) {
+                uexWindow.toast("1", "5", "正在从网络获取电梯维保项...", "0");
+                var url1 = http1 + "GetElevateDevice";
+                appcan.request.ajax({
+                    type: "POST",
+                    url: url1,
+                    data: {
+                        time: "1900-01-01 00:00:00",
+                        token: "",
+                        mtGroupId: localStorage.groupId
+                    },
+                    async: true,
+                    datatype: "json",
+                    timeout: 12000,
+                    error: function(data) {
+                        uexWindow.toast("0", "5", "获取失败", "3000");
+                        uexWindow.closeToast();
+                    },
+                    success: function(data) {
+                        uexWindow.toast("1", "5", "正在写入数据库...", "0");
+                        var json = eval("(" + data + ")");
+                        var sqlm = [];
+                        for (var i = 0; i < json.userdata.record.length; i++) {
+                            sqlm[i] = "INSERT INTO ElevetorDevice(DeviceId,Category,RegisterNo,UpdateTime) VALUES ('" + json.userdata.record[i].DeviceId + "','" + json.userdata.record[i].Category + "','" + json.userdata.record[i].RegisterNO + "','" + json.userdata.record[i].UpdateTime + "')";
+                        }
+                        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqlm),
+                        function(error) {
+                            if (error == 0) {
+                                uexWindow.toast("0", "5", "写入成功", "3000");
+                            } else {
+                                uexWindow.toast("0", "5", "写入失败", "3000");
+                            }
+                            uexDataBaseMgr.close(db);
+                        });
+
+                    }
+                });
+            }
+        });
+    }
+}
+
+/**********************************************************根据nfc查询电台信息**********************************************/
+//创建表
+function selectinfobyNfc(nfcDevice) {
+
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From ElevetorDevice where DeviceId='" + nfcDevice + "'";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+                localStorage.RegisterNo = jsonList[0]["RegisterNo"] //注册码
+                localStorage.Category = jsonList[0]["Category"] //部位id
+                uexWindow.open('Zonghe', '0', "Zonghe.html", '10', '', '', '4');
+            }
+        });
+    }
+
+};
+
+/**********************************************************显示维保项**********************************************/
+function getMainitem() {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From D_MaintainItem where IsDelete=0 and Type=" + localStorage.mtType + "";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+
+                for (var i = 0; i < jsonList.length; i++) {
+                    var html = "";
+                    html += "<li class='mui-table-view-cell mui-collapse options'>";
+                    html += "<a class='mui-navigate-right' href='#'>" + jsonList[i]["ItemName"] + "<span data-ItemId=" + jsonList[i]["Id"] + "  class='remark'>整改调整</span><span name='mainItem' data-id=" + jsonList[i]["Id"] + "  data-value=''   class='tittle'></span></a>";
+                    html += "<div class='mui-collapse-content'>";
+                    html += "<form class='mui-input-group'>";
+                    html += "<div value=0 class='mui-input-row'>";
+                    html += "<label>&radic;正常</label>";
+                    html += "</div>";
+                    html += "<div value=1 class='mui-input-row'>";
+                    html += "<label>&Delta;已整改</label>";
+                    html += "</div>";
+                    html += "<div value=2 class='mui-input-row'>";
+                    html += "<label>&Omicron;已更换零件</label>";
+                    html += "</div>";
+                    html += "<div value=3 class='mui-input-row'>";
+                    html += "<label>&Chi;请求支持</label>";
+                    html += "</div>";
+                    html += "<div value=4 class='mui-input-row'>";
+                    html += "<label>&ndash;不合适</label>";
+                    html += "</div>";
+                    html += "</form></div></li>";
+                    $(".list").append(html);
+                }
+
+                $(".options").find(".mui-input-row").on("click",
+                function(e) {
+                    e.stopPropagation();
+                    $(this).css({
+                        color: "#4792D2"
+                    }).siblings().css({
+                        color: "black"
+                    })
+
+                    var text = $(this).text();
+                    $(this).parent().parent().prev().children(".tittle").text(text);
+                    var value = $(this).attr("value");
+                    $(this).parent().parent().prev().children(".tittle").attr("data-value", value);
+                })
+
+                $('.remark').off('tap').on('tap',
+                function(e) {
+                    e.stopPropagation();
+                    MainItemId=$(this).attr("data-ItemId");
+                    $(".popBox").removeClass("none");
+                    $(".cover").removeClass("none");
+                });
+
+            }
+        });
+    }
+
+};
+
+/**********************************************************存储维保记录**********************************************/
+
+function selectMR(ReportNo) {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select GUID From MaintainRecord where ReportNO ='" + ReportNo + "' and MtUserId='" + getuser("uid") + "' and Status=0";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var MTR_GUID = guid();
+                var iTpye = 0;
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+                if (jsonList.length > 0) {
+                    MTR_GUID = jsonList[0]["GUID"];
+                    iTpye++;
+                }
+                insertTransaction(MTR_GUID,iTpye);
+            }
+        });
+    }
+}
+//做完维保提交 扫二维码，存入数据库的方法 
+function insertTransaction(MTR_GUID,iTpye){
+    var etype=3;
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else{
+                var length=0;
+                var sqlm = [];
+                //iType为0时表示本电梯当天之内存在record记录，执行插入。
+                //iType不为0时表示本电梯当天之内不存在record记录，需要逻辑更新时间和状态。
+                if(localStorage.choucha==0){
+                    //alert("choucha"+0);
+                    if (iTpye != 0) {
+                    //更新结束时间
+                    if(MainStatus==0){
+                       sqlm[0] = "UPDATE MaintainRecord SET EndTime='" + getTimeNow() + "',MtPic='"+arrPic+"',MainStatus='"+localStorage.MainStatus+"' WHERE GUID='" + MTR_GUID + "'";
+                    }
+                    else{//修改不更改维保有效性
+                       sqlm[0] = "UPDATE MaintainRecord SET EndTime='" + getTimeNow() + "',MtPic='"+arrPic+"' WHERE GUID='" + MTR_GUID + "'";
+                    }
+                   
+                } else {
+                    //alert("itype"+1);
+                    sqlm[0] = "INSERT INTO MaintainRecord(GUID,ReportNO,MtGroupId,MtUserId,BeginTime,EndTime,Status,etype,Ecoordinate,MtPic,maintainType,MainStatus,isChoucha) VALUES ('" + MTR_GUID + "','" + localStorage.ReportNo + "','" + getuser("groupId") + "','" + getuser("mtuid") + "','" + localStorage.BeginTime + "','" + localStorage.EndTime + "',0,'" + etype + "','" + localStorage.Coordinate + "','"+arrPic+"','"+localStorage.mtType+"','"+localStorage.MainStatus+"','"+localStorage.choucha+"')";
+                }
+                }
+                else{
+                    //alert("choucha"+1);
+                    if (iTpye != 0) {
+                    //更新结束时间
+                    if(MainStatus==0){
+                       sqlm[0] = "UPDATE MaintainRecord SET EndTime='" + getTimeNow() + "',MtPic='"+arrPic+"',MainStatus='"+localStorage.MainStatus+"' WHERE GUID='" + MTR_GUID + "'";
+                    }
+                    else{//修改不更改维保有效性
+                       sqlm[0] = "UPDATE MaintainRecord SET EndTime='" + getTimeNow() + "',MtPic='"+arrPic+"' WHERE GUID='" + MTR_GUID + "'";
+                    }
+                   
+                } else {
+                    sqlm[0] = "INSERT INTO MaintainRecord(GUID,ReportNO,MtGroupId,MtUserId,BeginTime,EndTime,Status,etype,Ecoordinate,MtPic,maintainType,MainStatus,isChoucha) VALUES ('" + MTR_GUID + "','" + localStorage.ReportNo + "','" + getuser("groupId") + "','" + getuser("mtuid") + "','" + localStorage.BeginTime + "','" + localStorage.EndTime + "',0,'" + etype + "','" + localStorage.Coordinate + "','"+arrPic+"','"+localStorage.mtType+"','"+localStorage.MainStatus+"','"+localStorage.choucha+"')";
+                }
+                }
+                
+                
+                
+                
+                if (tempChooseVal != "") {
+                    //alert(333)
+                    //alert(localStorage.status);
+                    var chooseVal = tempChooseVal.split('|');
+                    length=chooseVal.length + 1;
+                    //alert("chooseVal:"+chooseVal.length);
+                    if (iTpye !=0 ){
+                        for (var i = 1; i < length; i++) {
+                            var x = i - 1;
+                            var cVal = chooseVal[x].split('-');
+                            //alert("cVal"+cVal.length);                 
+                            if (cVal.length == 2) {
+                                sqlm[i] = "UPDATE MaintainConclusionTable set PickTime='" + localStorage.EndTime + "',Conclusion='" + cVal[1] + "' where MTPD_GUID='"+ MTR_GUID +"' and ItemId='" + cVal[0] + "'";
+                            }
+ 
+                        }
+                    }
+                    else{
+                        //alert(444)
+                           for (var i = 1; i < length; i++) {
+                                var x = i - 1;
+                                var cVal = chooseVal[x].split('-');
+                                //alert("cVal"+cVal.length);                 
+                                if (cVal.length == 2) {
+                                    sqlm[i] = "INSERT INTO MaintainConclusionTable(MTPD_GUID, ItemId,PickTime ,Conclusion, Reason,Measure ,ConclusionDetails) VALUES ('" + MTR_GUID + "','" + cVal[0] + "','" + localStorage.EndTime + "','" + cVal[1] + "','0','0','0')";
+                                }
+        
+                            }
+                    }                    
+                }
+                
+                if(tempRemark != ""){
+                    //alert(555)
+            //先要切掉最后|
+                    // tempRemark=tempRemark.substr(0,tempRemark.length-1);
+                    // alert("tempRemark"+tempRemark)
+            // var chooseVal = tempRemark.split('|'); //将字符串按照部位切割成数组
+            // var obj = {};
+            // for (var i = 0; i < chooseVal.length; i++) {
+                // chooseVal[i].split("-");
+                // remarkObj[chooseVal[i].split("-")[0]] = chooseVal[i].split("-")[1]
+            // }
+            // for (var k in remarkObj) {
+                // alert(k)
+                // alert(remarkObj[k])
+                // sqlm[parseInt(k)] = "Update MaintainConclusionTable set ConclusionDetails='"+remarkObj[k]+"' where MTPD_GUID='" + MTR_GUID + "' and ItemId='" + parseInt(k)+ "'";
+            // }
+            // alert(JSON.stringify(remarkObj))
+                    tempRemark=tempRemark.substr(0,tempRemark.length-1);
+                    var chooseVal = tempRemark.split('|'); 
+                    var tmplength=chooseVal.length+length;
+                    for (var i=length;i<tmplength;i++){
+                        var x = i - length ;
+                        var cVal = chooseVal[x].split('-');               
+                        if (cVal.length == 2) {
+                            //alert(i);
+                            //alert(cVal[1])
+                            //alert(cVal[0])
+                            sqlm[i] = "Update MaintainConclusionTable set ConclusionDetails='"+cVal[1]+"' where MTPD_GUID='"+MTR_GUID+"' and ItemId='" + cVal[0] + "'";
+                        }
+                    }
+                }
+                uexDataBaseMgr.transactionEx(db, JSON.stringify(sqlm),
+                function(error) {
+                    //alert(error);
+                    if (error == 0) {
+                        localStorage.choucha=0;
+                        uexWindow.toast("0", "5", "存储成功", "3000");
+                        if(MainStatus==0){
+                           appcan.window.open({
+                                name:'index3',
+                                dataType:0,
+                                data:'index3.html'
+                           }); 
+                        }
+                        else{
+                           localStorage.status=1;
+                           appcan.window.open({
+                                name:'updata',
+                                dataType:0,
+                                data:'updata.html'
+                           }); 
+                        }
+                         
+                    } else {
+                        uexWindow.toast("0", "5", "存储失败", "3000");
+                    }
+                    uexDataBaseMgr.close(db);
+                });
+
+    }
+}
+
+
+/**********************************************************获取待上传信息**********************************************/
+function getUpdate() {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "SELECT * from MaintainRecord where Status='"+localStorage.status+"'and MtUserId='"+getuser("mtuid")+"'";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+                for(var i=0;i<jsonList.length;i++){
+                    html="";
+                    html+="";
+                    //alert(jsonList[i]["ReportNO"]);
+                    html+="<li class='ubb ub bc-border t-bla ub-ac lis'>";
+                    html+="<input class='aui-checkbox' id='"+jsonList[i]["GUID"]+"' data-guid='"+jsonList[i]["GUID"]+"' name='checkbox' type='checkbox'><label class='lbl'  for='"+jsonList[i]["GUID"]+"'><span>&nbsp;&nbsp;电梯标识：</span>"+jsonList[i]["ReportNO"]+"</label>";
+                    html+="<span class='link' data-guid='"+jsonList[i]["GUID"]+"'>修改</span>"; 
+                    html+="</li>";
+                    
+                    $("#showData").append(html); 
+               }
+               //判断待上传的维保记录，是否是待上传的
+               if(jsonList[0]["isChoucha"]==1){
+                   $(".lis").addClass("mark")
+               }
+               $(".link").click(function() {
+                    localStorage.guid=$(this).attr('data-guid');
+                    uexWindow.open('changeMian_Top', '0', "changeMian_Top.html", '10', '', '', '4'); 
+               })
+             }
+        });
+    }
+}
+
+
+/**********************************************************修改维保项**********************************************/
+
+function changeMainRecord() {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From MaintainRecord where GUID='"+localStorage.guid+"' ";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+                
+                var maintainType=jsonList[0]["maintainType"];
+                var mtPic=jsonList[0]["MtPic"];
+                localStorage.ReportNo=jsonList[0]["ReportNO"];
+                changeMainItem(maintainType,mtPic);
+                if(mtPic.trim()!=""){
+                     showPic(mtPic);//显示照片
+                }
+               
+            }
+        });
+    }
+
+};
+
+function changeMainItem(maintainType) {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "select * from MaintainConclusionTable where MTPD_GUID='"+localStorage.guid+"'";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+                tempChooseVal="";
+                for(var i=0;i<jsonList.length;i++){
+                    tempChooseVal+=jsonList[i]["ItemId"]+"-"+jsonList[i]["Conclusion"]+"|";
+                }
+                tempChooseVal=tempChooseVal.substring(0,tempChooseVal.length-1);
+                showMainItem(maintainType,tempChooseVal);
+            }
+        });
+    }
+
+};
+
+
+function showMainItem(maintainType,tempChooseVal) {
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select dm.*, Mc.ConclusionDetails From D_MaintainItem dm left join MaintainConclusionTable Mc on dm.Id=Mc.ItemId and Mc.MTPD_GUID='"+localStorage.guid+"' where dm.IsDelete=0 and dm.Type=" + maintainType + "";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                
+                var jsonList = eval("(" + JSON.stringify(data) + ")");
+
+                for (var i = 0; i < jsonList.length; i++) {
+                    var html = "";
+                    html += "<li class='mui-table-view-cell mui-collapse options'>";
+                    if(jsonList[i]["ConclusionDetails"].trim()==""){
+                    html += "<a class='mui-navigate-right' href='#'>" + jsonList[i]["ItemName"] + "<span data-ItemId=" + jsonList[i]["Id"] + " data-remark=''  class='remark1'>整改调整</span><span name='mainItem' data-id='" + jsonList[i]["Id"] + "'  data-value=''   class='tittle'>√正常</span></a>";   
+                    }
+                    else{
+                    html += "<a class='mui-navigate-right' href='#'>" + jsonList[i]["ItemName"] + "<span data-ItemId=" + jsonList[i]["Id"] + " data-remark=" + jsonList[i]["ConclusionDetails"] + "  class='remark1'>整改调整</span><span name='mainItem' data-id='" + jsonList[i]["Id"] + "'  data-value=''   class='tittle'></span></a>";   
+                    }
+                    html += "<div class='mui-collapse-content'>";
+                    html += "<form class='mui-input-group'>";
+                    html += "<div value=0 class='mui-input-row'>";
+                    html += "<label>&radic;正常</label>";
+                    html += "</div>";
+                    html += "<div value=1 class='mui-input-row'>";
+                    html += "<label>&Delta;已整改</label>";
+                    html += "</div>";
+                    html += "<div value=2 class='mui-input-row'>";
+                    html += "<label>&Omicron;已更换零件</label>";
+                    html += "</div>";
+                    html += "<div value=3 class='mui-input-row'>";
+                    html += "<label>&Chi;请求支持</label>";
+                    html += "</div>";
+                    html += "<div value=4 class='mui-input-row'>";
+                    html += "<label>&ndash;不合适</label>";
+                    html += "</div>";
+                    html += "</form></div></li>";
+                    $(".list").append(html);
+                }
+                
+                $(".options").find(".mui-input-row").on("click",
+                function(e) {
+                    e.stopPropagation();
+                    $(this).css({
+                        color: "#4792D2"
+                    }).siblings().css({
+                        color: "black"
+                    })
+
+                    var text = $(this).text();
+                    $(this).parent().parent().prev().children(".tittle").text(text);
+                    var value = $(this).attr("value");
+                    $(this).parent().parent().prev().children(".tittle").attr("data-value", value);
+                })
+
+                $('.remark1').off('tap').on('tap',
+                function(e) {
+                    e.stopPropagation();
+                    MainItemId=$(this).attr("data-ItemId");
+                    MainRemark=$(this).attr("data-remark");
+                    if(MainRemark==0||MainRemark=="0"){
+                        MainRemark="";
+                    }
+                    $(".txtRemark").val(MainRemark);
+                    $(".popBox").removeClass("none");
+                    $(".cover").removeClass("none");
+                });
+                //alert(tempChooseVal)
+                if (tempChooseVal != "") {
+                    var chooseVal = tempChooseVal.split('|');
+                    for (var i = 0; i < chooseVal.length; i++) {
+                    var cVal = chooseVal[i].split('-');
+                    var text="";
+                    switch(cVal[1]){
+                            case "0":
+                                  text="√正常"
+                                  break;
+                            case "1":
+                                  text="Δ已整改"
+                                  break;
+                            case "2":
+                                  text="Ο已更换零件"
+                                  break;
+                            case "3":
+                                  text="Χ请求支持"
+                                  break;  
+                            case "4":
+                                  text="-不合适"
+                                  break; 
+                            default:
+                                  text=""
+                                  break;      
+                      }
+                      $("[data-id='"+cVal[0]+"']").text(text);
+                      $("[data-id='"+cVal[0]+"']").attr("data-value",cVal[1]);
+                       
+                    }
+                }
+
+               
+                
+            }
+        });
+    }
+
+};
+
+/****************************************上传选中项*************************************************/
+//查询R表
+function selectMData() {
+    //alert("提交1")
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From MaintainRecord WHERE GUID IN ("+tempguid+")";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                tempRecordResult=JSON.stringify(data);
+                //alert(tempRecordResult)
+                //selectCData();
+                getPic();
+            }
+        });
+    }
+
+};
+
+
+function selectMDataPic() {
+    //alert("提交3")
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From MaintainRecord WHERE GUID IN ("+tempguid+")";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                tempRecordResult=JSON.stringify(data);
+                //selectCData();
+                selectCData();
+            }
+        });
+    }
+
+};
+
+
+//查询c表
+
+function selectCData() {
+    //alert("提交4")
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sql = "Select * From MaintainConclusionTable WHERE MTPD_GUID IN ("+tempguid+")";
+        uexDataBaseMgr.select(db, sql,
+        function(error, data) {
+            if (error) {
+                alert('查询失败');
+            } else {
+                tempChoseResult=JSON.stringify(data);
+                
+                getResult();
+            }
+        });
+    }
+
+};
+
+
+
+
+

@@ -1,0 +1,72 @@
+﻿/*app表单css合集*/
+
+input{ width: auto; height: auto; min-height:2em; font-size:1em; line-height:normal; text-indent:0em; float: left; display: block; position: relative; z-index:999; border-width:0px; background-color:rgba(255, 255, 255, 0); outline:medium; color:#656565;}
+
+textarea{ width: auto; height: auto; font-size:0.9em; line-height:1.4em; text-align:left; float: left; display: block;  border-width:0px; background-color:rgba(255, 255, 255, 0); outline:medium;}
+
+.texhi{ width:93%; height:auto; min-height:2em; max-height:9em;word-wrap: break-word;
+ overflow-x: hidden; overflow-y: auto; padding-top:0.4em; font-size:0.9em; line-height:1.5em; text-align:left; float: none; margin:0px auto; clear:none; outline:medium;}
+
+select{ width: auto; height:2.3em; float: none; line-height: normal; font-size:0.9em; margin-top:0.3em; margin-bottom:0.2em; -webkit-border-radius:0.5em ; -moz-border-radius:0.5em; border-width:0px 2.3em 0px 0.3em; border-color:rgba(255, 255, 255, 0); -webkit-border-image:url("img/bord3.png") 0 20 0 5;  -moz-border-image:url("img/bord3.png") 0 20 0 5; background:no-repeat;}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color:#a1a1a1; font-size:1em;line-height:normal;
+}
+
+
+/*单选表单样式*/
+
+/* RADIO */
+
+.regular-radio {
+	display: none;
+}
+
+.regular-radio + label {
+	float: left;
+	-webkit-appearance: none;
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	border-radius: 50px;
+	display: inline-block;
+	position: relative;
+	margin-left:0.8em;
+}
+
+.regular-radio:checked + label:after {
+	content: ' ';
+	width: 12px;
+	height: 12px;
+	border-radius: 50px;
+	position: absolute;
+	top: 3px;
+	background: #99a1a7;
+	box-shadow: inset 0px 0px 10px rgba(0,0,0,0.3);
+	text-shadow: 0px;
+	left: 3px;
+	font-size: 32px;
+}
+
+.regular-radio:checked + label {
+	background-color: #e9ecee;
+	color: #99a1a7;
+	border: 1px solid #adb8c0;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05), inset 15px 10px -12px rgba(255,255,255,0.1), inset 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.regular-radio + label:active, .regular-radio:checked + label:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+}
+
+.big-radio + label {
+	padding: 16px;
+}
+
+.big-radio:checked + label:after {
+	width: 24px;
+	height: 24px;
+	left: 4px;
+	top: 4px;
+}
+

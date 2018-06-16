@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="maintainInfo_content/css/main.css">
+        <script src="js/ios.js"></script>
+        <script src="js/cmd.js"></script>
+         <style rel="stylesheet">
+         .none{
+             display: none;
+         }
+         #allmap {width: 100%;height: 40%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+      </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+         <div class="ub ub-ver" style="height: 80%"> 
+        <ul style="40%">
+             <li class="ubb ub bc-border t-bla ub-ac lis"  id="eroport">
+               <span>电梯编码：<span class="eroport"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis"  id="rName">
+               <span>电梯名称：<span class="eName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>电梯地址：<span class="eAddress"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>维保单位：<span class="groupName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" >
+                <span>使用单位：<span class="houseName"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+               <span>报警人：<span class="groupPerson"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis">
+                <span>报警人电话：<span class="personMobile"></span></span>
+            </li>
+        </ul>
+        </div>
+
+            <br/>
+            <br/>
+             <div class="ub ub-ver ub-f1 ub-con" style="position: fixed;bottom:10px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)" >
+              
+                    <div class="uinn c-wh ub-ver" id="btn4"  style="height:100%;">
+                        <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >
+                            确认到达
+                        </div>
+                    </div>
+               
+            </div>  
+                <div class="umh1"></div>         
+            <br/>
+            <br/>
+           
+        </div>
+       
+        
+    </body>
+     <script src="js/appcan.js"></script>
+     <script src="js/appcan.control.js"></script>
+     <script type="text/javascript" src="http://api.map.baidu.com/api?type=quick&ak=vxDpx8Uc561MraDjwpkxejdr&v=1.0"></script>
+    <script>
+    
+    
+   appcan.ready(function() {
+            getzxs();
+            //alert(1);
+            uexWindow.cbActionSheet = actionSheetSuccess;
+            uexLocation.openLocation();//打开定位
+            uexLocation.onChange = function(lat, log){  
+            localStorage.Coordinate= log+ "," + lat; 
+            uexWindow.setBounce(0);
+            uexWindow.hiddenBounceView("0");
+            uexWindow.hiddenBounceView("1"); 
+            uexWindow.setSlidingWindowEnabled(1);
+            }
+            //showMessage();
+            //showMap();  
+           // voice();
+  })
+  
+  
+    
+      //确认到达
+    appcan.button("#btn4", "ani-act", function() {
+            switch(this.id) {
+            case "btn4":
+                commit();//提交到达时间
+                openMenu();
+                
+                break;
+            
+            }
+        })
+  
+       function actionSheetSuccess(opId, dataType, data) {
+           //alert(data);
+            if(data==1)//成功
+            {
+                //localStorage.removeItem('nfcInfo');
+                uexWindow.open('breakDownType', '0', "breakDownType.html", '10', '', '', '4');
+            }
+            else if(data==0||data==2)//0救援失败，2自行脱困
+            {
+                //alert(0);
+                localStorage.result=data;
+                commitResult(data);
+                
+            }
+            
+        }
+        
+        //点击救援失败或者自行脱困
+        function commitResult (result) {
+          
+        var code=localStorage.BusinessCode;
+         var dt = new Date();
+        var d=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+        //alert(code);
+        appcan.request.ajax({
+            type: "POST",
+            url: http+"SetbusinessRescueTime",
+            data:{businessCode:code,time:d.toLocaleString(),breakdowntypeCode:"",token:getuser("token"),Result:result,MtGroupId:getuser("groupId"),Coordinate:localStorage.Coordinate,userId:localStorage.uId},
+            async: true,
+            datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+          },
+        success: function (data){
+           //alert(data); 
+            var json=eval("("+data+")");
+            
+          if(json.code=="1")
+          {
+              //alert("提交成功！");
+              //uexWindow.open('index3.html', '0', "index3.html", '10', '', '', '1024');
+             // localStorage.removeItem('nfcInfo');
+              uexWindow.open('bussinessFeedback.html', '0', "bussinessFeedback.html", '10', '', '', '4');
+          }
+        }});
+    }
+         
+
+        function openMenu() {
+            var as = new Array(3);
+            as[1] = "救援成功";
+            as[0] = "救援失败";
+            as[2] = "自行脱困";
+            uexWindow.actionSheet('救援结果', '取消', as)
+        }
+
+  
+
+    
+        //提交
+    function commit () {
+        var dt = new Date();
+        var code=localStorage.BusinessCode;
+        var d=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+        //alert(code);
+        appcan.request.ajax({
+            type: "POST",
+            url: http+"BusinessArriveTime",
+            data:{businessCode:code,time:d,token:getuser("token"),Coordinate:localStorage.Coordinate,MtGroupId:getuser("groupId"),userId:localStorage.uId},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+             alert("插入失败");
+          },
+        success: function (data){
+            //alert(data);
+            var json=eval("("+data+")");
+           if(json.code=="1")
+           {
+              localStorage.businessCode=localStorage.nfcInfo.split("|")[6];
+              
+           }
+           else
+    {
+        alert("插入失败,查询不到数据！");
+    }
+        }});
+    }
+ //渲染救援数据 
+  function getzxs(){ 
+        appcan.request.ajax({
+        type: "POST",           
+        url: http+"GetbusinessList",
+        data:{code:localStorage.code,type:0,token:getuser("token")},
+        //data:{code:"=00431",type:0,token:"863756027904674"},
+        async: true,
+        datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+           uexWindow.toast("0","5","请求失败，请稍后重试！","5000");
+          },
+        success: function (data){
+            //alert(data);
+          var json=eval("("+data+")");
+          if(json.code=="101"){
+            localStorage.removeItem('loginjson');
+            uexWindow.evaluateScript("",0,"winclose();");
+            uexWindow.toast("0","5","登陆失效，请重新登陆","3000");
+            uexWindow.open('login', '0', "login.html", '10', '', '', '');
+            return;
+            }
+            if(json.code=="1")
+            {
+                for(var i=0;i<1;i++){
+                    //alert(json.userdata.business[i].NfcList);
+                    var obj=json.userdata.business[i].ElevatorName+"|"+
+                    json.userdata.business[i].ElevatorAddress+"|"+
+                    json.userdata.business[i].MtGroupName+"|"+
+                    json.userdata.business[i].HGroupName+"|"+
+                    json.userdata.business[i].AlertMan+"|"+
+                    json.userdata.business[i].AlterManPhone+"|"+
+                    json.userdata.business[i].BusinessCode+"|"+
+                    json.userdata.business[i].Coordinate+"|"+
+                    json.userdata.business[i].ReportNO+"|"+
+                    json.userdata.business[i].NfcList;
+                    localStorage.nfcInfo=obj;
+                    //alert(localStorage.nfcInfo);
+                    localStorage.BusinessCode=json.userdata.business[i].BusinessCode;
+                    showMessage();
+                    showMap();  
+                }
+            }   
+            else{
+                uexWindow.toast("0","5",json.info,"5000");
+                }
+            }        
+        });
+    }     
+  
+   function showMessage () {
+       // alert(localStorage.nfcInfo);
+          var obj= localStorage.nfcInfo;
+          $(".eName").text(obj.split("|")[0]);
+          $(".eAddress").text(obj.split("|")[1]);
+          $(".groupName").text(obj.split("|")[2]);
+          $(".houseName").text(obj.split("|")[3]);
+          $(".groupPerson").text(obj.split("|")[4]);
+          $(".personMobile").text(obj.split("|")[5]);
+          $(".eroport").text(obj.split("|")[8]);
+          
+    }
+       
+//6月13日 修改
+// function showMessage () {
+   // // alert(localStorage.nfcInfo);
+      // //var json=eval("("+obj+")");
+      // $(".eroport").text(localStorage.report);
+      // $(".eName").text(localStorage.eName);
+      // $(".eAddress").text(localStorage.Adress);
+      // $(".groupName").text(localStorage.mtName);
+      // $(".houseName").text(localStorage.hName);
+      // $(".groupPerson").text(localStorage.alertman);
+      // $(".personMobile").text(localStorage.phone);
+      // start();
+//       
+// }
+
+    </script>
+</html>

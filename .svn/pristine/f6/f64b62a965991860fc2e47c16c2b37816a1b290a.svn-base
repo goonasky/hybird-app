@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <script src="js/cmd.js"></script>
+       <style rel="stylesheet">
+    .none{
+        display: none !important;
+    }
+    .parentDiv{
+        width: 100%;
+        font-size: 1em;
+        height: 2.2em;
+        margin-top: 1em;
+        margin-bottom: 5px;
+        background-color: orange;
+        text-align: center;
+    }
+    input[type="radio"]{
+        width: 1em;
+        display: inline-block !important;
+        height: 1em;
+    }
+    .hidden-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+    .lblCss{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    background-image: url("img/chk_2a.png") ; 
+    margin-right: 5px;
+    }
+    .lblCss1{
+       color:white;
+       padding-top: 0.5em;
+    }
+    .red{
+        background-image: url("img/chk_2b.png") ;  
+    }
+    .orange{
+        background-color:orange;  
+    }
+    .weizhi{
+        position: fixed;
+        display:block;
+        width:60px;
+        height:60px;
+        right: 0px;
+        bottom: 15%;
+        background-color:#C93A32;
+        background: url('img/bottom1.jpg')  no-repeat;
+    }
+    .Up
+    {
+        position: fixed;
+        width:60px;
+        height:60px;
+        right: 0px; 
+        bottom: 90px;
+        background-color:#C93A32;
+        background: url('img/up_1.jpg')  no-repeat;  
+    }
+    .oneDiv{
+        height: 2em;
+        margin-bottom: 0.5em;
+        padding-left: 0.5em;
+    }
+    label{
+        display: inline-block;
+        width: 100%;
+    }
+</style>
+</head >  
+<body ontouchstart>
+     <div class="ha1_Container clearfix">  
+        
+        <div class='ha1_box12 clearfix' id='list'>
+           
+                    
+        </div>
+    </div>
+    <a class="weizhi" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=document.getElementsByTagName('BODY')[0].scrollHeight;"></a>
+    <a class="Up none" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=0;"></a>
+    
+</body>
+ <script src="js/appcan.js"></script>
+  <script src="js/appcan.control.js"></script>
+<script>
+
+
+$(document).scroll(function(){
+    var scHeight=document.getElementsByTagName('BODY')[0].scrollTop;
+    if(scHeight>(document.getElementsByTagName('BODY')[0].scrollHeight*0.5))
+    {
+        $(".Up").removeClass('none');
+        $(".weizhi").addClass('none');
+    }
+    else{
+        $(".Up").addClass('none');
+        $(".weizhi").removeClass('none');
+    }
+})
+
+
+ appcan.ready(function() {
+            appcan.initBounce();   
+            getzxs();
+        })
+        var lie;
+//初始化下拉框
+function getzxs(){
+    //alert(localStorage.maintainType );
+       appcan.request.ajax({
+            type: "POST",
+            url: http+"GetMaintItemList",
+            data:{token:getuser("token"),MaintainType:localStorage.maintainType },
+           // data:{token:"865166024931316",MaintainType:17},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+          },
+        success: function (data){
+            //alert(data);
+           var json=eval("("+data+")");
+         var html="";
+         var html1="";
+         var parentDiv="";
+         var childDiv="";
+         if(json.code=="1")
+        { 
+                    parentDiv+="<div><div class='parentDiv'><label class='lblCss1' id='selectAll'>国家标准 (全选)</label></div>";
+                     parentDiv+="<div class=\"radioDiv\">"
+                     for(var k=0;k<json.userdata.maintainItem.length;k++)
+                     {
+                         
+                             parentDiv+="<div class='oneDiv' style='postion:reletive'><label class='lblCss' id='b"+json.userdata.maintainItem[k].Id+"' for='"+json.userdata.maintainItem[k].ItemName+"'></label><input class='hidden-input' id='a"+json.userdata.maintainItem[k].Id+"' name='aaa' type=\"radio\"><span style='position: absolute;padding-top:0.4em'>"+json.userdata.maintainItem[k].ItemName+"</span><br/><br/></div>";
+                         
+                     }
+                     parentDiv+="</div>"
+                    parentDiv+="</div><br/><br/><br/><br/><br/>";
+                    
+               
+                 parentDiv+="<div class=\"ub ub-ver ub-f1 ub-con\" style='position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)' >"
+              
+              parentDiv+="<div class=\"uinn c-wh ub-ver\" id=\"btnTijiao\" onclick=\"getfeedback()\" >"
+              parentDiv+="<div class=\"btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1\">"
+               parentDiv+=" 提交"
+              parentDiv+="</div>" ;
+               parentDiv+="</div>";  
+              $("#list").html(parentDiv);
+              $("#parent").html(html);
+              $("#child").html(html1);
+              lie=$(".red");
+
+
+$(".oneDiv").on("click",function(){
+   $(this).children(".lblCss").toggleClass('red');
+   
+});
+   
+ 
+
+
+ $("#selectAll").on("click",function(){
+   
+   $(".lblCss1").toggleClass('blue'); 
+   if($(".lblCss1").hasClass('blue'))
+   {
+       
+       $(".lblCss").addClass("red");
+   }
+   else
+   {
+       $(".lblCss").removeClass('red');
+   }
+   
+})
+
+
+ //提交
+  appcan.button("#btnTijiao", "", function() {
+        //alert("in");
+        if(lie!=undefined&&lie!=null)
+        {
+            var canshu='';
+             $(".red").each(function(){
+                 if($(this).attr('id').split('b')[1]!=undefined)
+                 {
+                     canshu+=$(this).attr('id').split('b')[1]+',';
+                 }
+                });
+               // alert(canshu);
+            if(canshu!=undefined&&canshu!="")
+            {
+                //alert(0);
+               commit(canshu);
+            }
+            else
+            {
+                
+                alert("请选择国家标准！");
+            }
+        }
+        else
+        {
+            alert("请选择国家标准！");
+        }
+        
+    });
+        }   
+        else{
+            alert("查询不到对应数据！");
+            }
+        }});
+    }
+
+ 
+    function commit (canshu) {
+         alert("PEID:"+localStorage.mainPEId);
+         alert("PID:"+localStorage.mainPId);
+         alert("EID:"+localStorage.mainEId);
+         alert("GroupId:"+localStorage.mainGroupId);
+         alert("pointNo:"+localStorage.cardId);
+         alert("MtUserId:"+localStorage.mainMtUserId);
+         alert("ItemId"+canshu);
+         alert("workType:"+localStorage.workType);
+         alert(getuser("token"));
+         alert(localStorage.Coordinate);
+        appcan.request.ajax({
+           
+            type: "POST",
+            url: http+"MantainRecordItem",
+            data:{PEId:localStorage.mainPEId,
+                PId:localStorage.mainPId,
+                EId:localStorage.mainEId,
+                GroupId:localStorage.mainGroupId,
+                pointNo:localStorage.cardId,
+                MtUserId:localStorage.mainMtUserId,
+                Conclusion:2,
+                ItemId:canshu,
+                workType: localStorage.workType,
+                token:getuser("token"),
+                Coordinate:localStorage.Coordinate},
+            async: true,
+            datatype: "json",
+        timeout: 20000,
+        error:  function (XMLHttpRequest, textStatus, errorThrown) {
+            //alert(XMLHttpRequest.status);
+                        //alert(XMLHttpRequest.readyState);
+                       // alert(textStatus);
+                       alert(0);
+          },
+        success: function (data){
+               // alert(data);
+            var json=eval("("+data+")");
+          if(json.code=="1")
+          {
+              alert("提交成功！");
+              uexWindow.open('index3.html', '0', "index3.html", '10', '', '', '4');
+            
+          }
+        }});
+    }
+</script>
+</html>

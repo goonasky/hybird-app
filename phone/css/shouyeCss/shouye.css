@@ -1,0 +1,133 @@
+
+.bl{
+    border-left: solid 1px #D4D5D0;
+}
+.bt{
+    border-top: solid 1px #D4D5D0;
+}
+.br{
+    border-right: solid 1px #D4D5D0;
+}
+.bb{
+    border-bottom: solid 1px #D4D5D0;
+}
+
+.borderl{
+    border-left: solid 0.31em #D0D0CE;
+}
+.bordert{
+    border-top: solid 0.31em #D0D0CE;
+}
+.borderr{
+    border-right: solid 0.31em #D0D0CE;
+}
+.borderb{
+    border-bottom: solid 0.31em #D0D0CE;
+}
+body{
+    background-color: #E0E0DE !important;
+    min-width: 320px;
+}
+.main_conten
+{
+   overflow:hidden;
+   padding:0.31em;
+   border-radius:1em;
+   min-height:330px;
+   max-width: 640px;
+   margin: 0 auto;
+}
+.div_part
+{
+    float:left;
+    /*border: solid 1px #D4D5D0;*/
+    width: 32%;
+    height: 9.61em;
+    background-color: #F2F3EE;
+}
+.div_part a{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 68%;
+    text-align: center;
+    padding-top: 3.5em;
+    text-decoration: none;
+    color:#333;
+    font-size: 14px;
+    font-weight: bold;
+}
+.div_part span{
+     display: block;
+     margin-top: 0.7em;
+}
+.silder{
+    overflow: hidden;
+    padding-left:43%;
+    margin-top: 0.63em;
+    margin-bottom: 0.63em;
+}
+.sp_one,.sp_two{
+    
+    display: block;
+    float: left;
+    background-color: #E0E0DE;
+    width:1em;
+    height:1em;
+    background:url("../../img/shouyeImg/d1.png") no-repeat; 
+  }
+  .sp_two
+  {
+    margin-left:0.63em;
+    background:url("../../img/shouyeImg/d2.png") no-repeat; 
+  }
+  .page_footer{
+      width: 100%;
+      margin-top: 0em;
+      background-color: #E5E5E5;
+      border-top: solid 1px #A1A1A0;
+      height: 3.4em;
+     
+  }
+  .deepColor{
+      background-color: #313649;
+  }
+  .foot_part{
+      width: 25%;
+      height: 100%;
+      float: left;
+  }
+  .foot_part a{
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: #636466;
+  }
+   .foot_part img{
+       display: block;
+       margin: 0 auto;
+       margin-top: 0.3em;
+   }
+.white_color{
+       color: #FFFFFF !important;
+   }
+   #cover{
+    position: fixed;
+    z-index:10;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height:100%;
+    opacity: 0.5;
+    background: #000 none repeat scroll 0% 0%;
+}
+
+.imgSize{
+    height:50%;
+    weight:60%;
+}
+
+

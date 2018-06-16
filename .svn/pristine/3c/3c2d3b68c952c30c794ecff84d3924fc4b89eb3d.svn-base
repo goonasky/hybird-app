@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+<link rel="stylesheet" href="css-app/boilerplate.css">
+<link rel="stylesheet" href="css-app/ha6.css">
+<link rel="stylesheet" href="css-app/ha2.css">
+<link rel="stylesheet" href="css-app/ha8.css">
+<link rel="stylesheet" href="css-app/ha1.css">
+<link rel="stylesheet" href="css-app/hactn.css">
+<script src="js/zy_control.js"></script>
+<script src="js/zy_click.js"></script>
+<script src="js/cmd.js"></script>
+</head >  
+<body ontouchstart>
+    <div class="ha6_Container clearfix">
+		<div class="ha1_box12 clearfix" style="margin-top:-10px;">
+		    <p class="ha6_text5" style='text-indent: 0em;padding:5px;text-align:justify; text-justify:inter-ideograph;'>
+           	
+			 电梯维保监管评测系统<br/> <br/>
+					
+			</p>
+			
+		</div>
+        
+    </div>
+    
+</body>
+<script>
+window.uexOnload=function(type){
+	if(!type){
+		setbu();
+		lefth();
+	}
+}
+
+function setbu(){
+	uexWindow.setBounce("1");
+	uexWindow.hiddenBounceView("1");
+}
+
+</script>
+</html>

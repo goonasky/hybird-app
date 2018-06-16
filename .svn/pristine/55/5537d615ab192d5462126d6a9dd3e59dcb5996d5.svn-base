@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+
+    <link rel="stylesheet" href="css/esignDemo.css">
+    <style type="text/css">
+              .none{
+                display: none;  
+              }
+          .pwd-box{
+            
+            width:19.375em;
+            height:13.75em;
+            left:50%;
+            top:10%;
+            margin-left: -9.6875em;
+            position: absolute;
+            border: none;
+            background: white;
+            z-index: 101;
+        }
+        .pwd-box input[type="tel"]{
+            width: 99%;
+            height:2.8125em;
+            color: transparent;
+            position: absolute;
+            top:8.75em;
+            left: 0;
+            border: none;
+            font-size:1em;
+            opacity: 0;
+            z-index: 1;
+            letter-spacing:2.1875em;
+        }
+        .fake-box{
+            width:17.5em;
+            margin-left:1em;
+            bottom:0.125em;
+            height:2.5625em;
+            margin-top:2em;
+            border:1px solid #bfb6b6;
+        }
+        .fake-box input{
+            width:2.5625em;
+            height:2.5625em;
+            border: none;
+            border-right: 1px solid #e5e5e5;
+            text-align: center;
+            font-size:2em;
+            margin:0 !important;
+        }
+        .fake-box input:nth-last-child(1){
+            border:none;
+        }
+        #box-title{
+            height:2.5em;
+            width:100%;
+            border-bottom: 0.2px solid #e5e5e5;
+        }
+        #title-text{
+            height:2em;
+            width:12.5em;
+            text-align: center;
+            line-height:1.6875em;
+            display: block;
+            margin-left:3.4375em;
+            margin-top:0.625em;
+        }
+        #money-box{
+            width: 100%;
+            height:3.125em;
+        }
+        #content-text{
+            height:2em;
+            width:12.5em;
+            text-align: center;
+            line-height:1.6875em;
+            display: block;
+            margin-left:3.4375em;
+            margin-top:0.652em;
+            font-size:1.375em;
+        }
+        #forget-pwd{
+            margin-top:0.3125em;
+            margin-right:1em;
+            float: right;
+            text-decoration:none;
+            color: #666;
+        }
+      </style>
+</head>
+<body>
+    
+      <div class="pwd-box none">
+    <div id="box-title">
+        <span id="title-text">请输入确认密码：</span>
+    </div>
+   
+    <!-- <input type="tel" maxlength="6" class="pwd-input" id="pwd-input">
+    <div class="fake-box">
+        <input type="password" readonly="">
+        <input type="password" readonly="">
+        <input type="password" readonly="">
+        <input type="password" readonly="">
+        <input type="password" readonly="">
+        <input type="password" readonly="">
+    </div> -->
+    <div class="uba b-gra umar-a uc-a1 c-wh">
+                       <div class="ub ub-ac">
+                     <div class="umhw respwd ub-img umar-l">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
+                       <div class="ub-f1 uinput uinn">
+                       <input placeholder="请输入密码" id="pwd1"  value="" type="password" class="uc-a1">
+                     </div>
+                     </div>
+     </div>
+     
+     <div class="uin uinn check_password">
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="submit">
+                                   确定
+                            </div>
+     </div>
+   
+</div>
+   <div class="  " id="btnTijiao">
+       
+             <div   id="sign_ok" style="margin-left: 0.5em;float: right;width: 40%" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1">提交</div>
+             <div   id="sign_clear"   style="background: orange" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >删除</div>
+    </div>
+    <div class="canvasDiv" >
+            <canvas width="1100" height="1100" id="canvasEdit"></canvas>
+    </div>
+
+    <div class="imgDiv" style="display: none">
+        <span id="sign_show"></span>
+    </div>
+    
+   
+    
+    
+    
+    
+                  
+
+   
+  
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/esign.js"></script>
+<script type="text/javascript" src="js/cmd.js"></script>
+<script type="text/javascript" src="js/myDB.js"></script>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script type="text/javascript">
+
+         
+$(function(){
+    //初始化动作，根据DOM的ID不同进行自定义，如果不写则内部默认取这四个
+    $().esign("canvasEdit", "sign_show", "sign_clear", "sign_ok");
+});
+
+
+
+ 
+uexWindow.setSlidingWindowEnabled(0); 
+</script>
+</body>
+</html>

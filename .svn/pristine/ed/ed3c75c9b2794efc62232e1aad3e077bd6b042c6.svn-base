@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+  <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+       
+</head>
+
+    <body  class="um-vp bc-bg" ontouchstart>
+  <form name="formpost" method="post" action="javascript:return" onsubmit="login(event);" autocomplete="off" autocapitalize="off">
+                <div class="ha8_box clearfix">
+                    <div class="ha8_box3a clearfix">
+                        <p style='color:white; text-align:center'>
+                        <img class="tbm_image image" src="img/icon.png" style="margin:0 auto;"/>
+                        <br/>
+                        电梯维保监管评测系统
+                        </p> 
+                     
+                    </div> 
+                </div>  
+                <div class="ub ub-ver ub-f1">
+                     <div class="uba b-gra umar-a uc-a1 c-wh">
+                         <div class="ub ub-ac">
+                           <div class="umhw resuser ub-img umar-l">单&nbsp;&nbsp;&nbsp;&nbsp;位：</div>
+                         <div class="ub-f1 uinput uinn">
+                           <input placeholder="请输入单位编号" id="groupName" type="text" class="uc-a1">
+                         </div>
+                           </div>
+                     </div>
+                     <div class="uba b-gra umar-a uc-a1 c-wh">
+                     <div class="ub ub-ac">
+                       <div class="umhw resuser ub-img umar-l">用户名：</div>
+                     <div class="ub-f1 uinput uinn">
+                       <input placeholder="请输入用户名" id="userName"  value="" type="text" class="uc-a1">
+                     </div>
+                       </div>
+                     </div>
+                    
+                     <div class="uba b-gra umar-a uc-a1 c-wh">
+                       <div class="ub ub-ac">
+                     <div class="umhw respwd ub-img umar-l">密&nbsp;&nbsp;&nbsp;&nbsp;码：</div>
+                       <div class="ub-f1 uinput uinn">
+                       <input placeholder="请输入密码" id="pwd"  value="" type="password" class="uc-a1">
+                     </div>
+                     </div>
+                   </div>
+
+                        <div class="ub umar-a ub-ac">
+                           
+                        </div>
+                        <input type="submit" style='border:none' value="" />
+                        <div class="uin uinn" ontouchstart="zy_touch('btn-act1')"  onclick="login(event)";>
+                            <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" id="submit">
+                                登　录
+                            </div>
+                        </div>
+                        <button type="submit"class="uinvisible"></button>
+                </div>
+        </form>
+
+</body>
+<script src="js/cmd.js"></script>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script>      
+
+ appcan.ready(function() { 
+                getType();
+                uexWindow.setBounce("0");// 不支持支持网页弹动
+                lefth();
+                localStorage.imei=guid();
+                
+     })
+       
+        function register(e){
+            e.stopPropagation();
+            e.preventDefault();
+            uexWindow.open('register', '0', "register_top.html", '10', '', '', '4');
+        }
+        
+        function forget(e){
+            e.stopPropagation();
+            e.preventDefault();
+            uexWindow.open('forgetpassword', '0', "forgetpassword_top.html", '10', '', '', '4');
+        }
+        
+        function login(e){
+        e.stopPropagation();
+        e.preventDefault();
+       // alert(1);
+        // if(checkmo($$("phone").value)==false){
+            // uexWindow.toast("0","5","请输入正确的手机号码！","2000");
+            // return;
+        // }
+        var txtGroupName = $("#groupName").val();
+        var txtUserName = $("#userName").val();
+        var txtPwd = $("#pwd").val();
+        
+        if (txtGroupName == "") {
+                appcan.window.openToast('单位编码不能为空', '2000');
+                return;
+            } 
+        if (txtUserName == "") {
+                appcan.window.openToast('用户名不能为空', '2000');
+                return;
+            }
+        if(txtPwd.length<6 || txtPwd.length>20){
+            uexWindow.toast("0","5","密码长度在6-20位之间","2000");
+            return;
+        }
+            
+        uexWindow.toast("1","5","正在登录...","0");
+    
+        var url1 = http+"LoginValidate";
+       
+     appcan.request.ajax({
+          
+            
+            type: "POST",
+            url: url1,
+            data:{groupName:txtGroupName,userName:txtUserName,pwd:txtPwd,MobileType:mType,imei:localStorage.imei},
+            //ata:{groupName:"快意电梯",userName:"zhm",pwd:"123456",MobileType:"1",imei:"863756027904674"},
+            //data:{phone:txtGroupName,password:txtUserName,mac_code:""},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+             alert("登录失败！");
+             uexWindow.closeToast();
+          },
+        success: function (data){
+            //alert(data);
+           uexWindow.closeToast();
+            loginhtml(data);
+         
+        
+        }});
+        }
+    
+ 
+    
+    function loginhtml(str){
+        //alert(str);
+        var json=eval("("+str+")");
+        if(json.info=="登陆成功"){
+            uexWindow.toast("0","5",json.info,"3000");
+            localStorage.userId=json.userdata.userId;
+            localStorage.loginjson=str;
+            localStorage.groupId=json.userdata.groupId;
+            localStorage.nickName=json.userdata.nickName;
+            localStorage.groupDisplayName=json.userdata.groupDisplayName;
+            
+            localStorage.MtuserId=json.userdata.mtUserId;
+            //uexWindow.evaluateScript("root", 0, "relist();");
+            //setTimeout("swipeRight()",1200);//登陆成功以后，关闭本页面。
+            appcan.window.open({
+                name:'root',
+                dataType:0,
+                data:'index3.html'
+            });
+            setAliasAndTags();
+           //uexWindow.open('index3.html', '0', "index3.html", '10', '', '', '1024');
+        }
+        if(json.info=="密码错误")
+        {
+            uexWindow.toast("0","5",json.info,"3000");
+        } 
+        if(json.info=="该用户非维保人员用户"){
+             uexWindow.toast("0","5","该单位或用户不存在","3000");
+        }
+    }
+    
+   //获取手机类型
+   var mType;
+   function getType () {
+            //alert(0);
+            var name = uexWidgetOne.platformName;   
+            //alert(name); 
+            if (name == "android") {
+                mType=1;
+            }
+            else{
+                mType=0;
+            }
+            localStorage.phoneType=mType;
+     
+   }
+    
+    
+    function setAliasAndTags(){
+             var tags=new Array(localStorage.groupId);
+             var params = {
+                 alias:localStorage.userId,
+                 tags:tags
+             };
+             var data = JSON.stringify(params);
+             uexJPush.setAliasAndTags(data);
+     } 
+</script>
+</html>

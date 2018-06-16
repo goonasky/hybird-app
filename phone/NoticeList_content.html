@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+<link rel="stylesheet" href="css-app/boilerplate.css">
+<link rel="stylesheet" href="css-app/ha6.css">
+<link rel="stylesheet" href="css-app/ha2.css">
+<link rel="stylesheet" href="css-app/ha1.css">
+<link rel="stylesheet" href="css-app/hactn.css">
+<script src="js/cmd.js"></script>
+<script src="js/zy_control.js"></script>
+<script src="js/ts.js"></script>
+<script src="js/zy_click.js"></script>
+<style rel="stylesheet">
+    .ha1_box13 
+    {
+        height: 3em;
+    }
+</style>
+</head > 
+<body ontouchstart>
+     <div class="ha1_Container clearfix">  
+        
+        <div class='ha1_box12 clearfix' id='list'>
+                             
+        </div>
+    </div>
+</body>
+<script>
+    var pages=1;
+    var rows=10;
+    var imgu="";
+    var category=0;//0通知公告
+      
+window.uexOnload=function(type){
+    //alert(0);
+    if(!type){
+        getzxs();//加载数据
+        setBounceView();//下拉之后加载数据
+    }
+}
+
+function setBounceView(){
+    if(window.navigator.platform!='Win32'){
+        uexWindow.onBounceStateChange = function (type,status){
+            if(type==1 && status==2) {
+                pages++;
+                getzxs();
+            }
+        }
+        uexWindow.setBounce("1");
+        uexWindow.notifyBounceEvent("1","1");
+        var s='{"imagePath":"","textColor":"#aaa","levelText":"","pullToReloadText":"上拉加载更多...","releaseToReloadText":"释放加载...","loadingText":"加载中，请稍等"}';
+        uexWindow.setBounceParams("1",s);
+        uexWindow.showBounceView("0", '', '0');
+        uexWindow.showBounceView("1", '', '1');
+    }
+}
+
+function getzxs(){
+        if(pages==1){$$("list").innerHTML="";}
+        uexWindow.toast("1","5","正在获取...","0");
+         var url = http+"GetNoticeList";
+         
+        uexXmlHttpMgr.onData = getzxsSuccess;
+        uexXmlHttpMgr.open(51121323, "post", url,"");
+        uexXmlHttpMgr.setPostData(51121323,'0','pageIndex',pages);
+        uexXmlHttpMgr.setPostData(51121323,'0','pageSize',rows);
+        uexXmlHttpMgr.setPostData(51121323,'0','category',category);
+         uexXmlHttpMgr.setPostData(51121323,'0','token',getuser("token"));   
+         uexXmlHttpMgr.setPostData(51121323,'0','groupId',getuser("groupId"));
+        // uexXmlHttpMgr.setPostData(51121323,'0','token','gamol4j0jwz45n55fufl5d45');   
+        // uexXmlHttpMgr.setPostData(51121323,'0','groupId',1);
+                 
+        uexXmlHttpMgr.send(51121323);
+}
+
+function getzxsSuccess(opid,status,result){
+    
+        if (status == -1) {
+            uexWindow.toast("0","5","远程服务器连接不上或网络连接超时","3000");
+            return;
+        }
+        uexWindow.closeToast();
+        if(status==1){
+            uexXmlHttpMgr.close(51121323);
+            uexWindow.resetBounceView("1");
+            setBounceView();
+            showzxs(result);
+        }
+}
+  
+
+function showzxs(str){
+    var json=eval("("+str+")");
+    //alert(json.code);
+      if(json.code==101){
+        localStorage.removeItem('loginjson');
+        uexWindow.evaluateScript("",0,"winclose();");
+        uexWindow.toast("0","5","登陆失效，请重新登陆","3000");
+        uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '4');
+        uexWindow.evaluateScript("", 0, "reThis();");
+        return;
+    }
+    html="";
+     if(json.code=="1")
+    {
+        
+        for(var i=0;i<json.userdata.infoList.length;i++){
+        html+="<div  ontouchstart=zy_touch('btn-act1') onclick=zxslistDetial('"+json.userdata.infoList[i].ID+"','"+json.userdata.infoList[i].ID+"',event);>";
+  
+        html+="<div class='ubb ub bc-border t-bla ub-ac lis' style='line-height:1.5;padding-left:10px;'>";
+        html+="<p class='ha1_text4 tx_l1'>";
+          
+        html+="</p>";
+        html+="<p class='font-o'>";
+        html+="通知："+json.userdata.infoList[i].Title;        
+        html+="</p>";
+       
+       
+        html+="<p>";
+        html+="创建时间："+json.userdata.infoList[i].CreateTime;        
+        html+="</p>";
+        
+       
+        
+        html+="</div>";
+     html+="<div class='sd'>";
+        html+="</div>"
+        html+="</div>";
+        }
+    }
+    else if(json.code=="0")
+    {
+       uexWindow.toast("0","5","没有更多数据","2000");
+    }
+    
+    var div = document.createElement("div");
+    div.innerHTML=html;
+    $$("list").appendChild(div);
+}
+
+//详情页面
+function zxslistDetial(id,name,e){
+    localStorage.tongzhiId=id;
+    if(e!=null&&typeof(e)!='undefined'){
+        e.stopPropagation();
+        e.preventDefault();
+    }
+    uexWindow.open('NoticeInfo.html', '0', "NoticeInfo.html", '10', '', '', '4');
+}
+</script>
+</html>

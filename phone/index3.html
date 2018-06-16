@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/shouyeCss/shouye.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+    </head>
+    <body class="um-vp " ontouchstart>
+        <div id="page_0" class="up ub ub-ver bc-bg" tabindex="0">
+           <!--header开始-->
+            <div id="header" class="uh bc-text-head ub bc-head">
+                <div class="nav-btn nav-bt" >
+                   
+                </div>
+                <h1 class="ut ub-f1 ulev-3 ut-s" style="padding-left: 1em;" tabindex="0">电梯维保监管评测系统</h1>
+            </div>
+            <!--header结束--><!--content开始-->
+            <div id="content" class="ub-f1 tx-l">
+                
+                
+            </div>
+            
+            <!-- <textarea id="test" style="height: 30em;width: 20em"></textarea> -->
+            
+            
+           
+            <div class="page_footer"> 
+                <div id="RCGZ" class="foot_part deepColor">
+                <a href="####" id="btnGZ">
+                    <img src="img/shouyeImg/dailyW.png" class="imgSize">  
+                    <span class="white_color">日常工作</span>
+                </a>  
+            </div> 
+            <div id="WSSC" class="foot_part ">
+                <a class="notOpen1" id="btnSC">
+                    <img src="img/shouyeImg/buyG.png" class="imgSize">  
+                    <span>网上商城</span>
+                </a>  
+            </div> 
+              <div id="WSBJ"  class="foot_part ">
+                <a class="notOpen1" id="btnBJ">
+                    <img src="img/shouyeImg/baojianG.png" class="imgSize">  
+                    <span>网上报检</span>
+                </a>  
+            </div> 
+              <div id="XXJL" class="foot_part ">
+                <a id="btnSZ">
+                    <img src="img/shouyeImg/infoG.png" class="imgSize">  
+                    <span>设置中心</span>
+                </a>  
+            </div> 
+          
+             </div>   
+                
+                
+           
+            <!--content结束-->
+
+        </div>  
+    </body>
+       <script src="js/cmd.js"></script>
+       <script src="js/appcan.js"></script>
+       <script src="js/appcan.control.js"></script>
+       <script src="js/myDB.js"></script>
+         <script src="js/shouyeJs/shouye.js"></script>
+    <script> 
+          appcan.ready(function() { 
+              //极光推送
+             
+              
+           var titHeight = $('#header').offset().height;
+           appcan.frame.open("content", "index3_content.html", 0, titHeight);
+                window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+           } 
+           
+           createTable();//创建数据库
+                    
+           setTimeout('getverApp();',100);  //更新安装包
+           uexWindow.setBounce("0");// 不支持支持网页弹动
+           
+            
+          
+           uexJPush.onReceiveNotificationOpen = onReceiveNotificationOpen;
+            //localStorage.imei=guid();
+            
+        });
+        
+        
+        appcan.button("#btnSZ", "", function() {
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "my.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        })
+        
+        function reflash () {
+           var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "my.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        }
+         
+       appcan.button("#btnGZ", "", function() {
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "index3_content.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        })
+        
+       appcan.button("#btnSC", "", function() {
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "html404_content.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        })
+        
+        
+
+       appcan.button("#btnBJ", "", function() {
+            var titHeight = $('#header').offset().height;
+            appcan.frame.open("content", "html404_content.html", 0, titHeight);
+            window.onorientationchange = window.onresize = function() {
+                appcan.frame.resize("content", 0, titHeight);
+            }
+        })
+        
+        function bottomSelect(num,e){
+            if(e!=null&&typeof(e)!='undefined'){
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            
+        }
+          //极光推送（方法）
+             function onReceiveNotificationOpen(info){
+              //alert(info);
+              var json=eval("("+info+")");
+              //alert(json.extras.type);
+              //alert(json.extras.itemId);
+              if(json.extras.type==0){
+                  //alert(0);
+                  localStorage.BusinessCode=json.extras.itemId;
+                  //alert(localStorage.BusinessCode);
+                  uexWindow.open('businessListinfo_top', '0', "businessListinfo_top.html", '10', '', '', '4');
+              }
+              
+              if(json.extras.type==1){
+                  //alert(1);
+                  var a="info"+json.extras.itemId;
+                  localStorage.ID=a;
+                  //alert(localStorage.BusinessCode);
+                  uexWindow.open('infoDetail_top', '0', "infoDetail_top.html", '10', '', '', '4');
+              }
+              
+               
+        } 
+   
+      
+    </script>
+</html>

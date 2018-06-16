@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px"><head>
+<meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+
+<style rel="stylesheet">
+      .none{
+        display: none;
+    }
+    .parentDiv{
+        width: 100%;
+        font-size: 1em;
+        height: 2.2em;
+        padding-top:0.5em;
+        margin-bottom: 5px;
+        background-color: white;
+        text-align: center;
+        border: 1px solid black;
+    }
+    input[type="radio"]{
+        width: 1em;
+        display: inline-block !important;
+        height: 1em;
+    }
+    .hidden-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+    .lblCss{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    background-image: url("img/chk_2a.png"); 
+    margin-right: 5px;
+    vertical-align: middle;
+    }
+    .red{
+        background-image: url("img/chk_2b.png");
+    }
+</style>
+<style>
+           
+.btn-select {
+position: relative;
+display: inline-block;
+width: 100%;
+background-color: #f80;
+font: 14px/20px "Microsoft YaHei";
+color: #fff;
+padding: .6em 0em;
+min-height: 2.2em;
+font-size: 1em;
+text-align: center;
+margin-top: 1em;
+}
+.btn-select .cur-select {
+position: absolute;
+display: block;
+width: 100%;
+height: 2.2em;
+line-height: 2.2em;
+background: #f80 url(ico-arrow.png) no-repeat 125px center;
+}
+.btn-select:hover .cur-select {
+background-color: #f90;
+}
+.btn-select select {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 35px;
+opacity: 0;
+filter: alpha(opacity: 0;);
+font: 14px/20px "Microsoft YaHei";
+color: #f80;
+}
+.btn-select select option {
+text-indent: 10px;
+}
+.btn-select select option:hover {
+background-color: #f80;
+color: #fff;
+} 
+       </style>
+
+</head>  
+<body ontouchstart="">
+     <div class="ha1_Container clearfix">  
+     
+          
+          <a class="btn-select" id="btn_select" style="display: block;">
+<span class="cur-select">救援成功</span>
+<!-- <select name="select" id="selectResult">
+           
+            <option value="0">救援失败</option>
+            <option value="1">救援成功</option>
+            <option value="2">自行脱困</option>
+          </select> -->
+</a> 
+
+        <div class="ha1_box12 clearfix" id="list">
+            
+              
+               
+                 <!-- <select style="width:100%" id='parent'>
+                 </select>   
+                 <br/> 
+                  <select style="width:100%" id='child'>
+                 </select>   -->  
+                    
+        </div>
+    </div>
+    </body>
+<script src="js/cmd.js"></script>
+ <script src="js/appcan.js"></script>
+  <script src="js/appcan.control.js"></script>
+<script>
+var resultType='';
+
+var btnSelect = document.getElementById("btn_select");
+var curSelect = btnSelect.getElementsByTagName("span")[0];
+var oSelect = btnSelect.getElementsByTagName("select")[0];
+var aOption = btnSelect.getElementsByTagName("option");
+
+ 
+
+
+ appcan.ready(function() {
+            appcan.initBounce(); 
+             uexLocation.openLocation();//打开定位
+            uexLocation.onChange = function(lat, log){  
+           localStorage.Coordinate= log+ "," + lat;  
+           
+    }  
+            getzxs();
+            
+            
+            
+    });
+        var lie;
+//初始化下拉框
+function getzxs(){
+       appcan.request.ajax({
+            type: "POST",
+             url: http+"GetBreakdownType",
+            data:{token:getuser("token")},
+           // data:{token:"x5mcxdq15c5fsl451wpccp45"},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+          },
+        success: function (data){
+           var json=eval("("+data+")");
+         var html="";
+         var html1="";
+         var parentDiv="";
+         var childDiv="";
+         if(json.code=="1")
+        { 
+            //alert(json.code);
+              for(var i=0;i<json.userdata.BreakdownType.length;i++)
+              {
+                  if(json.userdata.BreakdownType[i].ParentCode=="0")
+                  {
+                    parentDiv+="<div><div class='parentDiv "+json.userdata.BreakdownType[i].BreakDownTypeCode+"'>"+json.userdata.BreakdownType[i].Name+"</div>";
+                     parentDiv+="<div class=\"none radioDiv\">"
+                     for(var k=0;k<json.userdata.BreakdownType.length;k++)
+                     {
+                         if(json.userdata.BreakdownType[k].ParentCode==json.userdata.BreakdownType[i].BreakDownTypeCode)
+                         {
+                             
+                             parentDiv+="<div style='style:postion:reletive;'><label class='lblCss' for='"+json.userdata.BreakdownType[k].Name+"'></label><input class='hidden-input "+json.userdata.BreakdownType[k].BreakDownTypeCode+"' id='"+json.userdata.BreakdownType[k].Name+"' name='aaa' type=\"radio\"><span class='breadItem' style='width:85%;position: absolute;padding-top:0em'>"+json.userdata.BreakdownType[k].Name+"</span></div><br/>";
+                             //parentDiv+="<input type="radio"  class='"+json.userdata.BreakdownType[k].BreakDownTypeCode+"' name='"+json.userdata.BreakdownType[i].BreakDownTypeCode+"' value='"+json.userdata.BreakdownType[k].Name+"'>"+json.userdata.BreakdownType[k].Name+"";
+                         }
+                     }
+                     parentDiv+="</div>"
+                    parentDiv+="</div>";
+                    //html+="<option value ='"+json.userdata.BreakdownType[i].BreakDownTypeCode+"'>"+json.userdata.BreakdownType[i].Name+"</option>";   
+                  }
+                  
+                    // if(json.userdata.BreakdownType[i].ParentCode=="00")
+                    // {
+                        // html1+="<option value ='"+json.userdata.BreakdownType[i].BreakDownTypeCode+"'>"+json.userdata.BreakdownType[i].Name+"</option>";
+                    // }
+               }
+               parentDiv+="<div class=\"ub ub-ver ub-f1 ub-con\" style='position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)' >"
+              
+               parentDiv+="<div class=\"uinn c-wh ub-ver\" id=\"btnTijiao\"  style='height:100'>"
+               parentDiv+="<div class=\"btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1\">"
+               parentDiv+="提交"
+               parentDiv+="</div>" ;
+               parentDiv+="</div>"; 
+              $("#list").html(parentDiv);
+              $("#parent").html(html);
+              $("#child").html(html1);
+              lie=$("[name='aaa']");
+              $(".parentDiv").on("click",function(){
+   $(this).siblings("div").toggleClass('none');
+   $(this).parent().siblings().children(".radioDiv").addClass("none");
+   
+});
+ $(".lblCss").on("click",function(){
+     $(".lblCss").removeClass('red');
+   $(this).toggleClass('red');
+   
+});
+$(".breadItem").on("click",function(){
+     $(".lblCss").removeClass('red');
+     //alert(1);
+   $(this).siblings(".lblCss").toggleClass('red');
+   
+});
+
+ //提交
+  appcan.button("#btnTijiao", "", function() {
+     // alert(1);
+        if($(".red").attr('class')!=undefined)
+        {
+            var canshu= $(".red").siblings("[name='aaa']").attr('class').split(' ')[1];
+            
+            if(canshu!=undefined&&canshu!="")
+            {
+              
+             commit(canshu);
+            }
+            else
+            {
+                alert("请选择故障原因！");
+            }
+        }
+        else
+        {
+            alert("请选择故障原因！");
+        }
+        
+    });
+        }   
+        else{
+            alert("查询不到对应数据！");
+            }
+        }});
+    }
+
+ 
+    function commit (canshu) {
+      // alert(2);
+        uexWindow.toast("1","5","正在提交...","0");    
+             var code=localStorage.BusinessCode;
+       
+           var dt = new Date();
+       
+        var d=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+        
+        appcan.request.ajax({
+            type: "POST",
+            url: http+"SetbusinessRescueTime",
+            data:{businessCode:code,time:d.toLocaleString(),breakdowntypeCode:canshu,token:getuser("token"),Result:1,MtGroupId:getuser("groupId"),Coordinate:localStorage.Coordinate},
+            async: true,
+            datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+            uexWindow.closeToast();
+            alert("faile");
+          },
+        success: function (data){
+           // alert(data);
+            var json=eval("("+data+")");
+             alert(json.info);
+             uexWindow.closeToast();   
+          if(json.code=="1")
+          {
+               
+             uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+              
+              //appcan.window.close(0); 
+          }
+          
+        }});
+    }
+</script>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, initial-scale=1">
+<!-- <link rel="stylesheet" href="css-app/boilerplate.css"> -->
+<link rel="stylesheet" href="css-app/ha6.css">
+<link rel="stylesheet" href="css-app/ha2.css">
+<link rel="stylesheet" href="css-app/ha1.css">
+<link rel="stylesheet" href="css-app/hactn.css">
+<script src="js/cmd.js"></script>
+<style rel="stylesheet">
+    #btnTijiao{
+        width: 93%;
+        min-height: 2.2em;
+        font-size: 1em;
+        color: white;
+        text-align: center;
+        background-color: #3498db;
+        margin-top: 10px;
+        padding-top: 0.5em;
+        position: fixed;
+        bottom: 0px;
+    }
+    .none{
+        display: none;
+    }
+    .parentDiv{
+        width: 100%;
+        font-size: 1em;
+        height: 2.2em;
+        padding-top:0.5em;
+        margin-bottom: 5px;
+        background-color: white;
+        text-align: center;
+        border: 1px solid black;
+    }
+    input[type="radio"]{
+        width: 1em;
+        display: inline-block !important;
+        height: 1em;
+    }
+    .hidden-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+    .lblCss{
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    background-image: url("img/chk_2a.png"); 
+    margin-right: 5px;
+    }
+    .red{
+        background-image: url("img/chk_2b.png");
+    }
+</style>
+<style>
+           
+.btn-select {
+position: relative;
+display: inline-block;
+width: 100%;
+background-color: #f80;
+font: 14px/20px "Microsoft YaHei";
+color: #fff;
+padding: .6em 0em;
+min-height: 2.2em;
+font-size: 1em;
+text-align: center;
+}
+.btn-select .cur-select {
+position: absolute;
+display: block;
+width: 100%;
+height: 2.2em;
+line-height: 2.2em;
+background: #f80 url(ico-arrow.png) no-repeat 125px center;
+}
+.btn-select:hover  {
+background-color: #f90;
+}
+.btn-select select {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 35px;
+opacity: 0;
+filter: alpha(opacity: 0;);
+font: 14px/20px "Microsoft YaHei";
+color: #f80;
+}
+.btn-select select option {
+text-indent: 10px;
+}
+.btn-select select option:hover {
+background-color: #f80;
+color: #fff;
+} 
+       </style>
+
+</head>  
+<body ontouchstart="">
+     <div class="ha1_Container clearfix">  
+          
+          
+          <a class="btn-select" id="btn_select" style="display: block;">
+<span class="cur-select"></span>
+
+</a> 
+
+        <div class="ha1_box12 clearfix" id="list">
+            &nbsp;&nbsp;&nbsp;<span>反馈：</span>
+              <textarea id="feedbackText"  style=" width:95%; height:16em; margin-left:2%; margin-top:0.6em; font-size: 1.5em" placeholder="说点什么吧" ></textarea>
+
+               
+             
+             <div id="btnTijiao"><div>提交</div></div>        
+        </div>
+    </div>
+   </body> 
+
+ <script src="js/appcan.js"></script>
+  <script src="js/appcan.control.js"></script>
+<script>
+ appcan.ready(function() {
+            appcan.initBounce();  
+                uexLocation.openLocation();//打开定位
+            uexLocation.onChange = function(lat, log){  
+           localStorage.Coordinate= log+ "," + lat;  
+           
+    }  
+            if(localStorage.result==0)
+            {
+                 $(".cur-select").text("救援失败");
+            }
+            else
+            {
+                $(".cur-select").text("自行脱困");
+            }
+           
+            
+    });
+    appcan.button("#btnTijiao", "", function() {
+        var text1=$("#feedbackText").val().trim(' ');
+         var code=localStorage.BusinessCode;
+          appcan.request.ajax({
+            type: "POST",
+            url: http+"SetBussinessFeedBack",
+            data:{bussinessCode:code,token:getuser("token"),result:text1,Coordinate:localStorage.Coordinate,status:2},
+            async: true,
+            datatype: "json",
+        timeout: 20000,
+        error:  function (data) {
+          },
+        success: function (data){
+            var json=eval("("+data+")");
+            
+          if(json.code=="1")
+          {
+              alert("提交成功！");
+              //uexWindow.open('index3.html', '0', "index3.html", '10', '', '', '1024');
+              uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+          }
+        }});
+        
+    });
+    
+</script>
+</html>

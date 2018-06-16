@@ -1,0 +1,437 @@
+.ha5_Container {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+	padding-bottom:1em;
+}
+
+.ha5_box {
+    float: none;
+    height: 4.8em;
+    margin: 0.2em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+}
+
+.ha5_box1 {
+    float: left;
+    height: 4em;
+    margin: 0.3em 0px 0px 0.3em;
+    clear: none;
+    width: 4em;
+    min-height: 50px;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+.ha5_text {
+    float: left;
+    font-size: 1em;
+    width: 72%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.4em 0px 0px 0.5em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.ha5_text1 {
+    float: left;
+    font-size: 0.8em;
+    width: 72%;
+    height: 1.4em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.4em 0px 0px 0.5em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.ha5_text2 {
+    float: left;
+    font-size: 0.8em;
+    width: 72%;
+    height: 1.4em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.2em 0px 0px 0.5em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.ha5_box2 {
+    float: none;
+    height: 4.8em;
+    margin: 0.2em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    z-index: 1;
+}
+
+.ha5_box3 {
+    float: left;
+    height: 4em;
+    margin: 0.3em 0px 0px 0.3em;
+    clear: none;
+    width: 4em;
+    min-height: 50px;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+.ha5_text3 {
+    float: left;
+    font-size: 1.1em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.4em;
+    margin: 0.4em 0px 0px 0.5em;
+    clear: none;
+    min-height: 0px;
+    min-width: 5em;
+    color: rgb(80, 80, 80);
+}
+
+.ha5_text5 {
+    float: left;
+    font-size: 0.8em;
+    width: 72%;
+    height: 1.4em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 1em 0px 0px 0.5em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+    overflow: hidden;
+}
+
+.ha5_text4 {
+    float: right;
+    font-size: 0.8em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(189, 189, 189);
+    position: absolute;
+    top: 1em;
+    left: auto;
+    right: 0.4em;
+    bottom: auto;
+    z-index: 50;
+}
+
+.ha5_box4 {
+    float: none;
+    height: 4.8em;
+    margin: 0.2em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.ha5_box5 {
+    float: left;
+    height: 3em;
+    margin: 0.8em 0px 0px 0.5em;
+    clear: none;
+    width: 3em;
+    min-height: 0px;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    background-size: cover;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    border: 1px solid rgb(214, 214, 214);
+    background-position: 50% 50%;
+    background-repeat: no-repeat no-repeat;
+}
+
+.ha5_text6 {
+    float: left;
+    font-size: 0.9em;
+    width: 45%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.45em 0px 0px 0.7em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(189, 189, 189);
+    overflow: hidden;
+}
+
+.ha5_text7 {
+    float: left;
+    font-size: 0.9em;
+    width: 72%;
+    height: 1.1em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.3em 0px 0px 0.7em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.ha5_text8 {
+    float: left;
+    font-size: 0.8em;
+    width: 72%;
+    height: 1.1em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.4em 0px 0px 0.7em;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+    overflow: hidden;
+}
+
+.ha5_box6 {
+    float: none;
+    height: 4.8em;
+    margin: 0.2em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+}
+
+.ha5_text9 {
+    float: none;
+    font-size: 1em;
+    width: 90%;
+    height: auto;
+    text-align: left;
+    font-weight: 100;
+    line-height: 1.4em;
+    margin: 0.7em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(225, 151, 46);
+}
+
+.ha5_text10 {
+    float: none;
+    font-size: 0.8em;
+    width: 90%;
+    height: 1.4em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.75em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+    overflow: hidden;
+}
+
+.ha5_box7 {
+    float: none;
+    height: auto;
+    margin: 0.6em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 8em;
+    border: 1px solid rgb(214, 214, 214);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+    padding-bottom: 0.5em;
+}
+
+.ha5_text11 {
+    float: none;
+    font-size: 1em;
+    width: 95%;
+    height: auto;
+    text-align: left;
+    font-weight: 100;
+    line-height: 1.4em;
+    margin: 0.7em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(225, 151, 46);
+}
+
+.ha5_text12 {
+    float: none;
+    font-size: 0.9em;
+    width: 98%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.75em auto 0px;
+    clear: none;
+    min-height: 50px;
+    min-width: 0px;
+    color: rgb(102, 102, 102);
+    overflow: hidden;
+}
+
+.ha5_box8 {
+    float: none;
+    height: 4.8em;
+    margin: 0.2em auto 0px;
+    clear: none;
+    width: 98%;
+    min-height: 50px;
+    border: 1px solid rgb(214, 214, 214);
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+
+.ha5_text14 {
+    float: none;
+    font-size: 1em;
+    width: 92%;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.4em;
+    margin: 0.4em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(80, 80, 80);
+    overflow: hidden;
+}
+
+.ha5_text15 {
+    float: none;
+    font-size: 0.8em;
+    width: 92%;
+    height: 1.1em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.3em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(141, 141, 141);
+    overflow: hidden;
+}
+
+.ha5_text16 {
+    float: none;
+    font-size: 0.8em;
+    width: 92%;
+    height: 1.1em;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1.3em;
+    margin: 0.4em auto 0px;
+    clear: none;
+    min-height: 0px;
+    min-width: 0px;
+    color: rgb(189, 189, 189);
+    overflow: hidden;
+}
+
+.ha5_text13a {
+    float: right;
+    font-size: 0.9em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgb(19, 201, 149);
+    position: absolute;
+    top: 2.3em;
+    left: auto;
+    right: 0.7em;
+    bottom: auto;
+    z-index: 50;
+}
+
+.ha5_text13b {
+    float: right;
+    font-size: 0.9em;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: normal;
+    line-height: 1em;
+    clear: none;
+    min-height: 0px;
+    color: rgba(249,100,0,1.00);
+    position: absolute;
+    top: 2.3em;
+    left: auto;
+    right: 0.7em;
+    bottom: auto;
+    z-index: 50;
+}
+

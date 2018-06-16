@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/my.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+    </head>
+    <body class="um-vp bc-bg" >
+        <div class="imgback">
+            <div class="circleImg">
+                <img src="img/tx.png" class="Imgcircle">
+            </div>
+            <div class="uerName">
+            </div>
+            <div class="groupName">
+            </div>
+            <table>
+                <tr>
+                    <td  class="sure">
+                        <div>
+                            <img src="img/confirm.png">
+                        </div>
+                        <div>待确认</div>
+                    </td>
+                    <td  class="update">
+                        <div>
+                            <img src="img/Upload.png">
+                        </div>
+                        <div>待上传</div>
+                    </td>
+                    <td class="finish">
+                        <div>
+                            <img src="img/finish.png">
+                        </div>
+                        <div>已完成</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+          <ul>
+              <li class="breakdown">
+                 <img src="img/Lightning.png"> 
+                 <span>抢修</span>
+              </li>
+              <li class="Maintain">
+                 <img  src="img/Wrench.png"> 
+                 <span>维保</span>
+              </li>
+              <!-- <li class="choucha">
+                 <img  src="img/choucha.png" >  
+                 <span>抽查</span>
+              </li> -->
+              <li class="Notice">
+                 <img src="img/Mail 2.png"> 
+                 <span>通知</span>
+              </li>
+              <li class="remind">
+                 <img src="img/Alarm.png">
+                 <span>提醒</span>
+              </li>
+             
+              <li class="getItem">
+                 <img src="img/Traffic Cone 2.png"> 
+                 <span>获取维保配置</span>
+              </li>
+              <li class="login none">
+                 <img src="img/close.png"> 
+                 <span>登录</span>      
+              </li>
+              <li class="loginout none">
+                 <img src="img/close.png"> 
+                 <span>注销</span>      
+              </li>
+          </ul>
+            
+        </div>
+        <br/><br/><br/><br/><br/><br/>
+    </body>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script src="js/cmd.js"></script> 
+    <script src="js/myDB.js"></script> 
+    <script>
+      appcan.ready(function(){
+         getLogin();
+         createTable();
+      })
+    
+    
+      function getLogin(){
+          if(localStorage.loginjson!=undefined&&localStorage.loginjson!=""){
+               $(".uerName").html(getuser("userName"));
+               $(".groupName").html(getuser("groupDisplayName"));
+               $(".loginout").removeClass("none");
+               $(".login").addClass("none");
+          }
+          else{
+               $(".uerName").html("");
+               $(".groupName").html("未登录");
+               $(".loginout").addClass("none");
+               $(".login").removeClass("none");
+          }
+      }
+      
+      //登录
+      
+      $('.login').on('tap',function(){
+        appcan.window.open({
+            name:'login',
+            dataType:0,
+            data:'login.html'
+        });
+      });
+      
+      //注销
+      $('.loginout').on('tap',function(){
+            appcan.request.ajax({
+            type: "POST",
+            url:  http+"Logout",
+            data:{Imei:getuser("token")},
+            async: true,
+            datatype: "json",
+            timeout: 12000,
+            error:  function (data) {
+            },
+            success: function (data){
+               alert("注销成功！");
+               localStorage.loginjson="";
+               $(".uerName").html("");
+               $(".groupName").html("未登录");
+               $(".loginout").addClass("none");
+               $(".login").removeClass("none");
+            }});
+      });
+      $('.breakdown').on('tap',function(){
+           uexWindow.open('breakDownList', '0', "breakDownList.html", '10', '', '', '4');
+      });
+      
+      $('.Maintain').on('tap',function(){
+          localStorage.choucha=0;//变成正常的维保
+            uexWindow.open('maintList', '0', "maintList.html", '10', '', '', '4');
+            
+      });
+      
+      
+      $('.Notice').on('tap',function(){
+          uexWindow.open('NoticeList', '0', "NoticeList.html", '10', '', '', '4');
+           
+      });
+      
+       $('.remind').on('tap',function(){
+           uexWindow.open('remindType', '0', "remindType.html", '10', '', '', '4');
+      });
+      
+      //获取维保配置
+      $('.getItem').on('tap',function(){
+         getMt();
+      });
+      
+      $('.sure').on('tap',function(){
+           localStorage.status=0;
+           localStorage.tName="待确认";
+           uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');
+      });
+      
+      $('.update').on('tap',function(){
+           localStorage.status=1;
+           localStorage.tName="待上传";
+            uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');
+      });
+      
+      $('.finish').on('tap',function(){
+           localStorage.status=2;
+           localStorage.tName="已完成";
+           uexWindow.open('updata', '0', "updata.html", '10', '', '', '4');
+      });
+      //点击抽查 进入 选择维保类型页面（扫二维码）
+      $(".choucha").on("tap",function(){
+          localStorage.choucha=1;
+      uexWindow.open('mainCreate.html', '0', "mainCreate.html", '10', '', '', '4');
+                     
+   })
+   
+   function ScannerSuccessCallBack(opCode, dataType, data) {   
+        var obj = eval('('+data+')');
+        var data=obj.code.split("=")[1];
+        localStorage.ReportNo=data;
+        localStorage.choucha=1;
+        appcan.window.open({
+                name:'Zonghe',
+                dataType:0,
+                data:'Zonghe.html'
+        });       
+   }  
+
+      
+    </script>
+   
+   
+</html>

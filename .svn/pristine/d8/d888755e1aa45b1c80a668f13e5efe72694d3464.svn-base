@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css-app/boilerplate.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+            <div class="ha8_box10 clearfix" style="margin-top:1em;" ontouchstart="zy_touch('btn-act1')" onclick="my_course(event);" id="btnZS">
+                
+                <p class="ha8_text8">
+                    证书提醒
+                </p>
+            </div>
+            
+            <div class="ha8_box10 clearfix" style="margin-top:1em;" ontouchstart="zy_touch('btn-act1')" onclick="my_course(event);" id="btnTZ">
+              
+                <p class="ha8_text8">
+                    年检提醒
+                </p>
+            </div>
+
+
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            appcan.initBounce();
+        })
+        
+        appcan.button("#btnZS", "", function() {
+            uexWindow.open('zhengshu', '0', "zhengshuList.html", '10', '', '', '4');
+        })
+         appcan.button("#btnTZ", "", function() {
+            uexWindow.open('yearCheckList.html', '0', "yearCheckList.html", '10', '', '', '4');
+        })
+        
+  
+    </script>
+</html>

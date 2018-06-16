@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/myNew.css">
+    <style type="text/css">
+        .box {
+            border-top: 1px solid #000;
+        }
+
+        .mui-input-row {
+            padding-left: 30px;
+        }
+        
+        .options {
+            border-top: 1px solid #000;
+        }
+        .options a{
+            font-size:1.5em;
+            font-weight:700;
+        }
+    </style>
+</head>
+<body>
+<div id="image-list" class="row image-list"></div>
+<div class="mui-content">
+
+    <div class="mui-card">
+        <ul class="mui-table-view " id="ul_list">
+            <!-- <li class="mui-table-view-cell mui-collapse options">
+                <a class="mui-navigate-right part" href="#">门系统<span class="remark">整改调整</span></a>
+                <div class="mui-collapse-content box">
+                    <form class="mui-input-group">
+                        <div  class="mui-input-row">
+                            <label>轿门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>厅门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门机故障</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门刀与门球</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>防夹人装置</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门结构</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门导向相同</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>其他</label>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            
+            <li class="mui-table-view-cell mui-collapse options">
+                <a class="mui-navigate-right" href="#">门系统<span class="remark">整改调整</span></a>
+                <div class="mui-collapse-content box">
+                    <form class="mui-input-group">
+                        <div  class="mui-input-row">
+                            <label>轿门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>厅门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门机故障</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门刀与门球</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>防夹人装置</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门结构</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门导向相同</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>其他</label>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            
+            <li class="mui-table-view-cell mui-collapse options">
+                <a class="mui-navigate-right " href="#">门系统<span class="remark">整改调整</span></a>
+                <div class="mui-collapse-content box">
+                    <form class="mui-input-group">
+                        <div  class="mui-input-row">
+                            <label>轿门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>厅门锁</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门机故障</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门刀与门球</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>防夹人装置</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门结构</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>门导向相同</label>
+                        </div>
+                        <div class="mui-input-row">
+                            <label>其他</label>
+                        </div>
+                    </form>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="bottonBtn remark">
+    <button type="button" class="mui-btn mui-btn-primary mui-btn-block">确定</button>
+</div>
+
+
+<div class="popBox none" id="frame">
+    <textarea rows="10" placeholder="请输入跟换零部件"></textarea>
+    <button type="button" class="mui-btn mui-btn-primary mui-btn-block submit">确定</button>
+    <!-- <div class="list">
+        <ul id="list">
+            
+        </ul>
+    </div>  -->
+</div>
+
+
+<div class="cover none"></div>
+
+<script src="js/cmd.js"></script>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="js/mui.min.js"></script>
+<!-- <script src="js/myDB.js"></script> -->
+<script src="js/MainItem.js"></script>
+<!-- 引入模版引擎 -->
+<script src="js/template-web.js"></script>
+
+<script id="test" type="text/html">
+
+    {{each userdata.BreakdownType v i}}
+    {{if v.ParentCode==="0"}}
+    <li class="mui-table-view-cell mui-collapse options">
+        <a class="mui-navigate-right " href="#">{{v.Name}}</a>
+        <div class="mui-collapse-content box">
+            <form class="mui-input-group">
+                {{each userdata.BreakdownType k b}}
+                {{if v.BreakDownTypeCode===k.ParentCode}}
+                <div class="mui-input-row" checked="">
+                    <label data-id="{{k.BreakDownTypeCode}}">{{k.Name}}</label>
+                </div>
+                {{/if}}
+                {{/each}}
+            </form>
+        </div>
+    </li>
+    {{/if}}
+    {{/each}}
+
+</script>
+
+
+<script>
+
+    appcan.ready(function () {
+        getzxs();//初始化下拉框的选项
+        function getzxs() {
+            appcan.request.ajax({
+                type: "POST",
+                url: http + "GetBreakdownType",
+                data:{token:getuser("token")},
+                //data: {token: "123456"},
+                async: true,
+                datatype: "json",
+                timeout: 12000,
+                error: function (data) {
+                },
+                success: function (data) {
+                    var info = JSON.parse(data);
+                    var html = template('test', info);
+                    document.getElementById('ul_list').innerHTML = html;
+
+                    $(".options").find(".mui-input-row").on("click", function (e) {
+                        e.stopPropagation();
+                        $(this).children(".gou").show();
+                        $(this).siblings().children(".gou").hide();
+                        $(this).css({
+                            color: "#4792D2"
+                        }).siblings().css({
+                            color: "black"
+                        })
+                        $(this).parent().parent().parent().siblings().find(".mui-input-row").css({color: "black"});
+                        $(this).attr("checked", true).parent().parent().parent().siblings().find(".mui-input-row").attr("checked", "");
+                        $(this).siblings().attr("checked", "");
+                        // var value = $(this).text();
+                        // $(this).parent().parent().prev().children(".tittle").text(value);
+                    })
+
+
+                    $('.remark').off('tap').on('tap', function (e) {
+                        e.stopPropagation();
+                        $(".popBox").removeClass("none");
+                        $(".cover").removeClass("none");
+                    });
+
+
+//           //分隔
+                    var json = eval("(" + data + ")");
+                    var html = "";
+                    var html1 = "";
+                    var parentDiv = "";
+                    var childDiv = "";
+                    if (json.code == "1") {
+                        for (var i = 0; i < json.userdata.BreakdownType.length; i++) {
+                            if (json.userdata.BreakdownType[i].ParentCode == "0") {
+                                parentDiv += "<div><div class=' parentDiv " + json.userdata.BreakdownType[i].BreakDownTypeCode + "'>" + json.userdata.BreakdownType[i].Name + "</div>";
+                                parentDiv += "<div class=\"none radioDiv\">"
+                                for (var k = 0; k < json.userdata.BreakdownType.length; k++) {
+                                    if (json.userdata.BreakdownType[k].ParentCode == json.userdata.BreakdownType[i].BreakDownTypeCode) {
+
+                                        parentDiv += "<div  style='style:postion:reletive;'><label class='lblCss' for='" + json.userdata.BreakdownType[k].Name + "'></label><input class='hidden-input " + json.userdata.BreakdownType[k].Name + "' id='" + json.userdata.BreakdownType[k].Name + "' name='aaa' type=\"radio\"><span class='breadItem' style='width:85%;position: absolute;padding-top:0em'>" + json.userdata.BreakdownType[k].Name + "</span></div><br/>";
+
+                                    }
+
+                                }
+                                parentDiv += "<div  style='style:postion:reletive;'><label class='lblCss' for='orther'></label><input class='hidden-input orther' id='orther' name='aaa' type=\"radio\"><span class='breadItem' style='width:85%;position: absolute;padding-top:0em'>其他</span></div><br/>";
+                                parentDiv += "</div>"
+                                parentDiv += "</div>";
+
+                            }
+
+                        }
+                        parentDiv += "<div id=\"btnTijiao\"><div>提交</div></div>  ";
+                        $("#list").html(parentDiv);
+                        $("#parent").html(html);
+                        $("#child").html(html1);
+                        //lie=$("[name='aaa']");
+                        $(".parentDiv").on("click", function () {
+                            $(this).siblings("div").toggleClass('none');
+                            $(this).parent().siblings().children(".radioDiv").addClass("none");
+
+                        });
+                        $(".lblCss").on("click", function () {
+                            $(".lblCss").removeClass('red');
+                            $(this).toggleClass('red');
+
+                        });
+                        $(".breadItem").on("click", function () {
+                            $(".lblCss").removeClass('red');
+                            //alert(1);
+                            $(this).siblings(".lblCss").toggleClass('red');
+
+                        });
+
+                        //提交
+                        appcan.button("#btnTijiao", "", function () {
+                            if ($(".red").attr('class') != undefined) {
+
+                                var canshu = $(".red").siblings("[name='aaa']").attr('class').split(' ')[1];
+
+                                if (canshu != undefined && canshu != "") {
+
+                                    commit(canshu);
+                                }
+                                else {
+                                    alert("请选择故障原因！");
+                                }
+                            }
+                            else {
+                                alert("请选择故障原因！");
+                            }
+
+
+                        });
+                    }
+                    else {
+                        alert("查询不到对应数据！");
+                    }
+                }
+            });
+        }
+
+
+        // getMainitem();
+        //提交故障id和整改信息
+        $(".submit").one("tap", function (e) {
+            
+            var faultId = $("div[checked*='true']").children("label").attr("data-id");
+            var feedbackInfo = JSON.stringify($("#frame").children("textarea").val());
+            //console.log(faultId);
+            //console.log(feedbackInfo);
+            if(!faultId){
+                alert("请选择故障原因");
+                return false;
+            }
+            appcan.request.ajax({
+                type: "POST",
+                url: http + "SetBreakDownReason",
+                data: {
+                    breadId: localStorage.breakId,
+                    //breadId:538,
+                    token:getuser('token'),
+                    breadReason: faultId,
+                    Coordinate: localStorage.Coordinate,
+                    userId:getuser('uid'),
+                    BkRemark:feedbackInfo
+                },
+                async: true,
+                datatype: "json",
+                timeout: 20000,
+                error: function (data) {
+                     
+                },
+                success: function (data) {
+                    var json = eval("(" + data + ")");
+                    console.log(json);
+                    if (json.code == "1") {
+                        //alert("成功");
+                        alert("提交成功！");
+                        uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                        //appcan.window.close(0); 
+                    }
+                }
+            });
+        });
+
+    });
+
+
+</script>
+</body>
+
+</html>

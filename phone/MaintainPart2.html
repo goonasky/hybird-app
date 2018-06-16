@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+       <script src="js/cmd.js"></script>
+       <style rel="stylesheet">
+    .none{
+        display: none !important;
+    }
+    .parentDiv{
+        padding: 1em;
+        background: #007DB8;color: #FFFFFF;
+        border-bottom: #FFFFFF 1.5px solid;
+    }
+    .child{
+        height: 3.2em;
+        border-bottom: 1px #5CC15E solid;
+    }
+    .img{
+        height: 1em;
+    }
+   
+    .ItemName{
+        float: left;
+        line-height: 3;
+        width:10em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        /*width:1px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;*/
+    }
+       .select{
+        /*float:right;*/
+        width: 10em;
+        color:white;
+        border-left: 1px #5CC15E solid; 
+        -webkit-appearance: none; 
+    }
+</style>
+</head >  
+<body ontouchstart>
+     <div class="ha1_Container clearfix">  
+        
+        <div class='ha1_box12 clearfix' id='list' style="width: ">
+                
+        </div>
+    </div>
+   
+    <div class="ub ub-ver ub-f1 ub-con" style='position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)' >
+            
+   <div class="uinn c-wh ub-ver" id="btnTijiao" >
+   <div class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1">确定</div></div> 
+    <a class="weizhi" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=document.getElementsByTagName('BODY')[0].scrollHeight;"></a>
+    <a class="Up none" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=0;"></a>
+    
+</body>
+  <script src="js/appcan.js"></script>
+  <script src="js/appcan.control.js"></script>
+  <script src="js/zy_control.js"></script>
+   <script src="js/zy_click.js"></script>
+<script>
+
+$(document).scroll(function(){
+    var scHeight=document.getElementsByTagName('BODY')[0].scrollTop;
+    if(scHeight>(document.getElementsByTagName('BODY')[0].scrollHeight*0.5))
+    {
+        $(".Up").removeClass('none');
+        $(".weizhi").addClass('none');
+    }
+    else{
+        $(".Up").addClass('none');
+        $(".weizhi").removeClass('none');
+    }
+})
+
+ function showdiv(){
+            var obj=$(".clickx");
+            if(obj.hasClass("none"))
+             {
+                $(".clickx").removeClass("none");
+                
+            }
+            else{
+                 $(".clickx").addClass("none");
+            }
+             
+    };
+ 
+ var PlaceID;    
+ var etype;    
+ appcan.ready(function() { 
+          //alert(localStorage.Category);
+          switch(localStorage.Category){
+                case "0":
+                      PlaceID="坑底"
+                      localStorage.placeId=6;
+                      break;
+                case "1":
+                      PlaceID="轿顶"
+                        localStorage.placeId=7;
+                      break;
+                case "2":
+                      PlaceID="机房"
+                        localStorage.placeId=8;
+                      break;       
+          }
+          //alert(PlaceID);
+          createDB();
+          appcan.initBounce(0);   
+          getinfo();
+        })
+        
+         var cText = 0;
+         var cJson = 1;
+         var cInt = 2;
+         var opID = 0; 
+         var dbName="localDB";
+      
+         
+        
+        function createDB(){
+        // alert(dbName);
+        uexDataBaseMgr.openDataBase(dbName,1);
+        uexDataBaseMgr.cbOpenDataBase =createDBCallBack;
+        };
+        function createDBCallBack(opid,type,data){
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+              alert("uex.cJson");
+                break;
+            case cInt:
+            if(opid == 1 &&type == 2&&data == 0){
+               //alert("数据库打开成功！");
+            }else{
+                 //alert("数据库打开失败！");
+            }
+            break;
+            default:
+              alert("error"); 
+           }
+        
+        };
+    function getinfo(){
+        //localStorage.placeId=8;
+        //alert(localStorage.part);
+        // if(localStorage.Category==3){
+             // uexDataBaseMgr.selectSql(dbName,1,"Select * From D_MaintainItem ");
+        // }
+        // else{
+             // uexDataBaseMgr.selectSql(dbName,1,"Select * From D_MaintainItem where PlaceId='"+localStorage.placeId+"'");
+        // }
+       
+        uexDataBaseMgr.selectSql(dbName,1,"Select * From D_MaintainItem");
+        uexDataBaseMgr.cbSelectSql = showinfo;
+          
+    };
+    
+   
+   var html="";
+   var le;
+   var choose;
+   function showinfo(opid,type,value){
+        switch(type){
+            
+            case cText:
+                alert("uex.cText");
+                //alert(uex.cText);
+                break;
+            case cJson:
+            if(opid == 1 && type == 1){
+                var jsonList=eval("("+value+")");
+              if(jsonList.length == 0){
+                  alert("无数据");
+              }
+              le=jsonList.length;
+              for(var i=0;i<jsonList.length;i++){
+                // alert(jsonList[i]["Id"]);
+                // alert(jsonList[i]["Claim"]);
+                html+="<div>";
+                html+="<div class='parentDiv par"+i+"' id='"+jsonList[i]["Id"]+"'>";
+                 html+="<div class='ItemName'><img class='img' src='img/shouyeImg/baojianW.png'>"+jsonList[i]["ItemName"]+"</div>";
+                //html+="<div class='ItemName'>1222222222222222222222222222222222</div>"
+                html+="<select id='nun"+i+"' class='select'>";
+                       html+="<option value=0 style='color:black'>&radic;正常</option>";
+                       html+="<option value=1 style='color:black'>&Delta;已整改</option>";
+                       html+="<option value=2 style='color:black'>&Omicron;已更换零部件</option>";
+                       html+="<option value=3 style='color:black'>&Chi;请求支持</option>";
+                       html+="<option value=4 style='color:black'>&ndash;不适合</option>";
+                html+="</select>";
+                html+="</div>";
+                
+                html+="<div  class='none child clickx "+jsonList[i]["Id"]+"'>";
+                html+="<div style='float:left;height: 1.2em;padding: 1em'>"+jsonList[i]["Claim"]+"</div>";
+                
+                html+="</div>";
+                html+="</div>"; 
+                
+                 
+ 　　　　          
+               
+               $(".parentDiv").on("click",function(){
+               $(this).siblings("div").toggleClass('none');
+               $(this).parent().siblings().children(".radioDiv").addClass("none");
+               
+               
+               
+              });
+              
+              
+             
+              
+             } 
+             $("#list").html(html);
+            }
+            else{
+                alert("查询失败！");
+            }
+            break;
+          case cInt:
+            alert("uex.cInt"); 
+            alert(uex.cInt);
+            break;
+           
+          default:
+              alert("error");  
+
+      }
+      //uexDataBaseMgr.closeDataBase("localDB",1);
+
+    };        
+    
+    var tempChooseVal="";
+    appcan.button("#btnTijiao", "", function() {  
+        //alert(0);      
+        var choose;
+        var choise;
+        tempChooseVal="";
+        for(var i=0;i<le;i++)
+        {
+            choose=$("#nun"+i+"").val();
+           // alert(choose);
+            if(choose!="请选择"&&choose!=undefined){
+               choise=$(".par"+i+"").attr("id");
+               tempChooseVal+=choise+"-"+choose+"|";
+            }
+            
+        }
+        //alert(tempChooseVal);
+        if(tempChooseVal==""){
+             uexWindow.toast("0","5","请选择维保项！","3000");
+        }  
+        else{
+             tempChooseVal=tempChooseVal.substring(0,tempChooseVal.length-1);
+             selectMR(localStorage.RegisterNo);
+        } 
+        
+        
+    });
+    
+      /**
+     * 查询MaintainRecord表
+     */
+    function selectMR(ReportNO){  
+        //alert(1);      
+        var sql = "Select GUID From MaintainRecord where ReportNO ='"+ReportNO+"' and MtUserId='"+localStorage.MtuserId+"'";
+        //var sql1 = "INSERT INTO MaintainRecord(Id, GUID,ReportNO,MtGroupId,MtUserId ,BeginTime,EndTime,Status) 
+        //VALUES ('4','1235','10047','356','145','1900-01-01 00:00:00','1900-01-01 00:00:00','0')";
+        uexDataBaseMgr.selectSql(dbName,1,sql);
+        //回调
+        uexDataBaseMgr.cbSelectSql = function(opid,type,data){                    
+            if(type==1 ){
+              var MTR_GUID = guid();
+              var MTPD_GUID = guid();
+              var iTpye=0;
+              var jsonList=eval("("+data+")");
+              if(jsonList.length > 0){                  
+                  MTR_GUID=jsonList[0]["GUID"];                  
+                  iTpye++;
+              }
+              //事务处理插入关联表              
+              huancun(MTR_GUID,MTPD_GUID,iTpye);                              
+            }else{
+                //console.log('查询失败！');
+            }
+        }
+    }
+        
+    function huancun(MTR_GUID,MTPD_GUID,iTpye) 
+    { 
+        //alert(2);
+        //alert(localStorage.userId);
+        //alert("iTpye:"+iTpye);
+            //MaintainRecord插入语句
+            
+            var sqlMR = "INSERT INTO MaintainRecord(GUID,ReportNO,MtGroupId,MtUserId,BeginTime,EndTime,Status,ECoordinate,maintainType) VALUES ('"+MTR_GUID+"','"+localStorage.RegisterNo+"','"+localStorage.groupId+"','"+localStorage.MtuserId+"','"+localStorage.time+"','"+localStorage.time+"',0,'"+localStorage.Coordinate+"','"+localStorage.type+"');";               
+        
+            //iType为0时表示本电梯当天之内存在record记录，执行插入。
+            //iType不为0时表示本电梯当天之内不存在record记录，需要逻辑更新时间和状态。
+            if(iTpye!=0)
+            {
+             //更新结束时间
+             sqlMR = "UPDATE MaintainRecord SET EndTime='"+localStorage.time+"',Status=0 WHERE GUID='"+MTR_GUID+"';";          
+            }
+            
+            
+            
+            //MaintainPlanDetails插入语句
+            //alert(MTPD_GUID);
+            var sqlMP = "INSERT INTO MaintainPlanDetails(GUID,MTR_GUID,ReportNO,EPlanId,PlaceID,PointNo,PickTime,MtUserId,Status) VALUES ('"+MTPD_GUID+"','"+MTR_GUID+"','"+localStorage.RegisterNo+"','0','"+PlaceID+"','"+localStorage.canshu+"','"+localStorage.time+"','"+localStorage.MtuserId+"',0);";
+            //var sqlMP = "INSERT INTO MaintainRecord(Id, GUID,ReportNO,MtGroupId,MtUserId ,BeginTime,EndTime,Status) VALUES ('1','ff-GUID','10047','356','145','1900-01-01 00:00:00','1900-01-01 00:00:00','0')";               
+            //alert(sqlMR);
+            //alert(sqlMP);
+            uexDataBaseMgr.executeSql(dbName,1,sqlMR);
+            uexDataBaseMgr.executeSql(dbName,1,sqlMP);
+            //MaintainConclusion插入语句（这里需要循环输出）
+           // alert("tempChooseVal:"+tempChooseVal);
+            if(tempChooseVal!="")
+            {
+                var chooseVal = tempChooseVal.split('|');
+                //alert("chooseVal:"+chooseVal.length);
+                for (var i = 0; i < chooseVal.length; i++) {
+                    var cVal=chooseVal[i].split('-');   
+                    //alert("cVal"+cVal.length);                 
+                    if(cVal.length==2)
+                        //alert(1);
+                        //alert(sqlMC);
+                        var sqlMC = "INSERT INTO MaintainConclusionTable(MTPD_GUID, ItemId,PickTime ,Conclusion, Reason,Measure ,ConclusionDetails) VALUES ('"+MTPD_GUID+"','"+cVal[0]+"','"+localStorage.time+"','"+cVal[1]+"','0','0','0')";
+                        uexDataBaseMgr.executeSql(dbName,1,sqlMC);
+                        uexDataBaseMgr.cbExecuteSql = insertDataCallBack;
+                    }                
+            }
+            
+            
+            //var sqlMC = "INSERT INTO MaintainConclusionTable(MTPD_GUID,ItemId,PickTime,Conclusion,Reason,Measure,ConclusionDetails) VALUES ('"+MTPD_GUID+"','45','1900-01-01 00:00:00','0','','','');";
+            //var sqlMC = "INSERT INTO MaintainRecord(Id, GUID,ReportNO,MtGroupId,MtUserId ,BeginTime,EndTime,Status) VALUES ('2','fff-GUID','10047','356','145','1900-01-01 00:00:00','1900-01-01 00:00:00','0')";               
+        
+            
+            
+            uexDataBaseMgr.cbExecuteSql = null;
+            alert('缓存成功');
+            
+            uexWindow.open('maintainInfo', '0', "maintainInfo.html", '10', '', '', '4');    
+            localStorage.shuzi=1;   
+    }
+    
+     function insertDataCallBack(opid,type,data){
+        // alert(2);
+        switch(type){
+            case cText:
+                alert("uex.cText");
+                break;
+            case cJson:
+                alert("uex.cJson");
+                break;
+            case cInt:s
+            if(opid == 1&&type == 2 &&data == 0){
+                //alert("数据插入成功！");
+            }else{
+                //alert("数据插入失败！");
+            }
+            break;
+          default:
+              alert("error");  
+       }
+      };
+      
+     
+</script>
+</html>

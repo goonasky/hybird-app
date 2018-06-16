@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+
+    <link rel="stylesheet" href="css/esignDemo.css">
+</head>
+<body>
+   <div class="  " id="btnTijiao">
+       
+             <div   id="sign_ok" style="margin-left: 0.5em;float: right;width: 40%" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1">提交</div>
+             <div   id="sign_clear"   style="background: orange" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" >删除</div>
+    </div>
+    <div class="canvasDiv" >
+            <canvas width="1100" height="1100" id="canvasEdit"></canvas>
+    </div>
+
+    <div class="imgDiv" style="display: none">
+        <span id="sign_show"></span>
+    </div>
+
+   
+  
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/Mtesign.js"></script>
+<script type="text/javascript" src="js/cmd.js"></script>
+<script type="text/javascript" src="js/myDB.js"></script>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script type="text/javascript">
+
+         
+$(function(){
+    //初始化动作，根据DOM的ID不同进行自定义，如果不写则内部默认取这四个
+    $().esign("canvasEdit", "sign_show", "sign_clear", "sign_ok");
+});
+
+uexWindow.setSlidingWindowEnabled(0); 
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="css/ui-box.css">
+    <link rel="stylesheet" href="css/ui-base.css">
+    <link rel="stylesheet" href="css/ui-color.css">
+    <link rel="stylesheet" href="css/appcan.icon.css">
+    <link rel="stylesheet" href="css/appcan.control.css">
+    <link rel="stylesheet" href="css/shouyeCss/shouye.css">
+    <link rel="stylesheet" href="css-app/ha8.css">
+    <link rel="stylesheet" href="css/shouyeNew.css">
+    <style>
+
+    </style>
+</head>
+
+<body class="um-vp bc-bg" ontouchstart="">
+    <img src="img/loading.gif" class="loading none" style="width: 10%;height: 10%;" />
+    <div class="ha8_Container clearfix" style="background: #FFFFFF;height: 100%">
+        <div class="ha8_box clearfix" style="height: 25%">
+            <div class="ub-f2 ub ub-hor" style="padding-top: 1.5em">
+                <div class="metro ub-f3 ub ub-ver ub-ac padd1 uof ub-pc" id="scan">
+                    <div class="apipicwh ub-img xtapi" style="height: 4.5em;width: 4.5em"></div>
+                    <div style="color: white">
+                        扫一扫
+                    </div>
+                </div>
+
+                <div class="metro ub-f3 ub ub-ver ub-ac   padd1 uof ub-pc" id="Search_x">
+                    <div class="apipicwh ub-img jmapi" style="height: 4.5em;width: 4.5em"></div>
+                    <div style="color: white">
+                        查一查
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="outerScroller" id="notice" style="background:#BBBBBB;margin: 0.5em;border: 1px solid #6F6F6F;overflow: auto;height: 72%">
+
+            <div class="scroll">
+                <div style="width: 100%" id="jiuyuan">
+
+                </div>
+                <div style="width: 100%" id="guzhang">
+
+                </div>
+                <div style="width: 100%" id="weibao">
+
+                </div>
+                <div style="width: 100%" id="tongzhi">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="none" id="cover"></div>
+    <div class="ha8_box none" id="popBox" style="position: absolute;top:25%;z-index: 1000;background: #FFFFFF">
+        <div style="margin-top:2em;width: 99%;height: 4em;border: 2px solid #333645;border-radius: 1em;background: #FFFFFF">
+            <input type="text" id="ReportNo" value="请输入电梯编号！" onclick="if (value =='请输入电梯编号！'){value =''}" style="height: 3.4em;margin: 0.4em;width: 80%;border: 0px;float: left;color: grey;font-size: 0.8em;">
+            <img src="img/baichahui.png" id="Search" style="width: 15%;height: 3.5em;float: left;">
+        </div>
+    </div>
+</body>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="js/cmd.js"></script>
+<script src="js/myDB.js"></script>
+<script>
+    //localStorage.ReportNo  电梯编码 
+    //localStorage.Coordinate  地理位置
+    //localStorage.BeginTime 当前操作时间
+
+
+    appcan.ready(function () {
+        localStorage.choucha = 0;//初始化是否是抽查
+        localStorage.scaned = 0;//进入页面默认没有扫描过二维码
+    });
+
+
+
+    //扫一扫   
+    appcan.button("#scan", function () {
+        getCord();//获取签到地理位置
+        localStorage.BeginTime = getTimeNow();//获取当前时间
+        localStorage.scaned = 1;//扫描了二维码
+        uexScanner.open('ZXing', '扫一扫');
+        uexScanner.cbOpen = ScannerSuccessCallBack;
+    })
+
+    function ScannerSuccessCallBack(opCode, dataType, data) {
+        var obj = eval('(' + data + ')');
+        var data = obj.code.split("=")[1];
+        localStorage.ReportNo = data;
+        // appcan.window.open({
+        // name:'Zonghe',
+        // dataType:0,
+        // data:'Zonghe.html'
+        // }); 
+        uexWindow.open('Zonghe', '0', "Zonghe.html", '10', '', '', '4');
+    }
+    //查一查
+    appcan.button("#Search_x", function () {
+        $("#popBox").removeClass("none");
+    })
+    //点击搜索按钮发送ajax
+    var input_data;
+    appcan.button("#Search", function () {
+        input_data = $("#ReportNo").val();
+        localStorage.ReportNo = input_data;
+        $("#ReportNo").val("");
+        $("#popBox").addClass("none");
+        uexWindow.open('Zonghe', '0', "Zonghe.html", '10', '', '', '4');
+    })
+
+</script>
+
+</html>

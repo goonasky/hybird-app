@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="css/myNew.css">
+<style type="text/css">
+	.none{
+	    display:none;
+	}
+</style>
+</head>  
+<body style="margin: 0px">
+    <div class="imgback">
+        <div class="txthead">
+            <!-- <div class="f2 fc1 h1" id="Name"></div> -->
+            <!-- <div class="f1 fc2">
+                <span>电梯编码：</span>
+                <span id="ReportNo"></span>
+            </div> -->
+            <!-- <div class="f1 fc2">  
+                <span>维保单位：</span>
+                <span id="MtGroupName"></span>
+            </div> -->
+        </div>
+        <div class="f3 fc3 nav-bt">
+            <span class="checked" id="mtBtn">维保信息</span>
+            <span id="sosBtn" >应急救援</span>
+            <span id="breakBtn" >故障信息</span>   
+        </div>
+    </div>
+    <div class="addcirle">
+        <img src="img/jh.png">
+    </div>
+    <div class="list">
+       
+    </div>
+</body>
+<script src="js/appcan.js"></script>
+<script src="js/appcan.control.js"></script>
+<script src="js/zonghe.js"></script> 
+<script src="js/cmd.js"></script> 
+
+<script>
+     
+     appcan.ready(function(){
+        getmti(localStorage.ReportNo,0);//获取维保信息    
+        //获取系统中的维保计划
+function getmti(temp,type){
+            flag=0;
+            appcan.request.ajax({
+                type: "POST",           
+                url: http+"GetElevateMaintainInfoList",
+                data:{code:temp,type:type,iPage:1,userId:getuser("uid"),token:getuser("token"),groupId:getuser("groupId")},
+                //data:{code:'002090',type:0,iPage:1,userId:15,token:'123456',groupId:203},
+                // async: true,
+                datatype: "json",
+                timeout: 20000,
+                error:  function (data) {
+                      
+                },
+                success: function (data){
+                    //alert(data)
+                  //var json=eval("("+data+")");
+                  var json=JSON.parse(data)
+                  //alert(json.code);
+                  if(json.code=="0"){
+                      //alert(666)
+                       $("#Name").text(json.userdata.ElevatorName);
+                       $("#ReportNo").text(localStorage.ReportNo);
+                       $("#MtGroupName").text(json.userdata.MtGroupName);
+                  }
+                  //alert(777)
+                  if(json.code=="1")
+                  {
+                       $("#Name").text(json.userdata.maintain[0].Name);
+                       $("#ReportNo").text(json.userdata.maintain[0].ReportNo);
+                       $("#MtGroupName").text(json.userdata.maintain[0].MtGroupName);
+                       ///代码逻辑
+                       $(".list").html("");  
+                             
+                       for(var i=0;i<json.userdata.maintain.length;i++){
+                           var  html=""; 
+                           html+=" <table class='info' onclick='showDetail("+json.userdata.maintain[i].Id+")'><tr>";
+                      
+                           html+="<td class='f2 td1'>"+json.userdata.maintain[i].BeginTime.split('-')[2].split(' ')[0]+"</td>";
+                           html+="<td class='f3 td2'>"+json.userdata.maintain[i].Name+"</td></tr>";
+                           html+="<tr><td class='f1 td1'>"+getMonth(json.userdata.maintain[i].BeginTime.split('-')[1])+"</td>";
+                           html+="<td class='f1 fc2 td2'><span>起始时间：</span><span>"+json.userdata.maintain[i].BeginTime+"</span></td></tr></table>";
+                           
+                           $(".list").append(html);  
+                      }
+                         
+                    }
+                  if(json.code=="101"){
+                       //alert(444)
+                    localStorage.removeItem('loginjson');
+                    uexWindow.evaluateScript("",0,"winclose();");
+                    uexWindow.toast("0","5","登录失效，请重新登录","3000");
+                    uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '0');
+                  }
+                  
+                     
+                  }        
+              });
+        
+        
+      } 
+     });
+     
+     
+     
+     
+</script>
+</html>
+

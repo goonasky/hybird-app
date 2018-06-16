@@ -1,0 +1,267 @@
+.imgback{
+    background-image:url(../img/back1.png);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    -moz-background-size:100% 100%;
+}
+
+.txthead{
+    padding-top: 2em;
+    padding-left: 1em;
+}
+
+.f1{
+    font-size: 0.8em;    
+}
+
+.f2{
+    font-size: 1.6em;
+}
+
+.f3{
+    font-size: 1em;
+}
+
+.f4{
+    font-size: 1.2em;
+}
+
+.fc1{
+    color:#FFFFFF;
+}
+
+.fc2{
+    color:#979ea4;
+}
+
+.fc3{
+    color:#e3e5e7;
+}
+
+.h1{
+   padding-bottom: 1em;
+}
+
+span{
+    font-family:微软雅黑;
+}
+
+.nav-bt{
+    padding-top: 1em;
+    padding-left: 1em;
+    height: 2.5em;
+}
+
+.nav-bt span{
+    padding:1em 0.5em 0.5em 0.5em;
+}
+
+
+.checked{
+    color: #50779b;
+    border-bottom: 3px solid #50779b;
+}
+
+.addcirle{
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    background: #1777cb;
+    float: right;
+    margin-right: 1em;
+    z-index: 100;
+    margin-top: -1.5em;
+    text-align: center;
+
+
+}
+
+.addcirle img{
+    height: 2em;
+    width: 2em;
+    margin-top: 0.5em;
+}
+
+.info{
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+    font-family:微软雅黑;
+    border-bottom: 1px solid #e3e5e7;
+    width: 100%;
+}
+
+.leftinfo{
+    text-align: center;
+    padding-right: 1em;
+}
+
+.rightinfo{
+    padding-right: 1em;
+}
+
+.td1{
+    text-align: center;
+}
+
+.td2{
+    padding-left: 1em;
+}
+
+
+.tittle{
+    float: right;
+    padding-right: 2em;
+    color: #73acdb;
+}
+
+.blue1{
+    color:#4792D2; 
+}
+
+.bottonBtn{
+  padding-right:1em;
+  bottom:0px;
+  position: fixed;
+  width: 100%;
+}
+
+
+.none{
+    display: none;
+}
+
+.popBox{
+    position:fixed;
+    z-index: 1000;
+    background: #DDDDDD;
+    top:4em;
+    left: 2em;
+    width:auto;
+    right: 2em;
+    bottom: 5em;
+    height: 70%;
+    padding: 1em;
+}
+
+.cover{
+    position: fixed;
+    z-index:10;
+    top:0px;
+    left:0px;
+    width: 100%;
+    height:100%;
+    opacity: 0.5;
+    background: #000 none repeat scroll 0% 0%;
+}
+
+.remark{
+    color:#31364A;
+    float: right;
+}
+
+.remark1{
+    color:#31364A;
+    float: right;
+}
+
+.pic{
+            width:6em;
+            border-radius: 1em;
+            margin-left: 1em;
+            margin-right: 1em;
+            margin-top: 1em;
+            height: 6em;
+            text-align: center;
+       
+}
+
+
+       .link{
+           color:blue;
+           padding-left: 3em;
+           width: ;
+       }
+       .none{
+           display: none;
+       }
+       .inputC {  width: 15em;border:0px; border-bottom:1px solid #5C5C5C; background-color:#EEEEEE ;font-size: 1em}
+       .aui-checkbox {
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+    -webkit-border-radius: 0.6rem;
+    border-radius: 0.6rem;
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    cursor: default;
+    -webkit-appearance: none;
+    -webkit-user-select: none;
+            user-select: none;
+    -webkit-transition: background-color ease 0.1s;
+            transition: background-color ease 0.1s;
+}
+.aui-checkbox {
+    border-radius: 0.1rem;
+}
+.aui-checkbox:checked,
+.aui-checkbox.aui-checked {
+    background-color: #03a9f4;
+    border: solid 1px #03a9f4;
+    text-align: center;
+    background-clip: padding-box;
+}
+.aui-checkbox:checked:before,
+.aui-checkbox.aui-checked:before,
+.aui-checkbox:checked:after,
+.aui-checkbox.aui-checked:after {
+    content: '';
+    width: 0.5rem;
+    height: 0.3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.25rem;
+    margin-top: -0.25rem;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-top: none;
+    border-right: none;
+    z-index: 2;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+}
+.aui-checkbox:disabled,
+.aui-checkbox.aui-disabled {
+    background-color: #dddddd;
+    border: solid 1px #dddddd;
+}
+.aui-checkbox:disabled:before,
+.aui-checkbox.aui-disabled:before,
+.aui-checkbox:disabled:after,
+.aui-checkbox.aui-disabled:after {
+    content: '';
+    width: 0.5rem;
+    height: 0.3rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.25rem;
+    margin-top: -0.25rem;
+    background: transparent;
+    border: 1px solid #ffffff;
+    border-top: none;
+    border-right: none;
+    z-index: 2;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+}

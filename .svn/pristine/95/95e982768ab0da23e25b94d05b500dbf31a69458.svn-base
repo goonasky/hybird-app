@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+    <head>
+        <title></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="maintainInfo_content/css/main.css">
+        <script src="js/cmd.js"></script>
+        <script src="js/ios.js"></script>
+        <script src="js/zy_control.js"></script>
+        <script src="js/ts.js"></script>
+        <script src="js/zy_click.js"></script>
+        <style rel="stylesheet">
+          .bc-btn{
+              background-color: #5CC15E;
+          }
+        </style>
+    </head>
+    <body class="um-vp bc-bg" ontouchstart>
+       
+     <ul>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_arrow" id="rName">
+               <span >电梯编号：<span class="zsId"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_thumb">
+               <span >电梯名称：<span class="validTime"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list_thumb">
+               <span >下次检查时间：<span class="zsPerson"></span></span>
+            </li>
+            <li class="ubb ub bc-border t-bla ub-ac lis" data-win="list-image">
+                <span >维保单位：<span class="zsStatus"></span></span>
+            </li>
+        </ul>
+    </div>
+           
+           
+
+        <script src="js/appcan.js"></script>
+        <script src="js/appcan.control.js"></script>
+    </body>
+    <script>
+        appcan.ready(function() {
+            //voice();
+            // speechUtility.createUtility("engine_mode=msc,appid=5680d736");
+            // // 初始化合成对象
+            // speechSynthesizer.createSynthesizer();
+            uexWindow.setBounce("0");
+            appcan.initBounce();
+            
+        })
+        window.uexOnload=function(type){
+    if(!type){
+        getzxs();
+    }
+}
+    var imgu="";
+      function getzxs(){
+        uexWindow.toast("1","5","正在获取...","0");
+         var url1 = http+"GetSearchElevate";
+         appcan.request.ajax({
+            type: "POST",
+            url: url1,
+            data:{reportNo:localStorage.reportNo,token:getuser("token"),groupId:getuser("groupId")},
+            async: true,
+            datatype: "json",
+        timeout: 12000,
+        error:  function (data) {
+                  },
+        success: function (data){
+           uexWindow.closeToast();
+            showzxs(data);
+        
+        }});
+        
+       
+}  
+
+        function showzxs(str){
+    var json=eval("("+str+")");
+    //alert(str)
+    if(json.code==101){
+        localStorage.removeItem('loginjson');
+        uexWindow.evaluateScript("",0,"winclose();");
+        uexWindow.toast("0","5","登陆失效，请重新登陆","3000");
+        uexWindow.open('login_win', '0', "login_top.html", '10', '', '', '4');
+        uexWindow.evaluateScript("", 0, "reThis();");
+        return;
+    }
+    else if(json.code=="1")
+    {
+        for(var i=0;i<json.userdata.elevateInfo.length;i++){
+            $(".zsId").text(json.userdata.elevateInfo[i].ReportNO);
+            $(".validTime").text(json.userdata.elevateInfo[i].Name);
+            $(".zsPerson").text(json.userdata.elevateInfo[i].NextCheckTime);
+            $(".zsStatus").text(json.userdata.elevateInfo[i].CName);
+           
+        }
+        start();
+    }
+     if(json.code=="0")
+    {
+        uexWindow.toast("0","5",json.info,"2000");
+        return;
+    }  
+    
+}
+
+    </script>
+</html>

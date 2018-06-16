@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="um landscape min-width-240px min-width-320px min-width-480px min-width-768px min-width-1024px">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="css/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="css/ui-box.css">
+        <link rel="stylesheet" href="css/ui-base.css">
+        <link rel="stylesheet" href="css/ui-color.css">
+        <link rel="stylesheet" href="css/appcan.icon.css">
+        <link rel="stylesheet" href="css/appcan.control.css">
+        <link rel="stylesheet" href="css-app/ha8.css">
+        <link rel="stylesheet" href="css-app/habd.css">
+        <link rel="stylesheet" href="css/shouyeCss/shouye.css">
+        <link rel="stylesheet" href="css/myNew.css">
+        <style type="text/css">
+            .mark{
+                background-color: orange;
+            }
+        </style>
+    </head>
+    <body class="" ontouchstart>
+        <br>
+        <li class="ubb ub bc-border t-bla ub-ac lis">
+               <div  style=" margin-left: 0.5em;width: 40%"class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="selectAll()">
+                          全选
+                        </div>
+                          <div style=" margin-left: 0.5em;width: 35%" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="selectNo()">
+                           取消全选
+                        </div>
+         </li>
+         <div id="showData" class="test"> 
+         </div>
+        <!-- <textarea id="test1" name="" rows="30" cols="100"></textarea>  -->
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <br>
+         <div class="ub ub-ver ub-f1 ub-con" style='position: fixed;bottom:0px;height:10%;background-color: #FFFFFF;border-top:1px solid rgb(195, 195, 195)' >
+             <div class="uinn c-wh ub-ver none" onclick="signGroup()" id="btnSure">
+             <div style="background:#007DB8" id="mySave" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1">使用单位签名</div>
+             <br/>
+             <br/>
+             <br/>
+             <br/>
+             </div>   
+             <div class=" uinn c-wh ub-ver none" id="btnTijiao">
+             <div style="margin-left: 0.5em;float: right;width: 40%" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="submit()">提交</div>
+             <div style="background: red" class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1" onclick="shanchu()">删除</div>
+             <br/>
+             <br/>
+             <br/>
+             <br/>
+             </div>
+             <div class="uinn c-wh ub-ver none" id="btnSuss">
+             <div style="background:red" onclick="shanchu()"  class="btn ub ub-ac bc-text-head ub-pc bc-btn uc-a1">删除</div>
+             </div> 
+         </div>
+         <div class="none" id="cover"></div>
+          <div class="ha8_box none" id="popBox" style="position: absolute;top:25%;z-index: 1000;">
+            <div class="ha8_box" id="nfcDiv" style=" float: left; width: 48%; border-right:  1px solid #25293B;opacity: 0.5;" >
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc2.png"/>
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br/>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">靠一靠</p>
+                
+            </div>
+            <div class="ha8_box" id="scanerDiv" style="float: left; width: 48%; border-left:  1px solid #41485A;">
+                <div class="ha8_box1 clearfix" ontouchstart="zy_touch('btn-act1')" onclick="openwximg();">
+                    <img class="ha8_image image" src="img/nfc1.png">
+                    <div id="photo" class="ha8_box2 clearfix" style=" background-image:url(img/txuset.png);"></div>
+                </div>
+                <br>
+                <p class="ha8_text" id="name" style="display:block;margin-top:0.8em;" ontouchstart="zy_touch('btn-act1')" onclick="changename(event);">扫一扫</p>
+                
+            </div>
+           </div>
+    </body>
+    <script src="js/appcan.js"></script> 
+    <script src="js/appcan.control.js"></script>
+     
+    <script src="js/cmd.js"></script>
+    <script src="js/myDB.js"></script> 
+    <script src="js/updata.js"></script>
+    <script src="js/lrz.all.bundle.js"></script> 
+    <script>
+        var tempguid="";//选中项的guid
+        
+        var tempRecordResult="";//选中项的记录
+        
+        var tempChoseResult="";//维保项记录
+       
+        
+        appcan.ready(function() {
+            
+            switch(localStorage.status){
+                 case "0":
+                    $("#btnSure").removeClass("none");
+                    break;
+                 case "1":
+                    $("#btnTijiao").removeClass("none"); 
+                    break;
+                 case "2":
+                    $("#btnSuss").removeClass("none");
+                    break;
+             }
+               
+             getUpdate();
+             //alert(3);
+             
+        });     
+        
+        
+ 
+
+   
+
+    
+function shanchu(){
+                var a=0
+                Q="";//
+                var x=document.getElementsByName("checkbox");
+                for (var i=0;i<x.length;i++)
+                {
+                    
+                    if(x[i].checked){
+                             Q+="'"+x[i].dataset.guid+"'"+",";
+                             a=a+1;
+                            }
+   
+                }
+                if(a==0){
+                    alert("请选择删除项");
+                }
+                else{
+                     appcan.window.alert({
+                      title : "电梯维保监管评测系统",
+                      content : "确认删除?",
+                      buttons : ['确定', '取消'],
+                      callback : function(err, data, dataType, optId) {
+                          if(data=="0"){
+                             Q=Q.substring(0,Q.length-1);
+                            DELETED();
+                          }
+                      }
+                    });
+                }
+                
+            
+     }
+     
+     function DELETED () {
+        // var sqlDD="DELETE from  MaintainRecord Where GUID in("+Q+")";
+        // uexDataBaseMgr.selectSql(dbName,1,sqlDD);
+        // relaod();
+        //relaod();
+        var db = uexDataBaseMgr.open(dbName);
+                if (!db) {} else {
+                    var sqls = [
+                    "DELETE from  MaintainRecord Where GUID in("+Q+")"]
+                    uexDataBaseMgr.transactionEx(db, JSON.stringify(sqls),
+                    function(error) {
+                       uexWindow.open('index3', '0', "index3.html", '10', '', '', '4');
+                    });
+                } 
+         
+     }
+     //全选
+     function selectAll(){
+       
+         $(".aui-checkbox").prop('checked',true);
+     }
+      function selectNo(){
+         $(".aui-checkbox").prop('checked',false);
+     }
+     
+     
+        
+    $("#cover").on("tap",function(){
+      var obj=$("#cover");     
+      $("#cover").addClass("none");
+       $("#popBox").addClass("none");
+    });
+    
+ /*************************************使用单位签名*****************************************************************/
+ //弹框jquery
+ 
+ // var flag=0
+ // $("#mySave").on("tap",function(){
+     // uexLocation.openLocation();//打开定位
+           // uexLocation.onChange = function(lat, log){  
+           // localStorage.CCoordinate= log+ "," + lat;  
+           // //alert(localStorage.CCoordinate);
+           // if(localStorage.CCoordinate==null||localStorage.CCoordinate==undefined){
+               // localStorage.CCoordinate="0,0";
+           // }
+           // //alert(localStorage.CCoordinate);
+    // } 
+    // Q="";//电梯编号    
+    // var a=0;
+    // var x=document.getElementsByName("checkbox");
+    // for (var i=0;i<x.length;i++)
+    // {
+//         
+        // if(x[i].checked){
+                 // //alert(a);
+                 // Q+="'"+x[i].dataset.guid+"'"+",";
+                         // a=a+1;
+                          // Q=Q.substring(0,Q.length-1);
+                // }
+//    
+    // }
+    // if(flag==0){
+        // flag=1
+    // if(a==0){
+       // alert("请选择确认项");
+    // }
+    // else{
+      // //======================6/12修改成签字 （扫二维码开始）========================================
+//       
+//        
+         // appcan.window.alert({
+                      // title : "电梯维保监管评测系统",
+                      // content : "确认工单",
+                      // buttons : ['确定', '取消'],
+                      // callback : function(err, data, dataType, optId) {
+                          // if(data=="0"){
+                            // alert(Q);
+                    // var obj=$("#popBox");
+                    // if(obj.hasClass("none"))
+                     // {
+                        // $("#popBox").removeClass("none");
+                        // $("#cover").removeClass("none");
+                     // }
+    // //======================6/12修改成签字 （扫二维码结束）========================================                 
+                     // // a=1;
+                // // uexDataBaseMgr.executeSql(dbName,1,"Update MaintainRecord set Status=1 Where GUID in("+Q+")"); 
+                // // //relaod();
+                // // uexWindow.open('index.html', '0', "index3.html", '10', '', '', '4'); 
+                          // }
+                          // else{
+                             // a=1;
+                // uexDataBaseMgr.executeSql(dbName,1,"Update MaintainRecord set Status=1 Where GUID in("+Q+")");
+//                  
+                // relaod(); 
+                          // }
+                      // }
+                    // });
+        // //=============================================================
+        // //var btnArray = ['否', '是'];
+        // //mui.confirm('是否要使用单位签字？', '电梯维保监管评测系统', btnArray, function(e) {
+            // //if (e.index == 0) {
+//                         
+//                            
+                    // //alert(Q);
+                    // //var obj=$("#popBox");
+                    // //if(obj.hasClass("none"))
+                     // //{
+                       // // $("#popBox").removeClass("none");
+                      // //  $("#cover").removeClass("none");
+                    // // }
+//                         
+               // // }
+            // //else{
+               // // a=1;
+                // //uexDataBaseMgr.executeSql(dbName,1,"Update MaintainRecord set Status=1 Where GUID in("+Q+")"); 
+                // //relaod();
+//     
+            // //}
+        // //})
+        // //==============================================================================
+    // }
+    // }
+// });
+//==============================================================================
+//点击扫一扫开启摄像头，获取电梯编码，修改工单的状态为待上传
+// $("#scanerDiv").on("tap",function(){
+    // $("#popBox").addClass("none"); 
+    // $("#cover").addClass("none");
+    // uexScanner.open('ZXing','扫一扫');
+      // uexScanner.cbOpen = ScannerSuccessCallBack;3 
+// })
+//=================================================================================     
+$("#cover").on("tap",function(){
+  var obj=$("#cover");     
+  var obj=$("#popBox");   
+  $("#cover").addClass("none");
+  $("#popBox").addClass("none");
+});
+        
+//nfc              
+$('#nfcDiv').off('tap').on('tap',function(){
+        $("#popBox").addClass("none"); 
+        $("#cover").addClass("none");
+         uexWindow.toast("1","5","请扫描电梯电子标签","0");
+         uexNFC.startScanNFC();
+});
+
+function doNFC(opCode, dataType, data){ 
+        localStorage.kahao=data;  //NFC卡号
+        uexDataBaseMgr.executeSql(dbName,1,"Update MaintainRecord set Status=1,sureType=1,sureContent='"+localStorage.kahao+"' ,CCoordinate='"+localStorage.CCoordinate+"' Where GUID in("+Q+")");
+        updataSoon(); 
+}
+
+//扫码 before scannerDiv now scanerDiv
+$('#scanerDiv').off('tap').on('tap',function(){
+    $("#popBox").addClass("none"); 
+    $("#cover").addClass("none");
+    uexScanner.open('ZXing','扫一扫');
+      uexScanner.cbOpen = ScannerSuccessCallBack;3  
+});
+    
+   
+    
+function ScannerSuccessCallBack(opCode, dataType, data) { 
+    var obj = eval('('+data+')');
+    var a=obj.code;
+    localStorage.kahao=a;
+    // alert(localStorage.canshu);  //电梯编号
+    var db = uexDataBaseMgr.open(dbName);
+    if (!db) {} else {
+        var sqlm = [];
+        sqlm[0] ="Update MaintainRecord set Status=1,sureType=0,sureContent='"+localStorage.kahao+"' Where GUID in("+Q+")";
+        uexDataBaseMgr.transactionEx(db, JSON.stringify(sqlm),
+        function(error) {
+            alert("错误"+error);
+            if (error == 0) {
+                uexDataBaseMgr.close(db);
+                uexWindow.open('index.html', '0', "index3.html", '10', '', '', '4');
+            }
+        })
+    }
+     // uexDataBaseMgr.executeSql(dbName,1,"Update MaintainRecord set Status=1,sureType=0,sureContent='"+localStorage.kahao+"' Where GUID in("+Q+")");
+     // updataSoon(); 
+}
+
+//立即上传
+function updataSoon(){
+    
+    appcan.window.alert({
+      title : "电梯维保监管评测系统",
+      content : "是否立即上传?",
+      buttons : ['确定', '取消'],
+      callback : function(err, data, dataType, optId) {
+          if(data=="0"){
+              selectMData();
+          }
+          else{
+              relaod();
+          }
+      }
+   
+    })
+}
+</script>
+</html>

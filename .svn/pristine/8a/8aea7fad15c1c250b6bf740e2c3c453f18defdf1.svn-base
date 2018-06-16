@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="css/my.css">
+    </head>
+    <body>
+        <div class="content">
+             <div class="colorDiv" id="kendi">
+                 <span>坑底<sapn>     
+             </div>
+             <div  class="colorDiv" id="jiaoding">
+                 <span>轿顶<sapn>   
+             </div>
+             <div  class="colorDiv" id="jifang">
+                 <span>机房<sapn>   
+             </div>
+        </div>
+    </body>
+    <script src="js/zy_control.js"></script>
+    <script src="js/zy_click.js"></script>
+    <script src="js/ts.js"></script>
+    <script src="js/cmd.js"></script>
+    <script src="js/appcan.js"></script>
+    <script src="js/appcan.control.js"></script>
+    <script type="text/javascript" charset="utf-8">
+         
+          $('#kendi').off('tap').on('tap',function(){
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack; 
+            localStorage.part=6; //坑底 
+          });
+          
+           $('#jiaoding').off('tap').on('tap',function(){
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack;   
+            localStorage.part=7;//轿顶
+           });
+           
+          $('#jifang').off('tap').on('tap',function(){
+            uexScanner.open('ZXing','扫一扫');
+            uexScanner.cbOpen = ScannerSuccessCallBack;  
+            localStorage.part=8;//机房
+          });
+          
+           function ScannerSuccessCallBack(opCode, dataType, data) {  
+             
+             var obj = eval('('+data+')');
+             var a=obj.code;
+             localStorage.partNub=a.substring(1,a.length);  //标签
+             
+             localStorage.type=0; //二维码
+             getTime();
+             uexWindow.open('MaintainPart_Top.html', '0', "MaintainPart_Top.html", '10', '', '', '4');        
+         
+           };
+           
+           function getTime()
+           {
+            var dt = new Date();
+            localStorage.time=(dt.getFullYear()+'-'+(dt.getMonth()+1)+'-'+dt.getDate()+' '+dt.getHours()+':'+dt.getMinutes()+':'+dt.getSeconds()).replace(/([\-\: ])(\d{1})(?!\d)/g,'$10$2');
+            //alert(localStorage.time);
+           };
+    </script>
+</html>
